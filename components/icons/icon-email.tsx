@@ -3,8 +3,8 @@ const IconEmail = (props: SVGProps<SVGSVGElement>) => (
     <svg
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        width={22}
-        height={20}
+        width={24}
+        height={24}
         fill="none"
         {...props}
     >
@@ -14,7 +14,15 @@ const IconEmail = (props: SVGProps<SVGSVGElement>) => (
             strokeLinejoin="round"
             strokeMiterlimit={10}
             strokeWidth={1.5}
-            d="M16 18.5H6c-3 0-5-1.5-5-5v-7c0-3.5 2-5 5-5h10c3 0 5 1.5 5 5v7c0 3.5-2 5-5 5Z"
+            d="M17 20.5H7c-3 0-5-1.5-5-5v-7c0-3.5 2-5 5-5h10c3 0 5 1.5 5 5v7c0 3.5-2 5-5 5Z"
+        />
+        <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeMiterlimit={10}
+            strokeWidth={1.5}
+            d="m17 9-3.13 2.5c-1.03.82-2.72.82-3.75 0L7 9"
         />
     </svg>
 )

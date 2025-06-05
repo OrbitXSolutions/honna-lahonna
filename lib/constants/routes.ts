@@ -6,6 +6,9 @@ export enum ROUTES {
 
   LOGIN = "/login",
   SIGNUP = "/signup",
+
+  SERVICE_PROVIDER_REGISTRATION_FORM = "/service-provider-registration-form",
+
   DASHBOARD = "/dashboard",
   PROFILE = "/profile",
   SETTINGS = "/settings",

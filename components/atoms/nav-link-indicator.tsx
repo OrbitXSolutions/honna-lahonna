@@ -11,6 +11,7 @@ export default function NavLinkIndicator({
     href,
     children,
     className,
+
 }: Props) {
     const pathname = usePathname();
 

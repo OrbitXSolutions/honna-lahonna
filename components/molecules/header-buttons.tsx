@@ -4,12 +4,16 @@ import { IconArrow, IconCall } from "../icons";
 
 export default function HeaderButtons({
     children,
+    className = '',
+
     ...props
 }: Readonly<{
+    className?: string;
+
     children?: React.ReactNode;
 }>) {
     return (
-        <div className="flex gap-1">
+        <div className={`flex gap-1 ${className ?? ''}`} >
             <AppButton variant='outline' >
                 <span>{'تواصلي معنا'}</span>
                 <IconCall />

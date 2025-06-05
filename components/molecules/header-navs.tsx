@@ -3,12 +3,14 @@ import { NavLinkButton } from "../atoms/nav-link-button";
 
 export default function HeaderNavs({
     children,
+    className = '',
     ...props
 }: Readonly<{
+    className?: string;
     children?: React.ReactNode;
 }>) {
     return (
-        <nav
+        <nav className={className ?? ''}
             {...props}
         >
             {[

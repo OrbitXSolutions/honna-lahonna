@@ -1,6 +1,7 @@
 import Logo from "../atoms/logo";
 import HeaderNavs from "../molecules/header-navs";
 import HeaderButtons from "../molecules/header-buttons";
+import NavMenuToggle from "../molecules/nav-menu-toggle";
 
 export function AppHeader({
     children,
@@ -10,11 +11,15 @@ export function AppHeader({
 }>) {
     return (
         <header
-            className="mx-auto py-4 px-4 flex items-center justify-between bg-secondary/30 backdrop-blur-sm sticky top-0 z-50"
+            className="mx-auto  py-4 px-4   backdrop-blur-md sticky top-0 z-50 w-full"
             {...props}>
-            <Logo />
-            <HeaderNavs />
-            <HeaderButtons />
+            <div className="flex items-center justify-between container mx-auto ">
+                <Logo />
+                <HeaderNavs className="max-lg:hidden" />
+                <HeaderButtons className="max-lg:hidden" />
+                <NavMenuToggle className="lg:hidden" />
+            </div>
+
         </header>
     );
 }

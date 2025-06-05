@@ -23,7 +23,7 @@ const buttonVariants = cva(
         nav: "text-dark hover:bg-secondary hover:text-primary",
         navActive: "border border-primary bg-accent text-dark dark:text-white shadow-xs dark:bg-input/30 dark:border-input",
         icon:
-          "border border-primary text-primary dark:text-white bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 !p-2 min-w-[2.25rem]",
+          "border border-primary text-primary dark:text-white  shadow-xs hover:bg-background hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 !p-2 min-w-[2.25rem]",
 
         iconFilled:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 !p-2 min-w-[2.25rem]",
