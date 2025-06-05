@@ -157,3 +157,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.white-image {
+  filter: brightness(0) invert(1);
+}
+.black-image {
+  filter: brightness(0) invert(0);
+}

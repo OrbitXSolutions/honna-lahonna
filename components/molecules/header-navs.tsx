@@ -17,7 +17,7 @@ export default function HeaderNavs({
                 { title: 'خدماتنا', href: ROUTES.SERVICES },
                 { title: 'شركاء النجاح', href: ROUTES.PARTNERS },
                 { title: 'الآراء', href: ROUTES.TESTIMONIALS },
-                { title: 'الأسئلةالشائعة', href: ROUTES.FAQ },
+                { title: 'الأسئلة الشائعة', href: ROUTES.FAQ },
             ].map((item) => (<NavLinkButton
                 key={item.href}
                 href={item.href}

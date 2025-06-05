@@ -3,6 +3,7 @@ import Logo from "../atoms/logo";
 import { Playground } from "../playground";
 import { NavLinkButton } from "../atoms/nav-link-button";
 import HeaderNavs from "../molecules/header-navs";
+import HeaderButtons from "../molecules/header-buttons";
 
 export function PlaygroundHeader({
     children,
@@ -12,10 +13,10 @@ export function PlaygroundHeader({
 }>) {
     return (<Playground {...props}>
         <header
-            className="container mx-auto py-4 px-4 flex items-center justify-between bg-secondary/30 backdrop-blur-sm sticky top-0 z-50">
+            className="w-full mx-auto py-4 px-4 flex items-center justify-between bg-secondary/30 backdrop-blur-sm sticky top-0 z-50">
             <Logo />
             <HeaderNavs />
-            <div></div>
+            <HeaderButtons />
         </header>
 
         {children}
