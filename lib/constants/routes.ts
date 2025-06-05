@@ -1,0 +1,16 @@
+export enum ROUTES {
+  HOME = "/",
+  LOGIN = "/login",
+  SIGNUP = "/signup",
+  DASHBOARD = "/dashboard",
+  PROFILE = "/profile",
+  SETTINGS = "/settings",
+  ABOUT = "/about",
+  CONTACT = "/contact",
+  PRIVACY_POLICY = "/privacy-policy",
+  TERMS_OF_SERVICE = "/terms-of-service",
+  HELP = "/help",
+  FAQ = "/faq",
+  BLOG = "/blog",
+  NOT_FOUND = "/404",
+}
