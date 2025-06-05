@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { AppButton } from "../atoms/app-button";
+import AppButton from "../atoms/app-button";
 import { IconCelebration, IconArrow, IconKnowMore, IconCall } from "../icons";
 import { Playground } from "../playground";
 import Link from "next/link";

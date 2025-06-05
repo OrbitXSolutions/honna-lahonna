@@ -1,11 +1,11 @@
 import { Button } from "../ui/button";
 
-export function AppButton({...props}: React.ComponentProps<typeof Button>) {
+export default function AppButton({ ...props }: React.ComponentProps<typeof Button>) {
     return (
         <Button
-        {...props}
+            {...props}
         >
-        {props.children}
+            {props.children}
         </Button>
     );
 }
