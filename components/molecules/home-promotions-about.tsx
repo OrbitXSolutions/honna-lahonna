@@ -13,7 +13,7 @@ const HomeAboutImage = ({ className, ...params }: React.HTMLProps<any>) => {
           alt="lahuna"
           width={150}
           height={150}
-          className="absolute -top-10 md:top-0 lg:-top-8 md:right-10 right-0 lg:-right-15"
+          className="absolute -top-10 md:top-0 lg:top-25 md:right-10 right-0 lg:right-18 lg:scale-140"
           style={{ zIndex: 0 }}
         />
         <Image
@@ -21,7 +21,7 @@ const HomeAboutImage = ({ className, ...params }: React.HTMLProps<any>) => {
           alt="huna"
           width={150}
           height={150}
-          className="absolute -bottom-10 left-0 md:left-10 lg:-bottom-20  lg:-left-1/5"
+          className="absolute -bottom-10 left-0 md:left-10 lg:bottom-0  lg:left-18 lg:scale-140"
           style={{ zIndex: 0 }}
         />
         <Image
@@ -40,9 +40,8 @@ const HomePromotionsContent = (params: React.DOMAttributes<any>) => {
   return (
     <div className="flex flex-col gap-5 max-md:text-center md:max-w-200 lg:gap-10 justify-center">
       <p className="font-medium">
-        <span>{"مرحباً بكم في"}</span>&nbsp;
-        <span className="text-primary">{"هن لهن!"}</span>
-        <span>{"👋"}</span>
+        <span>{"ــــــــــــــ"}</span>&nbsp;
+        <span>{"من نحن"}</span>
       </p>
       <h2 className="text-3xl md:text-4xl font-bold">
         <span>{"معك لتزدهري في رحلة"}</span>&nbsp;

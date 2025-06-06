@@ -42,25 +42,27 @@ const CurvedSection = ({
 
 export default function HomePromotionsVision() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-18 gap-x-5 pt-14 ">
-      <CurvedSection
-        icon={IconArticle}
-        bgColor="bg-primary"
-        iconBgColor="bg-primary"
-        textColor="text-white"
-        borderColor="border-primary-dark/40"
-        title="الرسالة"
-        content="أدعمك لتزدادي وعياً وتمكناً وثقة وقدرة لخوض الرحلة بكامل صحتك وعافيتك كإمرأة وأم، كما تستحقين بالإضافة إلي تقديم خدمات استشارية مخصصة لكي …"
-      />
-      <CurvedSection
-        icon={IconShiningStar}
-        bgColor="bg-white"
-        iconBgColor="bg-white"
-        borderColor="border-gray-300"
-        textColor="text-primary"
-        title="الرؤية"
-        content="أدعمك لتزدادي وعياً وتمكناً وثقة وقدرة لخوض الرحلة بكامل صحتك وعافيتك كإمرأة وأم، كما تستحقين بالإضافة إلي تقديم خدمات استشارية مخصصة لكي …"
-      />
+    <div className="container mx-auto px-4 max-w-[1000px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-18 gap-x-5 pt-14 ">
+        <CurvedSection
+          icon={IconArticle}
+          bgColor="bg-primary"
+          iconBgColor="bg-primary"
+          textColor="text-white"
+          borderColor="border-primary-dark/40"
+          title="الرسالة"
+          content="أدعمك لتزدادي وعياً وتمكناً وثقة وقدرة لخوض الرحلة بكامل صحتك وعافيتك كإمرأة وأم، كما تستحقين بالإضافة إلي تقديم خدمات استشارية مخصصة لكي …"
+        />
+        <CurvedSection
+          icon={IconShiningStar}
+          bgColor="bg-white"
+          iconBgColor="bg-white"
+          borderColor="border-gray-300"
+          textColor="text-primary"
+          title="الرؤية"
+          content="أدعمك لتزدادي وعياً وتمكناً وثقة وقدرة لخوض الرحلة بكامل صحتك وعافيتك كإمرأة وأم، كما تستحقين بالإضافة إلي تقديم خدمات استشارية مخصصة لكي …"
+        />
+      </div>
     </div>
   );
 }
