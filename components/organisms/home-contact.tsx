@@ -42,8 +42,8 @@ const ContactImage = ({ className, ...params }: HTMLProps<any>) => {
 
 const ContactForm = () => {
   return (
-    <div className="mx-auto space-y-6">
-      <div className="text-center space-y-4">
+    <div className="mx-auto space-y-12 md:min-w-1/2 ">
+      <div className="text-center space-y-4 ">
         <p>
           <span className="font-medium">{"ــــــــــــــ"}</span>&nbsp;
           <span className="font-medium">{"تواصل معنا"}</span>
@@ -53,7 +53,7 @@ const ContactForm = () => {
           <span>{"نرحب بتواصلك"}</span>
         </h2>
       </div>
-      <form className="space-y-4 w-full">
+      <form className="space-y-4 w-full max-w-140 mx-auto">
         <Input type="text" placeholder="الاسم" className="w-full bg-white" />
         <Input
           type="email"
@@ -63,6 +63,7 @@ const ContactForm = () => {
         <Input
           type="tel"
           placeholder="رقم الهاتف"
+          dir="rtl"
           className="w-full bg-white"
         />
         <Textarea
@@ -81,7 +82,7 @@ const ContactForm = () => {
 
 export default function HomeContact() {
   return (
-    <section className="contactrelative">
+    <section className="contact relative">
       <GridBackground color="text-background" className="">
         <div className="container flex mx-auto gap-20">
           <ContactImage />
