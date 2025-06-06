@@ -16,7 +16,7 @@ const ListProviderCards = ({
     return <p>{"لا يوجد مقدمي خدمات في الوقت الحالي"}</p>;
   }
   return (
-    <div className="grid gird-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {providers.map((provider) => (
         <ProviderCard key={provider.id} providerData={provider} /> // Spread operator to pass additional props if needed
       ))}

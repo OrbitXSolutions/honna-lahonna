@@ -3,7 +3,10 @@ import GridBackground from "../molecules/grid-background";
 import Image from "next/image";
 const ContactImage = ({ className, ...params }: HTMLProps<any>) => {
   return (
-    <div className={`relative lg:mt-0 ${className ?? ""}`} {...params}>
+    <div
+      className={`relative lg:mt-0 ${className ?? ""} max-md:hidden`}
+      {...params}
+    >
       <div className="relative ">
         <Image
           src={"/lahuna.svg"}
@@ -26,7 +29,7 @@ const ContactImage = ({ className, ...params }: HTMLProps<any>) => {
           alt="Hero Woman about section"
           width={550}
           height={550}
-          className="rounded-lg mx-auto relative h-full object-contain w-full "
+          className="rounded-lg mx-auto  relative h-full object-contain w-full "
         />
       </div>
     </div>
