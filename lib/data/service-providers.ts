@@ -27,7 +27,7 @@ export const getServiceProviders = unstable_cache(
   { revalidate: 60 * 60 }
 );
 
-// New paginated version
+// New paginated version with advanced filtering, sorting, and search
 export const getServiceProvidersPaginated = unstable_cache(
   async (
     params: ServiceProviderQuery = {}
@@ -36,25 +36,156 @@ export const getServiceProvidersPaginated = unstable_cache(
 
     // Default pagination values
     const page = params.page || 1;
-    const limit = params.limit || 10;
+    const limit = Math.min(params.limit || 10, 100); // Cap at 100 items per page
     const skip = params.skip ?? (page - 1) * limit;
     const take = params.take ?? limit;
 
-    // Get total count for pagination info
-    const total = await prisma.service_providers.count();
+    // Build where clause for filtering and search
+    const whereClause: Prisma.service_providersWhereInput = {}; // Apply filters if provided
+    if (params.filter) {
+      Object.entries(params.filter).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          // Handle specific field types appropriately
+          switch (key) {
+            case "governorate_id":
+              whereClause.governorate_id = value as string;
+              break;
+            case "service_category_id":
+              whereClause.service_category_id = value as string;
+              break;
+            case "user_id":
+              whereClause.user_id = value as string;
+              break;
+            case "status":
+              whereClause.status = value as any;
+              break;
+            case "service_delivery_method":
+              whereClause.service_delivery_method = value as any;
+              break;
+            case "years_of_experience":
+              if (typeof value === "number") {
+                whereClause.years_of_experience = value;
+              }
+              break;
+            case "service_name":
+            case "service_description":
+            case "bio":
+            case "keywords":
+              if (typeof value === "string") {
+                (whereClause as any)[key] = {
+                  contains: value,
+                  mode: "insensitive",
+                };
+              }
+              break;
+            default:
+              // Handle other string fields with exact match
+              if (typeof value === "string") {
+                (whereClause as any)[key] = value;
+              } else {
+                (whereClause as any)[key] = value;
+              }
+              break;
+          }
+        }
+      });
+    } // Apply search if provided
+    if (params.search && params.search.trim()) {
+      const searchTerm = params.search.trim();
+      whereClause.OR = [
+        {
+          service_name: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          service_description: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          bio: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          keywords: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          service_categories: {
+            name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          governorates: {
+            name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          users: {
+            first_name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          users: {
+            last_name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+        },
+      ];
+    }
+
+    // Build orderBy clause
+    const orderBy: Prisma.service_providersOrderByWithRelationInput = {};
+    if (params.sortBy && params.sortOrder) {
+      // Handle nested sorting for related fields
+      if (params.sortBy === "service_categories") {
+        orderBy.service_categories = { name: params.sortOrder };
+      } else if (params.sortBy === "governorates") {
+        orderBy.governorates = { name: params.sortOrder };
+      } else {
+        orderBy[
+          params.sortBy as keyof Prisma.service_providersOrderByWithRelationInput
+        ] = params.sortOrder;
+      }
+    } else {
+      // Default sorting
+      orderBy.created_at = "desc";
+    }
+
+    // Get total count with filters applied
+    const total = await prisma.service_providers.count({
+      where: whereClause,
+    });
 
     // Get paginated data
     const serviceProviders = await prisma.service_providers.findMany({
       skip,
       take,
+      where: whereClause,
       include: {
         service_categories: true,
         governorates: true,
         users: true,
       },
-      orderBy: {
-        created_at: "desc", // Add ordering for consistent pagination
-      },
+      orderBy,
     });
 
     const totalPages = Math.ceil(total / limit);
@@ -72,5 +203,97 @@ export const getServiceProvidersPaginated = unstable_cache(
     };
   },
   [CacheTags.SERVICE_PROVIDERS],
+  { revalidate: 60 * 60 }
+);
+
+// Helper functions for common filtering scenarios
+
+// Get service providers by category
+export const getServiceProvidersByCategory = async (
+  categoryId: string,
+  params: ServiceProviderQuery = {}
+): Promise<PaginatedResult<ServiceProviderVM>> => {
+  return getServiceProvidersPaginated({
+    ...params,
+    filter: {
+      service_category_id: categoryId,
+      ...(params.filter || {}),
+    },
+  });
+};
+
+// Get service providers by governorate
+export const getServiceProvidersByGovernorate = async (
+  governorateId: string,
+  params: ServiceProviderQuery = {}
+): Promise<PaginatedResult<ServiceProviderVM>> => {
+  return getServiceProvidersPaginated({
+    ...params,
+    filter: {
+      governorate_id: governorateId,
+      ...(params.filter || {}),
+    },
+  });
+};
+
+// Get approved service providers only
+export const getApprovedServiceProviders = async (
+  params: ServiceProviderQuery = {}
+): Promise<PaginatedResult<ServiceProviderVM>> => {
+  return getServiceProvidersPaginated({
+    ...params,
+    filter: {
+      status: "approved",
+      ...(params.filter || {}),
+    },
+  });
+};
+
+// Search service providers with text
+export const searchServiceProviders = async (
+  searchTerm: string,
+  params: ServiceProviderQuery = {}
+): Promise<PaginatedResult<ServiceProviderVM>> => {
+  return getServiceProvidersPaginated({
+    ...params,
+    search: searchTerm,
+  });
+};
+
+// Get service providers by category slug
+export const getServiceProvidersByCategorySlug = unstable_cache(
+  async (
+    categorySlug: string,
+    params: ServiceProviderQuery = {}
+  ): Promise<PaginatedResult<ServiceProviderVM>> => {
+    const prisma = new PrismaClient();
+    if (!categorySlug) return await getServiceProvidersPaginated(params);
+    // First, find the category by slug
+    const category = await prisma.service_categories.findFirst({
+      where: {
+        slug: categorySlug,
+        is_deleted: false,
+      },
+    });
+
+    if (!category) {
+      // Return empty result if category not found
+      return {
+        data: [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: 0,
+          totalPages: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      };
+    }
+
+    // Use the existing function with the category ID
+    return getServiceProvidersByCategory(category.id, params);
+  },
+  [CacheTags.SERVICE_PROVIDERS, CacheTags.SERVICE_CATEGORIES],
   { revalidate: 60 * 60 }
 );
