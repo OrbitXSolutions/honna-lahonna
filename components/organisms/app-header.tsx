@@ -11,15 +11,15 @@ export function AppHeader({
 }>) {
     return (
         <header
-            className="mx-auto  py-4 px-4   backdrop-blur-md sticky top-0 z-50 w-full"
-            {...props}>
+            className="mx-auto  py-1 px-4 backdrop-blur-md sticky top-0 z-50 w-full"
+            {...props}
+        >
             <div className="flex items-center justify-between container mx-auto ">
                 <Logo />
                 <HeaderNavs className="max-lg:hidden" />
                 <HeaderButtons className="max-lg:hidden" />
                 <NavMenuToggle className="lg:hidden" />
             </div>
-
         </header>
     );
 }

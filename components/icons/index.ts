@@ -20,3 +20,4 @@ export { default as IconYoutube } from "./icon-youtube";
 export { default as IconNote } from "./icon-note";
 export { default as IconMembers } from "./icon-members";
 export { default as IconStar } from "./icon-star";
+export { default as IconCategories } from "./icon-categories";
