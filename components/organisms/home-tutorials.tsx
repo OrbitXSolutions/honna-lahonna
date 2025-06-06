@@ -43,7 +43,7 @@ export default function HomeTutorials() {
             {registerAsServiceProviderSteps.map((step, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center p-5 max-w-[380px] rounded-lg"
+                className="flex flex-col items-center p-5 max-w-[380px] rounded-lg transition-transform hover:scale-105"
               >
                 <Image
                   className="h-40 object-contain"

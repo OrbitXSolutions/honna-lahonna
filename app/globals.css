@@ -201,12 +201,24 @@
   }
 }
 
-.white-image {
-  filter: brightness(0) invert(1);
+@layer utilities {
+  .white-image {
+    filter: brightness(0) invert(1);
+  }
+  .black-image {
+    filter: brightness(0) invert(0);
+  }
 }
-.black-image {
-  filter: brightness(0) invert(0);
+
+@utility image-filter {
+  .white-image {
+    filter: brightness(0) invert(1);
+  }
+  .black-image {
+    filter: brightness(0) invert(0);
+  }
 }
+
 /* Method 2: Grid with Edge Fade */
 .dynamic-fade {
   background: linear-gradient(var(--grid-line) 1px, transparent 1px),

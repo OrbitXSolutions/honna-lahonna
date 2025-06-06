@@ -3,6 +3,7 @@ import {
   PrismaClient,
   type service_providers,
   type Prisma,
+  service_categories,
 } from "@/lib/generated/prisma";
 import { unstable_cache } from "next/cache";
 import { CacheTags } from "../constants/cache-tags";
@@ -293,6 +294,85 @@ export const getServiceProvidersByCategorySlug = unstable_cache(
 
     // Use the existing function with the category ID
     return getServiceProvidersByCategory(category.id, params);
+  },
+  [CacheTags.SERVICE_PROVIDERS, CacheTags.SERVICE_CATEGORIES],
+  { revalidate: 60 * 60 }
+);
+// Get service providers grouped by categories
+export const getServiceProvidersGroupedByCategories = unstable_cache(
+  async (
+    takeCategories = 4,
+    takeProviders = 4,
+    includeAll = true
+  ): Promise<{
+    servicesCategories: service_categories[];
+    serviceProviders: {
+      // Grouped by category slug
+      [key: string]: ServiceProviderVM[];
+    };
+  }> => {
+    const prisma = new PrismaClient();
+
+    // Get all active service categories
+    const categories = await prisma.service_categories.findMany({
+      take: takeCategories,
+      where: {
+        is_deleted: false,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    // Initialize the result object
+    const serviceProviders: { [key: string]: ServiceProviderVM[] } = {};
+    if (includeAll) {
+      // First, get top 4 service providers across all categories for "all"
+      const topProviders = await prisma.service_providers.findMany({
+        where: {
+          status: "approved", // Only approved providers
+        },
+        take: takeProviders, // Always top 4 for "all" category
+        include: {
+          service_categories: true,
+          governorates: true,
+          users: true,
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      });
+
+      // Add "all" category at the beginning
+      serviceProviders["all"] = topProviders;
+    }
+
+    // For each category, get service providers
+    for (const category of categories) {
+      const providers = await prisma.service_providers.findMany({
+        where: {
+          service_category_id: category.id,
+          status: "approved", // Only approved providers
+        },
+        take: takeProviders,
+        include: {
+          service_categories: true,
+          governorates: true,
+          users: true,
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      });
+
+      // Group by category slug
+      serviceProviders[category.slug ?? category.id] = providers;
+    }
+
+    return {
+      servicesCategories: categories,
+      serviceProviders,
+    };
   },
   [CacheTags.SERVICE_PROVIDERS, CacheTags.SERVICE_CATEGORIES],
   { revalidate: 60 * 60 }

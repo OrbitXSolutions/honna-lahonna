@@ -6,7 +6,7 @@ import GridBackground from "../molecules/grid-background";
 export default function HomePromotions() {
   return (
     <section className="promotions relative">
-      <GridBackground color="text-background" className=" space-y-10">
+      <GridBackground color="text-background" className="space-y-10">
         <HomePromotionsAbout />
         <HomePromotionsVision />
       </GridBackground>

@@ -18,8 +18,8 @@ const CurvedSection = ({
   borderColor?: string;
 }) => {
   return (
-    <div className="relative ">
-      <div className="flex items-center justify-center absolute top-0 left-1/2 p-2 bg-background rounded-full shadow-lg shadow-primary-dark -translate-1/2 ">
+    <div className="relative transition-transform hover:scale-105">
+      <div className=" flex items-center justify-center absolute top-0 left-1/2 p-2 bg-background rounded-full shadow-lg shadow-primary-dark -translate-1/2 ">
         <div
           className={`p-5 ${iconBgColor} ${textColor} rounded-full border ${
             borderColor ?? ""
