@@ -2,9 +2,31 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight, Upload, X, FileText, Video, ImageIcon } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Upload,
+  X,
+  FileText,
+  Video,
+  ImageIcon,
+} from "lucide-react";
 import { useState, useRef } from "react";
 import { type Step2Data } from "@/lib/schemas/service-provider";
 
@@ -55,7 +77,9 @@ function FileUpload({
 
       // Check file size
       if (file.size > maxSizePerFile * 1024 * 1024) {
-        errors.push(`${file.name}: حجم الملف كبير جداً (أكثر من ${maxSizePerFile}MB)`);
+        errors.push(
+          `${file.name}: حجم الملف كبير جداً (أكثر من ${maxSizePerFile}MB)`
+        );
         return;
       }
 
@@ -71,7 +95,7 @@ function FileUpload({
     }
 
     if (errors.length > 0) {
-      alert(errors.join('\n'));
+      alert(errors.join("\n"));
     }
 
     if (validFiles.length > 0) {
@@ -136,7 +160,7 @@ function FileUpload({
         type="file"
         ref={fileInputRef}
         multiple={maxFiles > 1}
-        accept={acceptedTypes.join(',')}
+        accept={acceptedTypes.join(",")}
         className="hidden"
         onChange={(e) => handleFileSelect(e.target.files)}
       />
@@ -194,7 +218,8 @@ export function ServiceProviderStep2({
       reader.onload = (e) => {
         setPreview(e.target?.result as string);
       };
-      reader.readAsDataURL(file);    } else {
+      reader.readAsDataURL(file);
+    } else {
       form.resetField(fieldName);
       setPreview(null);
     }
@@ -203,7 +228,13 @@ export function ServiceProviderStep2({
   const handleVideoUpload = (file: File | null) => {
     if (file) {
       // Validate file type
-      const validTypes = ["video/mp4", "video/webm", "video/ogg", "video/avi", "video/mov"];
+      const validTypes = [
+        "video/mp4",
+        "video/webm",
+        "video/ogg",
+        "video/avi",
+        "video/mov",
+      ];
       if (!validTypes.includes(file.type)) {
         form.setError("video_url_file", {
           type: "manual",
@@ -226,14 +257,16 @@ export function ServiceProviderStep2({
 
       // Create preview
       const url = URL.createObjectURL(file);
-      setVideoPreview(url);    } else {
+      setVideoPreview(url);
+    } else {
       form.resetField("video_url_file");
       if (videoPreview) {
         URL.revokeObjectURL(videoPreview);
       }
       setVideoPreview(null);
     }
-  };  const removeImage = (
+  };
+  const removeImage = (
     fieldName: "id_card_front_image" | "id_card_back_image",
     setPreview: (preview: string | null) => void,
     inputRef: React.RefObject<HTMLInputElement | null>
@@ -317,7 +350,13 @@ export function ServiceProviderStep2({
                             variant="destructive"
                             size="sm"
                             className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
-                            onClick={() => removeImage("id_card_front_image", setIdFrontPreview, idFrontRef)}
+                            onClick={() =>
+                              removeImage(
+                                "id_card_front_image",
+                                setIdFrontPreview,
+                                idFrontRef
+                              )
+                            }
                           >
                             <X className="h-3 w-3" />
                           </Button>
@@ -332,7 +371,11 @@ export function ServiceProviderStep2({
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            handleImageUpload(file, "id_card_front_image", setIdFrontPreview);
+                            handleImageUpload(
+                              file,
+                              "id_card_front_image",
+                              setIdFrontPreview
+                            );
                           }
                         }}
                       />
@@ -379,7 +422,13 @@ export function ServiceProviderStep2({
                             variant="destructive"
                             size="sm"
                             className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
-                            onClick={() => removeImage("id_card_back_image", setIdBackPreview, idBackRef)}
+                            onClick={() =>
+                              removeImage(
+                                "id_card_back_image",
+                                setIdBackPreview,
+                                idBackRef
+                              )
+                            }
                           >
                             <X className="h-3 w-3" />
                           </Button>
@@ -394,7 +443,11 @@ export function ServiceProviderStep2({
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            handleImageUpload(file, "id_card_back_image", setIdBackPreview);
+                            handleImageUpload(
+                              file,
+                              "id_card_back_image",
+                              setIdBackPreview
+                            );
                           }
                         }}
                       />
@@ -502,11 +555,18 @@ export function ServiceProviderStep2({
                       files={certificatesFiles}
                       onFilesChange={handleCertificatesChange}
                       maxFiles={4}
-                      acceptedTypes={["image/jpeg", "image/png", "image/gif", "image/webp"]}
+                      acceptedTypes={[
+                        "image/jpeg",
+                        "image/png",
+                        "image/gif",
+                        "image/webp",
+                      ]}
                       maxSizePerFile={5}
                       label="ارفع الشهادات"
                       description="PNG, JPG, GIF, WebP"
-                      icon={<ImageIcon className="h-8 w-8 text-muted-foreground" />}
+                      icon={
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      }
                     />
                   </FormControl>
                   <FormDescription>
@@ -540,18 +600,25 @@ export function ServiceProviderStep2({
                       onFilesChange={handleDocumentsChange}
                       maxFiles={4}
                       acceptedTypes={[
-                        "image/jpeg", "image/png", "image/gif", "image/webp",
-                        "application/pdf", "application/msword", 
-                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        "image/jpeg",
+                        "image/png",
+                        "image/gif",
+                        "image/webp",
+                        "application/pdf",
+                        "application/msword",
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                       ]}
                       maxSizePerFile={10}
                       label="ارفع المستندات"
                       description="PNG, JPG, PDF, DOC, DOCX"
-                      icon={<FileText className="h-8 w-8 text-muted-foreground" />}
+                      icon={
+                        <FileText className="h-8 w-8 text-muted-foreground" />
+                      }
                     />
                   </FormControl>
                   <FormDescription>
-                    ارفع أي مستندات إضافية تدعم طلبك (حتى 4 ملفات - 10MB لكل ملف)
+                    ارفع أي مستندات إضافية تدعم طلبك (حتى 4 ملفات - 10MB لكل
+                    ملف)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -566,7 +633,7 @@ export function ServiceProviderStep2({
             <ArrowLeft className="ml-2 h-4 w-4" />
             العودة للخطوة السابقة
           </Button>
-          
+
           <Button
             type="submit"
             disabled={isLoading || !form.formState.isValid}

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Upload, X, FileIcon, ImageIcon, VideoIcon } from 'lucide-react';
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { Upload, X, FileIcon, ImageIcon, VideoIcon } from "lucide-react";
 
 interface FileUploadProps {
   id: string;
@@ -45,14 +45,14 @@ export function FileUpload({
 
     // Check file type if accept is specified and not wildcard
     if (accept !== "*/*" && !accept.includes("*")) {
-      const acceptedTypes = accept.split(',').map(type => type.trim());
-      const isValidType = acceptedTypes.some(type => {
-        if (type.startsWith('.')) {
+      const acceptedTypes = accept.split(",").map((type) => type.trim());
+      const isValidType = acceptedTypes.some((type) => {
+        if (type.startsWith(".")) {
           return file.name.toLowerCase().endsWith(type.toLowerCase());
         }
-        return file.type.includes(type.replace('*', ''));
+        return file.type.includes(type.replace("*", ""));
       });
-      
+
       if (!isValidType) {
         return `نوع الملف ${file.name} غير مدعوم`;
       }
@@ -74,7 +74,7 @@ export function FileUpload({
     }
 
     // Validate each file
-    newFiles.forEach(file => {
+    newFiles.forEach((file) => {
       const error = validateFile(file);
       if (error) {
         newErrors.push(error);
@@ -105,9 +105,9 @@ export function FileUpload({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (disabled) return;
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleFiles(e.dataTransfer.files);
     }
@@ -125,20 +125,20 @@ export function FileUpload({
   };
 
   const getFileIcon = (file: File) => {
-    if (file.type.startsWith('image/')) {
+    if (file.type.startsWith("image/")) {
       return <ImageIcon className="h-4 w-4" />;
-    } else if (file.type.startsWith('video/')) {
+    } else if (file.type.startsWith("video/")) {
       return <VideoIcon className="h-4 w-4" />;
     }
     return <FileIcon className="h-4 w-4" />;
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   return (
@@ -160,10 +160,11 @@ export function FileUpload({
           <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
           <p className="text-sm text-muted-foreground mb-1">{placeholder}</p>
           <p className="text-xs text-muted-foreground">
-            الحد الأقصى: {maxFiles} {multiple ? 'ملفات' : 'ملف'} - {maxSize}MB لكل ملف
+            الحد الأقصى: {maxFiles} {multiple ? "ملفات" : "ملف"} - {maxSize}MB
+            لكل ملف
           </p>
         </div>
-        
+
         <input
           ref={inputRef}
           id={id}
@@ -188,8 +189,12 @@ export function FileUpload({
               <div className="flex items-center gap-2">
                 {getFileIcon(file)}
                 <div className="text-sm">
-                  <p className="font-medium truncate max-w-[200px]">{file.name}</p>
-                  <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
+                  <p className="font-medium truncate max-w-[200px]">
+                    {file.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatFileSize(file.size)}
+                  </p>
                 </div>
               </div>
               <Button
@@ -213,7 +218,9 @@ export function FileUpload({
       {errors.length > 0 && (
         <div className="space-y-1">
           {errors.map((error, index) => (
-            <p key={index} className="text-sm text-red-500">{error}</p>
+            <p key={index} className="text-sm text-red-500">
+              {error}
+            </p>
           ))}
         </div>
       )}

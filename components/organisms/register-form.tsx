@@ -17,10 +17,10 @@ export function RegisterForm() {
     errorMessage,
     handleFieldChange,
     handleFieldBlur,
-    handleSubmit
+    handleSubmit,
   } = useServerForm({
     fields: registerFormConfig.fields,
-    action: registerAction
+    action: registerAction,
   });
 
   return (

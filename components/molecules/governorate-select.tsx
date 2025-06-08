@@ -1,9 +1,15 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { getGovernorates } from '@/lib/data/governorates';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { getGovernorates } from "@/lib/data/governorates";
+import { cn } from "@/lib/utils";
 
 interface Governorate {
   id: string;
@@ -36,8 +42,8 @@ export function GovernorateSelect({
         const data = await getGovernorates();
         setGovernorates(data);
       } catch (err) {
-        setError('فشل في تحميل المحافظات');
-        console.error('Error fetching governorates:', err);
+        setError("فشل في تحميل المحافظات");
+        console.error("Error fetching governorates:", err);
       } finally {
         setLoading(false);
       }
@@ -55,7 +61,11 @@ export function GovernorateSelect({
   }
 
   return (
-    <Select value={value} onValueChange={onValueChange} disabled={disabled || loading}>
+    <Select
+      value={value}
+      onValueChange={onValueChange}
+      disabled={disabled || loading}
+    >
       <SelectTrigger className={cn(className)}>
         <SelectValue placeholder={loading ? "جاري التحميل..." : placeholder} />
       </SelectTrigger>

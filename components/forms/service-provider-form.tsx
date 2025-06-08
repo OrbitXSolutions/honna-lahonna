@@ -4,20 +4,32 @@ import { useState, useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { AlertCircle, CheckCircle2, Upload, ArrowLeft, ArrowRight } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  Upload,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { createServiceProvider } from "@/lib/actions/service-provider";
-import { 
-  step1Schema, 
-  step2Schema, 
+import {
+  step1Schema,
+  step2Schema,
   serviceProviderSchema,
-  type Step1Data, 
+  type Step1Data,
   type Step2Data,
   type ServiceProviderFormData,
   type FormState,
-  initialFormState
+  initialFormState,
 } from "@/lib/schemas/service-provider";
 import { ServiceProviderStep1 } from "./service-provider-step1";
 import { ServiceProviderStep2 } from "./service-provider-step2";
@@ -27,10 +39,16 @@ interface ServiceProviderFormProps {
   governorates: Array<{ id: string; name: string }>;
 }
 
-export function ServiceProviderForm({ serviceCategories, governorates }: ServiceProviderFormProps) {
+export function ServiceProviderForm({
+  serviceCategories,
+  governorates,
+}: ServiceProviderFormProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [step1Data, setStep1Data] = useState<Step1Data | null>(null);
-  const [state, formAction, isPending] = useActionState(createServiceProvider, initialFormState);
+  const [state, formAction, isPending] = useActionState(
+    createServiceProvider,
+    initialFormState
+  );
 
   // Step 1 form
   const step1Form = useForm<Step1Data>({
@@ -62,7 +80,7 @@ export function ServiceProviderForm({ serviceCategories, governorates }: Service
     }
 
     console.log("Step 2 data:", data);
-    
+
     // Combine both steps data
     const combinedData: ServiceProviderFormData = {
       ...step1Data,
@@ -73,35 +91,40 @@ export function ServiceProviderForm({ serviceCategories, governorates }: Service
 
     // Create FormData for server action
     const formData = new FormData();
-    
+
     // Add all non-file fields
     Object.entries(combinedData).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && !key.endsWith('_file') && !key.endsWith('_files')) {
+      if (
+        value !== undefined &&
+        value !== null &&
+        !key.endsWith("_file") &&
+        !key.endsWith("_files")
+      ) {
         formData.append(key, String(value));
       }
     });
 
     // Add file fields
     if (combinedData.logo_image_file) {
-      formData.append('logo_image_file', combinedData.logo_image_file);
+      formData.append("logo_image_file", combinedData.logo_image_file);
     }
     if (combinedData.id_card_front_image) {
-      formData.append('id_card_front_image', combinedData.id_card_front_image);
+      formData.append("id_card_front_image", combinedData.id_card_front_image);
     }
     if (combinedData.id_card_back_image) {
-      formData.append('id_card_back_image', combinedData.id_card_back_image);
+      formData.append("id_card_back_image", combinedData.id_card_back_image);
     }
     if (combinedData.video_url_file) {
-      formData.append('video_url_file', combinedData.video_url_file);
+      formData.append("video_url_file", combinedData.video_url_file);
     }
     if (combinedData.certificates_images_files) {
       combinedData.certificates_images_files.forEach((file) => {
-        formData.append('certificates_images_files', file);
+        formData.append("certificates_images_files", file);
       });
     }
     if (combinedData.document_list_files) {
       combinedData.document_list_files.forEach((file) => {
-        formData.append('document_list_files', file);
+        formData.append("document_list_files", file);
       });
     }
 
@@ -132,11 +155,13 @@ export function ServiceProviderForm({ serviceCategories, governorates }: Service
           <CardDescription className="text-center">
             املأ النموذج لتصبح مقدم خدمة معتمد على منصتنا
           </CardDescription>
-          
+
           {/* Progress Bar */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>الخطوة {currentStep} من {totalSteps}</span>
+              <span>
+                الخطوة {currentStep} من {totalSteps}
+              </span>
               <span>{Math.round(progress)}% مكتمل</span>
             </div>
             <Progress value={progress} className="h-2" />
@@ -144,28 +169,40 @@ export function ServiceProviderForm({ serviceCategories, governorates }: Service
 
           {/* Step indicators */}
           <div className="flex justify-center space-x-4 space-x-reverse">
-            <div className={`flex items-center space-x-2 space-x-reverse ${
-              currentStep >= 1 ? 'text-primary' : 'text-muted-foreground'
-            }`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                currentStep > 1 ? 'bg-primary text-primary-foreground' : 
-                currentStep === 1 ? 'bg-primary/20 border-2 border-primary' : 
-                'bg-muted'
-              }`}>
-                {currentStep > 1 ? <CheckCircle2 className="w-4 h-4" /> : '1'}
+            <div
+              className={`flex items-center space-x-2 space-x-reverse ${
+                currentStep >= 1 ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  currentStep > 1
+                    ? "bg-primary text-primary-foreground"
+                    : currentStep === 1
+                    ? "bg-primary/20 border-2 border-primary"
+                    : "bg-muted"
+                }`}
+              >
+                {currentStep > 1 ? <CheckCircle2 className="w-4 h-4" /> : "1"}
               </div>
               <span className="text-sm font-medium">معلومات الخدمة</span>
             </div>
-            
-            <div className={`flex items-center space-x-2 space-x-reverse ${
-              currentStep >= 2 ? 'text-primary' : 'text-muted-foreground'
-            }`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                currentStep > 2 ? 'bg-primary text-primary-foreground' : 
-                currentStep === 2 ? 'bg-primary/20 border-2 border-primary' : 
-                'bg-muted'
-              }`}>
-                {currentStep > 2 ? <CheckCircle2 className="w-4 h-4" /> : '2'}
+
+            <div
+              className={`flex items-center space-x-2 space-x-reverse ${
+                currentStep >= 2 ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  currentStep > 2
+                    ? "bg-primary text-primary-foreground"
+                    : currentStep === 2
+                    ? "bg-primary/20 border-2 border-primary"
+                    : "bg-muted"
+                }`}
+              >
+                {currentStep > 2 ? <CheckCircle2 className="w-4 h-4" /> : "2"}
               </div>
               <span className="text-sm font-medium">وثائق التحقق</span>
             </div>

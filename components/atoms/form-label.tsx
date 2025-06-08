@@ -1,5 +1,5 @@
 // components/atoms/form-label.tsx
-import React from 'react';
+import React from "react";
 
 interface FormLabelProps {
   htmlFor: string;
@@ -8,13 +8,18 @@ interface FormLabelProps {
   className?: string;
 }
 
-export function FormLabel({ htmlFor, required, children, className = '' }: FormLabelProps) {
+export function FormLabel({
+  htmlFor,
+  required,
+  children,
+  className = "",
+}: FormLabelProps) {
   return (
-    <label 
-      htmlFor={htmlFor} 
+    <label
+      htmlFor={htmlFor}
       className={`text-sm font-medium text-foreground ${className}`}
     >
-      {children} 
+      {children}
       {required && <span className="text-destructive ml-1">*</span>}
     </label>
   );

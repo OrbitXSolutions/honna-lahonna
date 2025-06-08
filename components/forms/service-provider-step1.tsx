@@ -2,11 +2,31 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { ArrowRight, Upload, X } from "lucide-react";
 import { useState, useRef } from "react";
 import { type Step1Data } from "@/lib/schemas/service-provider";
@@ -60,7 +80,8 @@ export function ServiceProviderStep1({
       reader.onload = (e) => {
         setLogoPreview(e.target?.result as string);
       };
-      reader.readAsDataURL(file);    } else {
+      reader.readAsDataURL(file);
+    } else {
       form.resetField("logo_image_file");
       setLogoPreview(null);
     }
@@ -80,9 +101,7 @@ export function ServiceProviderStep1({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">المعلومات الأساسية</CardTitle>
-            <CardDescription>
-              أدخل المعلومات الأساسية عن خدماتك
-            </CardDescription>
+            <CardDescription>أدخل المعلومات الأساسية عن خدماتك</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Service Name */}
@@ -106,7 +125,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Service Category */}
             <FormField
               control={form.control}
@@ -114,7 +132,10 @@ export function ServiceProviderStep1({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>فئة الخدمة *</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger className="text-right">
                         <SelectValue placeholder="اختر فئة الخدمة" />
@@ -135,7 +156,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Service Description */}
             <FormField
               control={form.control}
@@ -156,7 +176,8 @@ export function ServiceProviderStep1({
                   <FormMessage />
                 </FormItem>
               )}
-            />            {/* Years of Experience */}
+            />{" "}
+            {/* Years of Experience */}
             <FormField
               control={form.control}
               name="years_of_experience"
@@ -170,7 +191,9 @@ export function ServiceProviderStep1({
                       max="50"
                       placeholder="5"
                       {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value) || 0)
+                      }
                       className="text-right"
                     />
                   </FormControl>
@@ -181,7 +204,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Service Delivery Method */}
             <FormField
               control={form.control}
@@ -189,7 +211,10 @@ export function ServiceProviderStep1({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>طريقة تقديم الخدمة *</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger className="text-right">
                         <SelectValue placeholder="اختر طريقة تقديم الخدمة" />
@@ -201,14 +226,11 @@ export function ServiceProviderStep1({
                       <SelectItem value="both">كلاهما</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>
-                    كيف تقدم خدماتك للعملاء
-                  </FormDescription>
+                  <FormDescription>كيف تقدم خدماتك للعملاء</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Bio */}
             <FormField
               control={form.control}
@@ -230,7 +252,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Slug */}
             <FormField
               control={form.control}
@@ -260,11 +281,11 @@ export function ServiceProviderStep1({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">معلومات التواصل</CardTitle>
-            <CardDescription>
-              أدخل معلومات التواصل الخاصة بك
-            </CardDescription>
+            <CardDescription>أدخل معلومات التواصل الخاصة بك</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">            {/* Phone Number */}
+          <CardContent className="space-y-4">
+            {" "}
+            {/* Phone Number */}
             <FormField
               control={form.control}
               name="whatsapp_url"
@@ -287,7 +308,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* WhatsApp Number */}
             <FormField
               control={form.control}
@@ -311,7 +331,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Address */}
             <FormField
               control={form.control}
@@ -333,7 +352,6 @@ export function ServiceProviderStep1({
                 </FormItem>
               )}
             />
-
             {/* Governorate */}
             <FormField
               control={form.control}
@@ -341,7 +359,10 @@ export function ServiceProviderStep1({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>المحافظة *</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger className="text-right">
                         <SelectValue placeholder="اختر المحافظة" />

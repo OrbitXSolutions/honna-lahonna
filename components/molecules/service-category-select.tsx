@@ -1,9 +1,15 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { getServiceCategories } from '@/lib/data/service-categories';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { getServiceCategories } from "@/lib/data/service-categories";
+import { cn } from "@/lib/utils";
 
 interface ServiceCategory {
   id: string;
@@ -36,8 +42,8 @@ export function ServiceCategorySelect({
         const data = await getServiceCategories();
         setCategories(data);
       } catch (err) {
-        setError('فشل في تحميل تصنيفات الخدمات');
-        console.error('Error fetching service categories:', err);
+        setError("فشل في تحميل تصنيفات الخدمات");
+        console.error("Error fetching service categories:", err);
       } finally {
         setLoading(false);
       }
@@ -55,7 +61,11 @@ export function ServiceCategorySelect({
   }
 
   return (
-    <Select value={value} onValueChange={onValueChange} disabled={disabled || loading}>
+    <Select
+      value={value}
+      onValueChange={onValueChange}
+      disabled={disabled || loading}
+    >
       <SelectTrigger className={cn(className)}>
         <SelectValue placeholder={loading ? "جاري التحميل..." : placeholder} />
       </SelectTrigger>

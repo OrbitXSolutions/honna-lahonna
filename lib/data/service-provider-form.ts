@@ -29,13 +29,13 @@ export const getServiceCategories = unstable_cache(
           name: true,
         },
         orderBy: {
-          name: 'asc',
+          name: "asc",
         },
       });
-      
+
       return categories;
     } catch (error) {
-      console.error('Error fetching service categories:', error);
+      console.error("Error fetching service categories:", error);
       return [];
     }
   },
@@ -57,13 +57,13 @@ export const getGovernorates = unstable_cache(
           is_deleted: false,
         },
         orderBy: {
-          name: 'asc',
+          name: "asc",
         },
       });
-      
+
       return governorates;
     } catch (error) {
-      console.error('Error fetching governorates:', error);
+      console.error("Error fetching governorates:", error);
       return [];
     }
   },
@@ -80,10 +80,10 @@ export async function checkSlugAvailability(slug: string): Promise<boolean> {
         is_deleted: false,
       },
     });
-    
+
     return !existing; // Return true if slug is available (no existing record)
   } catch (error) {
-    console.error('Error checking slug availability:', error);
+    console.error("Error checking slug availability:", error);
     return false;
   }
 }

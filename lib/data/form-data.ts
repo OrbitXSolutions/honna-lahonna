@@ -21,8 +21,8 @@ export const getServiceCategories = unstable_cache(
         name: "asc",
       },
     });
-    
-    return categories.map(category => ({
+
+    return categories.map((category) => ({
       value: category.id,
       label: category.name,
     }));
@@ -48,8 +48,8 @@ export const getGovernorates = unstable_cache(
         name: "asc",
       },
     });
-    
-    return governorates.map(gov => ({
+
+    return governorates.map((gov) => ({
       value: gov.id,
       label: gov.name,
     }));

@@ -2,10 +2,20 @@
 
 import { useActionState } from "react";
 import { registerAction } from "@/lib/actions/auth";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { DynamicForm } from "./dynamic-form";
 import { useDynamicForm } from "@/hooks/use-dynamic-form";
-import { registerFormConfig, registerInitialValues, RegisterFormData } from "@/lib/validation/register-form-config";
+import {
+  registerFormConfig,
+  registerInitialValues,
+  RegisterFormData,
+} from "@/lib/validation/register-form-config";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
 import { IconArrow } from "@/components/icons";
@@ -22,16 +32,11 @@ export function RegisterForm() {
     initialState
   );
 
-  const {
-    values,
-    validations,
-    isValid,
-    handleChange,
-    handleBlur
-  } = useDynamicForm<RegisterFormData>({
-    initialValues: registerInitialValues,
-    fieldConfigs: registerFormConfig
-  });
+  const { values, validations, isValid, handleChange, handleBlur } =
+    useDynamicForm<RegisterFormData>({
+      initialValues: registerInitialValues,
+      fieldConfigs: registerFormConfig,
+    });
 
   const handleFieldChange = (fieldName: string, value: string) => {
     handleChange(fieldName as keyof RegisterFormData, value);
@@ -55,7 +60,7 @@ export function RegisterForm() {
       <CardHeader>
         <CardTitle>إنشاء حساب جديد</CardTitle>
       </CardHeader>
-      
+
       <CardContent>
         <DynamicForm<RegisterFormData>
           fields={registerFormConfig}
@@ -70,13 +75,15 @@ export function RegisterForm() {
           submitLabel="إنشاء الحساب"
           submitIcon={<IconArrow />}
           successMessage={state.success ? state.message : undefined}
-          errorMessage={!state.success && state.message ? state.message : undefined}
+          errorMessage={
+            !state.success && state.message ? state.message : undefined
+          }
         />
       </CardContent>
 
       <CardFooter>
         <div className="text-center text-sm text-muted-foreground w-full">
-          لديك حساب بالفعل؟{' '}
+          لديك حساب بالفعل؟{" "}
           <Link
             href={ROUTES.LOGIN}
             className="text-primary hover:underline font-medium"

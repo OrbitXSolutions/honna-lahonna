@@ -1,6 +1,11 @@
 "use server";
 
-import { registerUser, UserForRegister, loginUser, UserForLogin } from "../data/auth";
+import {
+  registerUser,
+  UserForRegister,
+  loginUser,
+  UserForLogin,
+} from "../data/auth";
 import { redirect } from "next/navigation";
 import { ROUTES } from "../constants/routes";
 
@@ -148,7 +153,8 @@ export async function loginAction(
       password: formData.get("password") as string,
     };
 
-    const result = await loginUser(userData);    if (result.user) {
+    const result = await loginUser(userData);
+    if (result.user) {
       redirect("/dashboard");
     }
 
@@ -163,7 +169,10 @@ export async function loginAction(
       // Handle Zod validation errors
       if (error.message.includes("Invalid login data:")) {
         try {
-          const errorMessage = error.message.replace("Invalid login data: ", "");
+          const errorMessage = error.message.replace(
+            "Invalid login data: ",
+            ""
+          );
           const parsedErrors = JSON.parse(errorMessage);
           const fieldErrors: Record<string, string[]> = {};
 

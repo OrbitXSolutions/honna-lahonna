@@ -93,9 +93,7 @@ export const UserForLoginSchema = z.object({
     .string()
     .min(1, "البريد الإلكتروني مطلوب")
     .email("يرجى إدخال بريد إلكتروني صحيح"),
-  password: z
-    .string()
-    .min(1, "كلمة المرور مطلوبة"),
+  password: z.string().min(1, "كلمة المرور مطلوبة"),
 });
 
 export async function registerUser(user: UserForRegister) {
