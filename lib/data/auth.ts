@@ -1,6 +1,6 @@
 import { createAdminClient } from "../supabase/admin";
 import { createSsrClient } from "../supabase/server";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export interface UserForRegister {
   email: string;

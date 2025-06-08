@@ -3659,6 +3659,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3676,6 +3677,9 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
   }
 
   export type Service_providersMaxAggregateOutputType = {
@@ -3691,6 +3695,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3708,6 +3713,9 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
   }
 
   export type Service_providersCountAggregateOutputType = {
@@ -3741,6 +3749,9 @@ export namespace Prisma {
     updated_at: number
     updated_by: number
     slug: number
+    address: number
+    official_url: number
+    services: number
     _all: number
   }
 
@@ -3766,6 +3777,7 @@ export namespace Prisma {
     facebook_url?: true
     instagram_url?: true
     whatsapp_url?: true
+    other_urls?: true
     logo_image?: true
     id_card_front_image?: true
     id_card_back_image?: true
@@ -3783,6 +3795,9 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
   }
 
   export type Service_providersMaxAggregateInputType = {
@@ -3798,6 +3813,7 @@ export namespace Prisma {
     facebook_url?: true
     instagram_url?: true
     whatsapp_url?: true
+    other_urls?: true
     logo_image?: true
     id_card_front_image?: true
     id_card_back_image?: true
@@ -3815,6 +3831,9 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
   }
 
   export type Service_providersCountAggregateInputType = {
@@ -3848,6 +3867,9 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
     _all?: true
   }
 
@@ -3950,7 +3972,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
-    other_urls: JsonValue | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3968,6 +3990,9 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
     _count: Service_providersCountAggregateOutputType | null
     _avg: Service_providersAvgAggregateOutputType | null
     _sum: Service_providersSumAggregateOutputType | null
@@ -4020,6 +4045,9 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4056,6 +4084,9 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4092,6 +4123,9 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4128,9 +4162,12 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
   }
 
-  export type service_providersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "years_of_experience" | "service_name" | "governorate_id" | "service_category_id" | "service_delivery_method" | "service_description" | "bio" | "facebook_url" | "instagram_url" | "whatsapp_url" | "other_urls" | "logo_image" | "id_card_front_image" | "id_card_back_image" | "certificates_images" | "document_list" | "video_url" | "keywords" | "notes" | "status" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "slug", ExtArgs["result"]["service_providers"]>
+  export type service_providersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "years_of_experience" | "service_name" | "governorate_id" | "service_category_id" | "service_delivery_method" | "service_description" | "bio" | "facebook_url" | "instagram_url" | "whatsapp_url" | "other_urls" | "logo_image" | "id_card_front_image" | "id_card_back_image" | "certificates_images" | "document_list" | "video_url" | "keywords" | "notes" | "status" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "slug" | "address" | "official_url" | "services", ExtArgs["result"]["service_providers"]>
   export type service_providersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
@@ -4167,7 +4204,7 @@ export namespace Prisma {
       facebook_url: string | null
       instagram_url: string | null
       whatsapp_url: string | null
-      other_urls: Prisma.JsonValue | null
+      other_urls: string | null
       logo_image: string | null
       id_card_front_image: string | null
       id_card_back_image: string | null
@@ -4185,6 +4222,9 @@ export namespace Prisma {
       updated_at: Date | null
       updated_by: string | null
       slug: string | null
+      address: string | null
+      official_url: string | null
+      services: string | null
     }, ExtArgs["result"]["service_providers"]>
     composites: {}
   }
@@ -4623,7 +4663,7 @@ export namespace Prisma {
     readonly facebook_url: FieldRef<"service_providers", 'String'>
     readonly instagram_url: FieldRef<"service_providers", 'String'>
     readonly whatsapp_url: FieldRef<"service_providers", 'String'>
-    readonly other_urls: FieldRef<"service_providers", 'Json'>
+    readonly other_urls: FieldRef<"service_providers", 'String'>
     readonly logo_image: FieldRef<"service_providers", 'String'>
     readonly id_card_front_image: FieldRef<"service_providers", 'String'>
     readonly id_card_back_image: FieldRef<"service_providers", 'String'>
@@ -4641,6 +4681,9 @@ export namespace Prisma {
     readonly updated_at: FieldRef<"service_providers", 'DateTime'>
     readonly updated_by: FieldRef<"service_providers", 'String'>
     readonly slug: FieldRef<"service_providers", 'String'>
+    readonly address: FieldRef<"service_providers", 'String'>
+    readonly official_url: FieldRef<"service_providers", 'String'>
+    readonly services: FieldRef<"service_providers", 'String'>
   }
     
 
@@ -5123,7 +5166,7 @@ export namespace Prisma {
   }
 
   export type UsersMinAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     first_name: string | null
     last_name: string | null
@@ -5137,10 +5180,12 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
   }
 
   export type UsersMaxAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     first_name: string | null
     last_name: string | null
@@ -5154,10 +5199,12 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
   }
 
   export type UsersCountAggregateOutputType = {
-    user_id: number
+    id: number
     email: number
     first_name: number
     last_name: number
@@ -5171,12 +5218,14 @@ export namespace Prisma {
     created_by: number
     updated_by: number
     deleted_by: number
+    user_id: number
+    is_admin: number
     _all: number
   }
 
 
   export type UsersMinAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5190,10 +5239,12 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
   }
 
   export type UsersMaxAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5207,10 +5258,12 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
   }
 
   export type UsersCountAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5224,6 +5277,8 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
     _all?: true
   }
 
@@ -5300,7 +5355,7 @@ export namespace Prisma {
   }
 
   export type UsersGroupByOutputType = {
-    user_id: string
+    id: string
     email: string
     first_name: string | null
     last_name: string | null
@@ -5314,6 +5369,8 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -5334,7 +5391,7 @@ export namespace Prisma {
 
 
   export type usersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5348,12 +5405,14 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
     service_providers?: boolean | users$service_providersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5367,10 +5426,12 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5384,10 +5445,12 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5401,9 +5464,11 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "email" | "first_name" | "last_name" | "avatar" | "phone" | "created_at" | "updated_at" | "deleted_at" | "is_deleted" | "is_banned" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "first_name" | "last_name" | "avatar" | "phone" | "created_at" | "updated_at" | "deleted_at" | "is_deleted" | "is_banned" | "created_by" | "updated_by" | "deleted_by" | "user_id" | "is_admin", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service_providers?: boolean | users$service_providersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -5417,7 +5482,7 @@ export namespace Prisma {
       service_providers: Prisma.$service_providersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      user_id: string
+      id: string
       email: string
       first_name: string | null
       last_name: string | null
@@ -5431,6 +5496,8 @@ export namespace Prisma {
       created_by: string | null
       updated_by: string | null
       deleted_by: string | null
+      user_id: string | null
+      is_admin: boolean | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -5514,8 +5581,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.users.findMany({ take: 10 })
      * 
-     * // Only select the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.findMany({ select: { user_id: true } })
+     * // Only select the `id`
+     * const usersWithIdOnly = await prisma.users.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends usersFindManyArgs>(args?: SelectSubset<T, usersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -5559,9 +5626,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.createManyAndReturn({
-     *   select: { user_id: true },
+     * // Create many Users and only return the `id`
+     * const usersWithIdOnly = await prisma.users.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -5650,9 +5717,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.updateManyAndReturn({
-     *   select: { user_id: true },
+     * // Update zero or more Users and only return the `id`
+     * const usersWithIdOnly = await prisma.users.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5855,7 +5922,7 @@ export namespace Prisma {
    * Fields of the users model
    */
   interface usersFieldRefs {
-    readonly user_id: FieldRef<"users", 'String'>
+    readonly id: FieldRef<"users", 'String'>
     readonly email: FieldRef<"users", 'String'>
     readonly first_name: FieldRef<"users", 'String'>
     readonly last_name: FieldRef<"users", 'String'>
@@ -5869,6 +5936,8 @@ export namespace Prisma {
     readonly created_by: FieldRef<"users", 'String'>
     readonly updated_by: FieldRef<"users", 'String'>
     readonly deleted_by: FieldRef<"users", 'String'>
+    readonly user_id: FieldRef<"users", 'String'>
+    readonly is_admin: FieldRef<"users", 'Boolean'>
   }
     
 
@@ -6382,14 +6451,17 @@ export namespace Prisma {
     created_by: 'created_by',
     updated_at: 'updated_at',
     updated_by: 'updated_by',
-    slug: 'slug'
+    slug: 'slug',
+    address: 'address',
+    official_url: 'official_url',
+    services: 'services'
   };
 
   export type Service_providersScalarFieldEnum = (typeof Service_providersScalarFieldEnum)[keyof typeof Service_providersScalarFieldEnum]
 
 
   export const UsersScalarFieldEnum: {
-    user_id: 'user_id',
+    id: 'id',
     email: 'email',
     first_name: 'first_name',
     last_name: 'last_name',
@@ -6402,7 +6474,9 @@ export namespace Prisma {
     is_banned: 'is_banned',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by'
+    deleted_by: 'deleted_by',
+    user_id: 'user_id',
+    is_admin: 'is_admin'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -6414,14 +6488,6 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -6438,15 +6504,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -6514,20 +6571,6 @@ export namespace Prisma {
    * Reference to a field of type 'service_delivery_method[]'
    */
   export type ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_delivery_method[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -6773,7 +6816,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -6791,6 +6834,9 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
     governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
     service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -6827,6 +6873,9 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
     governorates?: governoratesOrderByWithRelationInput
     service_categories?: service_categoriesOrderByWithRelationInput
     users?: usersOrderByWithRelationInput
@@ -6848,7 +6897,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -6866,6 +6915,9 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
     governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
     service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -6902,6 +6954,9 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
     _count?: service_providersCountOrderByAggregateInput
     _avg?: service_providersAvgOrderByAggregateInput
     _max?: service_providersMaxOrderByAggregateInput
@@ -6925,7 +6980,7 @@ export namespace Prisma {
     facebook_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     instagram_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableWithAggregatesFilter<"service_providers">
+    other_urls?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     logo_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
@@ -6943,13 +6998,16 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     slug?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    address?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    official_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    services?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
   }
 
   export type usersWhereInput = {
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
-    user_id?: UuidFilter<"users"> | string
+    id?: UuidFilter<"users"> | string
     email?: StringFilter<"users"> | string
     first_name?: StringNullableFilter<"users"> | string | null
     last_name?: StringNullableFilter<"users"> | string | null
@@ -6963,11 +7021,13 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"users"> | string | null
     updated_by?: StringNullableFilter<"users"> | string | null
     deleted_by?: StringNullableFilter<"users"> | string | null
+    user_id?: UuidNullableFilter<"users"> | string | null
+    is_admin?: BoolNullableFilter<"users"> | boolean | null
     service_providers?: Service_providersListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
@@ -6981,12 +7041,15 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
+    is_admin?: SortOrderInput | SortOrder
     service_providers?: service_providersOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
-    user_id?: string
+    id?: string
     email?: string
+    user_id?: string
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
@@ -7002,11 +7065,12 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"users"> | string | null
     updated_by?: StringNullableFilter<"users"> | string | null
     deleted_by?: StringNullableFilter<"users"> | string | null
+    is_admin?: BoolNullableFilter<"users"> | boolean | null
     service_providers?: Service_providersListRelationFilter
-  }, "user_id" | "email">
+  }, "id" | "email" | "user_id">
 
   export type usersOrderByWithAggregationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
@@ -7020,6 +7084,8 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
+    is_admin?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
@@ -7029,7 +7095,7 @@ export namespace Prisma {
     AND?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
     OR?: usersScalarWhereWithAggregatesInput[]
     NOT?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    user_id?: UuidWithAggregatesFilter<"users"> | string
+    id?: UuidWithAggregatesFilter<"users"> | string
     email?: StringWithAggregatesFilter<"users"> | string
     first_name?: StringNullableWithAggregatesFilter<"users"> | string | null
     last_name?: StringNullableWithAggregatesFilter<"users"> | string | null
@@ -7043,6 +7109,8 @@ export namespace Prisma {
     created_by?: StringNullableWithAggregatesFilter<"users"> | string | null
     updated_by?: StringNullableWithAggregatesFilter<"users"> | string | null
     deleted_by?: StringNullableWithAggregatesFilter<"users"> | string | null
+    user_id?: UuidNullableWithAggregatesFilter<"users"> | string | null
+    is_admin?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
   }
 
   export type governoratesCreateInput = {
@@ -7294,7 +7362,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7312,6 +7380,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
     governorates?: governoratesCreateNestedOneWithoutService_providersInput
     service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
     users?: usersCreateNestedOneWithoutService_providersInput
@@ -7330,7 +7401,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7348,6 +7419,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersUpdateInput = {
@@ -7360,7 +7434,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7378,6 +7452,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
@@ -7396,7 +7473,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7414,6 +7491,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersCreateManyInput = {
@@ -7429,7 +7509,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7447,6 +7527,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersUpdateManyMutationInput = {
@@ -7459,7 +7542,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7477,6 +7560,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyInput = {
@@ -7492,7 +7578,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7510,10 +7596,13 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersCreateInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7527,11 +7616,13 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
     service_providers?: service_providersCreateNestedManyWithoutUsersInput
   }
 
   export type usersUncheckedCreateInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7545,11 +7636,13 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
     service_providers?: service_providersUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7563,11 +7656,13 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     service_providers?: service_providersUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7581,11 +7676,13 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     service_providers?: service_providersUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersCreateManyInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7599,10 +7696,12 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
   }
 
   export type usersUpdateManyMutationInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7616,10 +7715,12 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type usersUncheckedUpdateManyInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7633,6 +7734,8 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -7909,29 +8012,6 @@ export namespace Prisma {
     notIn?: $Enums.service_delivery_method[] | ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> | null
     not?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel> | $Enums.service_delivery_method | null
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type Enumservice_provider_statusFilter<$PrismaModel = never> = {
     equals?: $Enums.service_provider_status | Enumservice_provider_statusFieldRefInput<$PrismaModel>
@@ -7986,6 +8066,9 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
   }
 
   export type service_providersAvgOrderByAggregateInput = {
@@ -8005,6 +8088,7 @@ export namespace Prisma {
     facebook_url?: SortOrder
     instagram_url?: SortOrder
     whatsapp_url?: SortOrder
+    other_urls?: SortOrder
     logo_image?: SortOrder
     id_card_front_image?: SortOrder
     id_card_back_image?: SortOrder
@@ -8022,6 +8106,9 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
   }
 
   export type service_providersMinOrderByAggregateInput = {
@@ -8037,6 +8124,7 @@ export namespace Prisma {
     facebook_url?: SortOrder
     instagram_url?: SortOrder
     whatsapp_url?: SortOrder
+    other_urls?: SortOrder
     logo_image?: SortOrder
     id_card_front_image?: SortOrder
     id_card_back_image?: SortOrder
@@ -8054,6 +8142,9 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
   }
 
   export type service_providersSumOrderByAggregateInput = {
@@ -8100,32 +8191,6 @@ export namespace Prisma {
     _min?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
     _max?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
 
   export type Enumservice_provider_statusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.service_provider_status | Enumservice_provider_statusFieldRefInput<$PrismaModel>
@@ -8149,7 +8214,7 @@ export namespace Prisma {
   }
 
   export type usersCountOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8163,10 +8228,12 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8180,10 +8247,12 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8197,6 +8266,8 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8645,29 +8716,6 @@ export namespace Prisma {
     _min?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
     _max?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedEnumservice_provider_statusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.service_provider_status | Enumservice_provider_statusFieldRefInput<$PrismaModel>
@@ -8714,7 +8762,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8732,6 +8780,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
     service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
     users?: usersCreateNestedOneWithoutService_providersInput
   }
@@ -8748,7 +8799,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8766,6 +8817,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutGovernoratesInput = {
@@ -8810,7 +8864,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -8828,6 +8882,9 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
   }
 
   export type service_providersCreateWithoutService_categoriesInput = {
@@ -8840,7 +8897,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8858,6 +8915,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
     governorates?: governoratesCreateNestedOneWithoutService_providersInput
     users?: usersCreateNestedOneWithoutService_providersInput
   }
@@ -8874,7 +8934,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8892,6 +8952,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutService_categoriesInput = {
@@ -8997,7 +9060,7 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutService_providersInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -9011,10 +9074,12 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
   }
 
   export type usersUncheckedCreateWithoutService_providersInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -9028,6 +9093,8 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
   }
 
   export type usersCreateOrConnectWithoutService_providersInput = {
@@ -9135,7 +9202,7 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutService_providersInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9149,10 +9216,12 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type usersUncheckedUpdateWithoutService_providersInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9166,6 +9235,8 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type service_providersCreateWithoutUsersInput = {
@@ -9178,7 +9249,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9196,6 +9267,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
     governorates?: governoratesCreateNestedOneWithoutService_providersInput
     service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
   }
@@ -9212,7 +9286,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9230,6 +9304,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutUsersInput = {
@@ -9270,7 +9347,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9288,6 +9365,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersUpdateWithoutGovernoratesInput = {
@@ -9300,7 +9380,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9318,6 +9398,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
   }
@@ -9334,7 +9417,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9352,6 +9435,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutGovernoratesInput = {
@@ -9366,7 +9452,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9384,6 +9470,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersCreateManyService_categoriesInput = {
@@ -9398,7 +9487,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9416,6 +9505,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersUpdateWithoutService_categoriesInput = {
@@ -9428,7 +9520,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9446,6 +9538,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
   }
@@ -9462,7 +9557,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9480,6 +9575,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutService_categoriesInput = {
@@ -9494,7 +9592,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9512,6 +9610,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersCreateManyUsersInput = {
@@ -9526,7 +9627,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9544,6 +9645,9 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
   }
 
   export type service_providersUpdateWithoutUsersInput = {
@@ -9556,7 +9660,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9574,6 +9678,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
   }
@@ -9590,7 +9697,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9608,6 +9715,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutUsersInput = {
@@ -9622,7 +9732,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9640,6 +9750,9 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
