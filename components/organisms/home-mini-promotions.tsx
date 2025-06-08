@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IconArrow } from "../icons";
 import { ROUTES } from "@/lib/constants/routes";
 import Image from "next/image";
+import AppLink from "../atoms/app-link";
 
 export default function HomeMiniPromotions() {
   return (
@@ -16,10 +17,10 @@ export default function HomeMiniPromotions() {
             <span className="text-primary">{"معنا"}</span>
           </h2>
           <AppButton asChild>
-            <Link href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
+            <AppLink href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
               {"سجلي الأن كمقدمة خدمة"}
               <IconArrow />
-            </Link>
+            </AppLink>
           </AppButton>
           <Image
             src={"/huna.svg"}

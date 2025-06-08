@@ -2,6 +2,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import Link from "next/link";
 import AppButton from "../atoms/app-button";
 import { IconArrow } from "../icons";
+import AppLink from "../atoms/app-link";
 
 interface Props {
   className?: string;
@@ -23,19 +24,19 @@ export default function FooterSiteLinks({ className, ...props }: Props) {
           { title: "أراء العملاء", href: ROUTES.TESTIMONIALS },
           { title: "تواصل معنا", href: ROUTES.CONTACT },
         ].map((item) => (
-          <li key={item.href}>
-            <Link href={item.href} className="hover:underline">
+          <li key={item.href} className="">
+            <AppLink href={item.href} className="hover:underline">
               {item.title}
-            </Link>
+            </AppLink>
           </li>
         ))}
       </ul>
       <div>
         <AppButton asChild>
-          <Link href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
+          <AppLink href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
             {"سجلي الأن كمقدمة خدمة"}
             <IconArrow />
-          </Link>
+          </AppLink>
         </AppButton>
       </div>
     </div>

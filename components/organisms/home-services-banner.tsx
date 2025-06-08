@@ -10,13 +10,18 @@ import { ROUTES } from "@/lib/constants/routes";
 const ServiceCard = ({ name, icon, slug }: service_categories) => {
   return (
     <Link
-      href={`${ROUTES.SERVICES}?category=${slug}`}
+      // href={`${ROUTES.SERVICES}?category=${slug}`}
+      href={{
+        pathname: ROUTES.SERVICES,
+        query: { category: slug },
+      }}
       className={"flex gap-2 hover:bg-accent/40 rounded-full items-center"}
     >
       {icon && (
         <Image
           src={`${SupabasePaths.SERVICE_CATEGORIES}/${icon}`}
           alt={name}
+          unoptimized
           width={20}
           height={20}
           className="rounded-full white-image "

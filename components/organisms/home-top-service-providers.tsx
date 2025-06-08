@@ -5,6 +5,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import { IconArrow } from "../icons";
 import GridBackground from "../molecules/grid-background";
 import HomeServiceProviders from "../molecules/home-service-providers";
+import AppLink from "../atoms/app-link";
 
 export default function HomeTopServiceProviders() {
   return (
@@ -22,10 +23,10 @@ export default function HomeTopServiceProviders() {
               <span>{"ومميزة"}</span>
             </h2>
             <AppButton asChild variant={"outline"} className="max-md:m-auto">
-              <Link href={ROUTES.SERVICES}>
+              <AppLink href={ROUTES.SERVICES}>
                 {"عرض جميع الخدمات"}
                 <IconArrow />
-              </Link>
+              </AppLink>
             </AppButton>
           </div>
           <HomeServiceProviders />

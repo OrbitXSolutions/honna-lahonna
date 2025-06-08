@@ -27,6 +27,7 @@ export default function HeaderHeroImage() {
           alt="Hero Woman"
           width={450}
           height={500}
+          priority
           className="rounded-lg mx-auto relative"
         />
       </div>

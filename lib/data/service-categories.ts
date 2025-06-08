@@ -6,7 +6,11 @@ import { CacheTags } from "../constants/cache-tags";
 export const getServiceCategories = unstable_cache(
   async (): Promise<service_categories[]> => {
     const prisma = new PrismaClient();
-    const serviceCategories = await prisma.service_categories.findMany();
+    const serviceCategories = await prisma.service_categories.findMany({
+      where: {
+        is_deleted: false,
+      },
+    });
     return serviceCategories;
   },
   [CacheTags.SERVICE_CATEGORIES],

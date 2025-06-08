@@ -48,6 +48,7 @@ export default async function HomeServiceProviders() {
                 src={`${SupabasePaths.SERVICE_CATEGORIES}/${icon}`}
                 alt={name}
                 width={20}
+                unoptimized
                 height={20}
                 className="rounded-full brightness-0 invert group-data-[state=inactive]:filter-none"
               />
