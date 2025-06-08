@@ -1,6 +1,6 @@
 "use server";
 
-import { registerUser, UserForRegister } from "../data/auth";
+import { registerUser, UserForRegister, loginUser, UserForLogin } from "../data/auth";
 import { redirect } from "next/navigation";
 import { ROUTES } from "../constants/routes";
 
@@ -14,6 +14,15 @@ interface RegisterFormState {
     firstName?: string[];
     lastName?: string[];
     phone?: string[];
+  };
+}
+
+interface LoginFormState {
+  success: boolean;
+  message?: string;
+  errors?: {
+    email?: string[];
+    password?: string[];
   };
 }
 
@@ -125,6 +134,96 @@ export async function registerAction(
     return {
       success: false,
       message: "حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.",
+    };
+  }
+}
+
+export async function loginAction(
+  prevState: LoginFormState,
+  formData: FormData
+): Promise<LoginFormState> {
+  try {
+    const userData: UserForLogin = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
+
+    const result = await loginUser(userData);    if (result.user) {
+      redirect("/dashboard");
+    }
+
+    return {
+      success: true,
+      message: "تم تسجيل الدخول بنجاح!",
+    };
+  } catch (error) {
+    console.error("Login error:", error);
+
+    if (error instanceof Error) {
+      // Handle Zod validation errors
+      if (error.message.includes("Invalid login data:")) {
+        try {
+          const errorMessage = error.message.replace("Invalid login data: ", "");
+          const parsedErrors = JSON.parse(errorMessage);
+          const fieldErrors: Record<string, string[]> = {};
+
+          if (parsedErrors && Array.isArray(parsedErrors)) {
+            parsedErrors.forEach((err: any) => {
+              if (err.path && err.path.length > 0) {
+                const fieldName = err.path[0] as string;
+                if (!fieldErrors[fieldName]) {
+                  fieldErrors[fieldName] = [];
+                }
+                fieldErrors[fieldName].push(err.message);
+              }
+            });
+          }
+
+          return {
+            success: false,
+            message: "يرجى التحقق من بيانات تسجيل الدخول",
+            errors: {
+              email: fieldErrors.email,
+              password: fieldErrors.password,
+            },
+          };
+        } catch (parseError) {
+          return {
+            success: false,
+            message: "يرجى التحقق من بيانات تسجيل الدخول",
+            errors: {
+              email: ["يرجى إدخال بريد إلكتروني صحيح"],
+              password: ["يرجى إدخال كلمة المرور"],
+            },
+          };
+        }
+      }
+
+      // Handle Supabase auth errors
+      if (error.message.includes("Invalid login credentials")) {
+        return {
+          success: false,
+          message: "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+          errors: {
+            email: ["البريد الإلكتروني أو كلمة المرور غير صحيحة"],
+          },
+        };
+      }
+
+      if (error.message.includes("Email not confirmed")) {
+        return {
+          success: false,
+          message: "يرجى تأكيد البريد الإلكتروني أولاً",
+          errors: {
+            email: ["يرجى تأكيد البريد الإلكتروني أولاً"],
+          },
+        };
+      }
+    }
+
+    return {
+      success: false,
+      message: "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
     };
   }
 }

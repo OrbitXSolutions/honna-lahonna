@@ -385,3 +385,48 @@ export const getServiceProvidersGroupedByCategories = unstable_cache(
   [CacheTags.SERVICE_PROVIDERS, CacheTags.SERVICE_CATEGORIES],
   { revalidate: 60 * 60 }
 );
+
+// Get service categories for dropdown
+export const getServiceCategories = unstable_cache(
+  async () => {
+    const prisma = new PrismaClient();
+    const categories = await prisma.service_categories.findMany({
+      where: {
+        is_deleted: false,
+      },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+    return categories;
+  },
+  [CacheTags.SERVICE_CATEGORIES],
+  { revalidate: 60 * 60 }
+);
+
+// Get governorates for dropdown
+export const getGovernorates = unstable_cache(
+  async () => {
+    const prisma = new PrismaClient();
+    const governorates = await prisma.governorates.findMany({
+      where: {
+        is_deleted: false,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+    return governorates;
+  },
+  [CacheTags.GOVERNORATES],
+  { revalidate: 60 * 60 }
+);

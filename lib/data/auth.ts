@@ -10,6 +10,11 @@ export interface UserForRegister {
   phone: string;
 }
 
+export interface UserForLogin {
+  email: string;
+  password: string;
+}
+
 // Utility function to normalize phone numbers with Egyptian +20 default
 export function normalizePhoneNumber(phone: string): string {
   // Remove all non-digit characters except +
@@ -82,6 +87,17 @@ export const UserForRegisterSchema = z.object({
     ),
 });
 
+// create zod schema for UserForLogin
+export const UserForLoginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "البريد الإلكتروني مطلوب")
+    .email("يرجى إدخال بريد إلكتروني صحيح"),
+  password: z
+    .string()
+    .min(1, "كلمة المرور مطلوبة"),
+});
+
 export async function registerUser(user: UserForRegister) {
   const parsedUser = UserForRegisterSchema.safeParse(user);
   if (!parsedUser.success) {
@@ -114,6 +130,31 @@ export async function registerUser(user: UserForRegister) {
   //   adminClient.auth.admin.updateUserById(data.user.id, {
   //     phone: parsedUser.data.phone,
   //   });
+  return data;
+}
+
+export async function loginUser(user: UserForLogin) {
+  const parsedUser = UserForLoginSchema.safeParse(user);
+  if (!parsedUser.success) {
+    throw new Error(
+      "Invalid login data: " + JSON.stringify(parsedUser.error.issues)
+    );
+  }
+
+  const supabase = await createSsrClient();
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: parsedUser.data.email,
+    password: parsedUser.data.password,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data.user) {
+    throw new Error("Login failed");
+  }
 
   return data;
 }
