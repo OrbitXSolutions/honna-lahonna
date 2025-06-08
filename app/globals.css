@@ -199,6 +199,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  input {
+    direction: unset;
+  }
 }
 
 @layer utilities {

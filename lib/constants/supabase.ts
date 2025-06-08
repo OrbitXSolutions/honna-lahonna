@@ -4,7 +4,9 @@ export class SupabasePaths {
     "https://xcijvgwuzxhfwgszypyw.supabase.co";
   static readonly STORAGE = `${SupabasePaths.BASE}/storage/v1/object/public`;
   static readonly IMAGES = `${SupabasePaths.STORAGE}/images`;
+  static readonly VIDEOS = `${SupabasePaths.STORAGE}/videos`;
   static readonly SERVICE_CATEGORIES = `${SupabasePaths.IMAGES}/service_categories`;
   static readonly SERVICE_PROVIDERS = `${SupabasePaths.IMAGES}/service_providers`;
   static readonly USERS = `${SupabasePaths.IMAGES}/users`;
+  static readonly SERVICE_PROVIDERS_VIDEOS = `${SupabasePaths.VIDEOS}/service_providers`;
 }

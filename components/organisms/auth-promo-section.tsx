@@ -1,57 +1,92 @@
 import Image from "next/image";
+import { IconMembers, IconNote } from "../icons";
+import { Separator } from "@radix-ui/react-separator";
 
 interface AuthPromoSectionProps {
   className?: string;
 }
 
+const AuthHeroImage = () => (
+  <>
+    <div className="relative mt-10 lg:mt-0">
+      <div className="relative">
+        <Image
+          src={"/lahuna.svg"}
+          alt="lahuna"
+          width={300}
+          height={300}
+          className="absolute -top-10 md:top-0 lg:-top-8 md:right-20 right-0 lg:-right-15"
+          style={{ zIndex: 0 }}
+        />
+        <Image
+          src={"/huna.svg"}
+          alt="huna"
+          width={300}
+          height={300}
+          className="absolute -bottom-17 left-0 md:left-20 lg:-bottom-20  lg:-left-1/5"
+          style={{ zIndex: 0 }}
+        />
+        <Image
+          src="/auth.png"
+          alt="Women supporting each other"
+          width={500}
+          height={500}
+          //   style={{ zIndex: 1 }}
+          className="relative"
+          priority
+        />
+      </div>
+      <div className="absolute top-1/4 right-0 lg:-right-10  text-primary-dark bg-white p-3 rounded-lg shadow-lg flex min-h-18 ">
+        <div className="flex items-center space-x-2">
+          <IconMembers />
+          <Separator orientation="vertical" className="bg-primary" />
+          <div>
+            <p className="font-bold text-2xl text-brand-text-dark">20k</p>
+            <p className="text-xs text-brand-text-light font-medium">
+              عضو في المنصة
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="absolute bottom-1/4 left-0 lg:-left-10 text-primary-dark bg-white p-3 rounded-lg shadow-lg flex min-h-18">
+        <div className="flex items-center space-x-2">
+          <IconNote />
+          <Separator orientation="vertical" className="bg-primary" />
+          <div>
+            <p className="font-bold text-2xl  text-brand-text-dark">60+</p>
+            <p className="text-xs text-brand-text-light font-medium">
+              إستشارة متاحة
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </>
+);
+
 export function AuthPromoSection({ className = "" }: AuthPromoSectionProps) {
   return (
     <div className={`bg-background relative overflow-hidden ${className}`}>
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-purple-50 opacity-60" />
-
       {/* Content container */}
       <div className="relative z-10 flex flex-col justify-center items-center p-12 text-center">
         {/* Header text */}
         <div className="mb-8 space-y-4">
-          <h1 className="text-4xl font-bold text-gray-800 leading-tight">
-            معك لتزدهري في رحلة <span className="text-pink-500">حياتك</span>{" "}
-            الخاصة
-          </h1>
-          <p className="text-lg text-gray-600 max-w-md mx-auto leading-relaxed">
-            أدعمك لتزدادي وعياً وثقة وقدرة لخوض الرحلة بكامل محبتك وتعافيك
-            كأخبراء وأم، كما ستجدين بالإضافة إلى ذلك خدمات استشارية متخصصة لكل
-            ...
+          <h2 className="text-3xl md:text-4xl font-bold">
+            <span>{"معك لتزدهري في رحلة"}</span>&nbsp;
+            <span className="text-primary">{"حياتك"}</span>&nbsp;
+            <span>{"الخاصة"}</span>
+          </h2>
+          <p>
+            {
+              "أدعمك لتزدادي وعياً وتمكناً وثقة وقدرة لخوض الرحلة بكامل صحتك وعافيتك كإمرأة وأم، كما تستحقين بالإضافة إلي تقديم خدمات استشارية مخصصة لكي …"
+            }
           </p>
         </div>
 
         {/* Main image */}
         <div className="relative mb-8">
-          <Image
-            src="/auth.png"
-            alt="Women supporting each other"
-            width={400}
-            height={300}
-            className="rounded-lg shadow-lg"
-            priority
-          />
-
-          {/* Statistics badges */}
-          <div className="absolute top-4 left-4 bg-white rounded-lg p-3 shadow-md">
-            <div className="text-2xl font-bold text-gray-800">20k</div>
-            <div className="text-sm text-gray-600">عضو نشيطة</div>
-          </div>
-
-          <div className="absolute bottom-4 right-4 bg-white rounded-lg p-3 shadow-md">
-            <div className="text-2xl font-bold text-gray-800">60+</div>
-            <div className="text-sm text-gray-600">استشارية متخصصة</div>
-          </div>
+          <AuthHeroImage />
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-20 right-20 w-20 h-20 border-2 border-pink-200 rounded-full opacity-60" />
-        <div className="absolute bottom-20 left-20 w-16 h-16 border-2 border-purple-200 rounded-full opacity-60" />
-        <div className="absolute top-1/2 left-10 w-12 h-12 border-2 border-pink-300 rounded-full opacity-40" />
       </div>
     </div>
   );
