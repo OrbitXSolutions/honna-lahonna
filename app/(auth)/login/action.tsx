@@ -1,3 +1,4 @@
+"use server";
 import { ROUTES } from "@/lib/constants/routes";
 import { UserForPhoneLoginSchema } from "@/lib/data/models/schemas/login.schema";
 import { loginWithPhone } from "@/lib/data/supabase/auth";

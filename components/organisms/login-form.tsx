@@ -34,7 +34,7 @@ const loginFields: LoginFieldData[] = [
     name: "phone",
     type: "tel",
     label: "رقم الهاتف",
-    placeholder: "+20 123 456 7890",
+    placeholder: "+201234567890",
   },
   {
     name: "password",
@@ -60,9 +60,7 @@ export default function LoginForm() {
         toast.error("فشل في التسجيل");
       },
     },
-    errorMapProps: {
-      joinBy: " | ",
-    },
+
     formProps: {
       mode: "onBlur",
       defaultValues: UserForPhoneLoginDefaultValues,
@@ -119,7 +117,7 @@ export default function LoginForm() {
               <Spinner size="small" />
             </>
           ) : (
-            "إنشاء حساب"
+            "تسجيل الدخول"
           )}
         </AppButton>
       </form>

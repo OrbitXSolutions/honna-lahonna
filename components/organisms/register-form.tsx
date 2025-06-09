@@ -53,7 +53,7 @@ const registerFields: RegisterFieldData[] = [
     name: "phone",
     type: "tel",
     label: "رقم الهاتف",
-    placeholder: "+20 123 456 7890",
+    placeholder: "+201234567890",
   },
   {
     name: "password",
@@ -85,9 +85,7 @@ export default function RegisterForm() {
         toast.error("فشل في التسجيل");
       },
     },
-    errorMapProps: {
-      joinBy: " | ",
-    },
+
     formProps: {
       mode: "onBlur",
       defaultValues: UserForRegisterDefaultValues,
