@@ -1,10 +1,35 @@
+"use client";
+import dynamic from "next/dynamic";
 import Logo from "../atoms/logo";
-import { SignInWithGoogle } from "../atoms/sign-in-with-google";
-import { RegisterForm } from "../organisms/register-form";
+import { Skeleton } from "../ui/skeleton";
+import RegisterForm from "../organisms/register-form";
+import { Separator } from "../ui/separator";
 
-export default async function RegisterTemplate() {
+// const SignInWithGoogle = dynamic(() => import("../atoms/sign-in-with-google"), {
+//   ssr: false,
+//   loading: () => (
+//     <Skeleton
+//       style={{ height: 60 }}
+//       className="rounded-full bg-gray-200 w-full"
+//     />
+//   ),
+// });
+// const RegisterForm = dynamic(() => import("../organisms/register-form"), {
+//   ssr: false,
+//   loading: () => (
+//     <Skeleton
+//       style={{ width: 400, height: 400 }}
+//       className="rounded-2xl bg-gray-200"
+//     />
+//   ),
+// });
+
+export default function RegisterTemplate() {
   return (
-    <div className="flex flex-col max-w-lg mx-auto space-y-5">
+    <div
+      className="flex flex-col max-w-lg mx-auto space-y-5"
+      suppressHydrationWarning
+    >
       <Logo />
 
       <div className="space-y-3">
@@ -28,8 +53,14 @@ export default async function RegisterTemplate() {
         </p>
       </div>
       <RegisterForm />
+      <div className="flex  items-center justify-center gap-4 ">
+        <Separator className="flex-1" />
 
-      <SignInWithGoogle />
+        <span className="font-body-md-medium">{"أو"}</span>
+
+        <Separator className="flex-1" />
+      </div>
+      {/* <SignInWithGoogle /> */}
     </div>
   );
 }

@@ -1,16 +1,18 @@
 "use client";
 
-import { Form } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useHookFormAction } from "@next-safe-action/adapter-react-hook-form/hooks";
 
 import {
   UserForRegister,
+  UserForRegisterDefaultValues,
   UserForRegisterSchema,
 } from "@/lib/data/models/schemas/register.schema";
 import { registerAction } from "@/app/(auth)/register/action";
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
@@ -21,12 +23,14 @@ import { Input } from "../ui/input";
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 
-const registerFields: {
+interface RegisterFieldData {
   name: keyof UserForRegister;
   type: string;
   label: string;
   placeholder: string;
-}[] = [
+}
+
+const registerFields: RegisterFieldData[] = [
   {
     name: "firstName",
     type: "text",
@@ -63,9 +67,9 @@ const registerFields: {
     label: "تأكيد كلمة المرور",
     placeholder: "أعيدي إدخال كلمة المرور",
   },
-];
+] as const;
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const {
     form,
     action,
@@ -73,54 +77,83 @@ export function RegisterForm() {
     resetFormAndAction: resetForm,
   } = useHookFormAction(registerAction, zodResolver(UserForRegisterSchema), {
     actionProps: {
-      onSuccess({ data }) {
-        toast.success("Logged in successfully");
+      onSuccess: ({ data }) => {
+        toast.success("تم التسجيل بنجاح");
       },
-      onError({ error }) {
-        error.thrownError;
-        toast.error("Failed to login");
+      onError: ({ error }) => {
+        console.error("Registration error:", error);
+        toast.error("فشل في التسجيل");
       },
+    },
+    errorMapProps: {
+      joinBy: " | ",
     },
     formProps: {
       mode: "onBlur",
+      defaultValues: UserForRegisterDefaultValues,
+      // defaultValues: {
+      //   firstName: "",
+      //   lastName: "",
+      //   email: "",
+      //   phone: "",
+      //   password: "",
+      //   confirmPassword: "",
+      // },
     },
-    errorMapProps: {},
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-8">
-        {/* Server Error */}
+      <form onSubmit={onSubmit} className="space-y-6">
+        {/* Server Error Display */}
         {action.hasErrored && (
-          <div className="text-error text-center">
-            {action.result.serverError}
+          <div className="rounded-md bg-red-50 p-4">
+            <p className="text-sm text-destructive text-center">
+              {action.result?.serverError || "حدث خطأ في الخادم"}
+            </p>
           </div>
         )}
 
         {/* Form Fields */}
-        {registerFields.map((fieldData) => (
-          <FormField
-            key={fieldData.name}
-            name={fieldData.name}
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="grid gap-2">
-                <FormLabel htmlFor={field.name}>{fieldData.label}</FormLabel>
-                <FormControl>
-                  <Input
-                    id={field.name}
-                    placeholder={fieldData.placeholder}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
-        <AppButton disabled={action.isPending} type="submit" className="w-full">
-          {action.isPending ? "جاري التسجيل..." : "إنشاء حساب"}
-          {action.isPending && <Spinner size="small" />}
+        <div className="space-y-4">
+          {registerFields.map((fieldData) => (
+            <FormField
+              key={fieldData.name}
+              name={fieldData.name}
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel htmlFor={field.name}>{fieldData.label}</FormLabel>
+                  <FormControl>
+                    <Input
+                      id={field.name}
+                      type={fieldData.type}
+                      placeholder={fieldData.placeholder}
+                      disabled={action.isPending}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
+        </div>
+
+        {/* Submit Button */}
+        <AppButton
+          disabled={action.isPending}
+          type="submit"
+          className="w-full cursor-pointer"
+        >
+          {action.isPending ? (
+            <>
+              جاري التسجيل...
+              <Spinner size="small" />
+            </>
+          ) : (
+            "إنشاء حساب"
+          )}
         </AppButton>
       </form>
     </Form>

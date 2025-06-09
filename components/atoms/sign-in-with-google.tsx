@@ -11,7 +11,7 @@ export async function handleSignInWithGoogle(response: any) {
     token: response.credential,
   });
 }
-export function SignInWithGoogle() {
+export default function SignInWithGoogle() {
   useLayoutEffect(() => {
     if (typeof window != "undefined")
       (window as any).handleSignInWithGoogle = handleSignInWithGoogle;
