@@ -1,7 +1,7 @@
 "use server";
+import { CacheTags } from "@/lib/constants/cache-tags";
 import { PrismaClient, type service_categories } from "@/lib/generated/prisma";
 import { unstable_cache } from "next/cache";
-import { CacheTags } from "../constants/cache-tags";
 
 export const getServiceCategories = unstable_cache(
   async (): Promise<service_categories[]> => {

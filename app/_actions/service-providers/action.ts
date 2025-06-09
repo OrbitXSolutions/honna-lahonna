@@ -1,4 +1,8 @@
 "use server";
+import { CacheTags } from "@/lib/constants/cache-tags";
+import { PaginatedResult } from "@/lib/data/models/pagination-response";
+import { ServiceProviderQuery } from "@/lib/data/models/queries/service-provider-query";
+import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
 import {
   PrismaClient,
   type service_providers,
@@ -6,11 +10,6 @@ import {
   service_categories,
 } from "@/lib/generated/prisma";
 import { unstable_cache } from "next/cache";
-import { CacheTags } from "../constants/cache-tags";
-import { PaginationParams } from "./models/pagination-request";
-import { PaginatedResult } from "./models/pagination-response";
-import { ServiceProviderQuery } from "./models/queries/service-provider-query";
-import { ServiceProviderVM } from "./models/vm/service-provider";
 
 export const getServiceProviders = unstable_cache(
   async (): Promise<service_providers[]> => {

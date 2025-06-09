@@ -1,49 +1,38 @@
 "use server";
 
-import { registerUser, UserForRegister } from "../data/auth";
+import { ActionState } from "@/lib/data/models/action-state";
+import { UserForRegister } from "@/lib/data/models/schemas/register.schema";
 import { redirect } from "next/navigation";
-import { ROUTES } from "../constants/routes";
 
-interface RegisterFormState {
-  success: boolean;
-  message?: string;
-  errors?: {
-    email?: string[];
-    password?: string[];
-    confirmPassword?: string[];
-    firstName?: string[];
-    lastName?: string[];
-    phone?: string[];
-  };
-}
+export interface RegisterFormState extends ActionState<UserForRegister> {}
 
 export async function registerAction(
   prevState: RegisterFormState,
   formData: FormData
 ): Promise<RegisterFormState> {
   try {
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
+    // const password = formData.get("password") as string;
+    // const confirmPassword = formData.get("confirmPassword") as string;
 
-    // Validate password confirmation
-    if (password !== confirmPassword) {
-      return {
-        success: false,
-        message: "كلمات المرور غير متطابقة",
-        errors: {
-          confirmPassword: ["كلمة المرور وتأكيد كلمة المرور غير متطابقين"],
-        },
-      };
-    }
-    const userData: UserForRegister = {
-      email: formData.get("email") as string,
-      password: password,
-      firstName: formData.get("firstName") as string,
-      lastName: (formData.get("lastName") as string) || undefined,
-      phone: formData.get("phone") as string,
-    };
+    // // Validate password confirmation
+    // if (password !== confirmPassword) {
+    //   return {
+    //     success: false,
+    //     message: "كلمات المرور غير متطابقة",
+    //     errors: {
+    //       confirmPassword: ["كلمة المرور وتأكيد كلمة المرور غير متطابقين"],
+    //     },
+    //   };
+    // }
+    // const userData: UserForRegister = {
+    //   email: formData.get("email") as string,
+    //   password: password,
+    //   firstName: formData.get("firstName") as string,
+    //   lastName: formData.get("lastName") as string,
+    //   phone: formData.get("phone") as string,
+    // };
 
-    const result = await registerUser(userData);
+    // const result = await registerUser(userData);
 
     if (result.user) {
       redirect(ROUTES.LOGIN + "?message=registration-successful");
