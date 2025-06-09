@@ -39,8 +39,12 @@ const AuthHeroImage = () => (
       <div className="absolute top-1/4 right-0 lg:-right-10  text-primary-dark bg-white p-3 rounded-lg shadow-lg flex min-h-18 ">
         <div className="flex items-center space-x-2">
           <IconMembers />
-          <Separator orientation="vertical" className="bg-primary" />
-          <div>
+          <Separator
+            orientation="vertical"
+            className="bg-primary h-full"
+            style={{ width: 0.1 }}
+          />
+          <div className="flex flex-col items-start">
             <p className="font-bold text-2xl text-brand-text-dark">20k</p>
             <p className="text-xs text-brand-text-light font-medium">
               عضو في المنصة
@@ -51,8 +55,12 @@ const AuthHeroImage = () => (
       <div className="absolute bottom-1/4 left-0 lg:-left-10 text-primary-dark bg-white p-3 rounded-lg shadow-lg flex min-h-18">
         <div className="flex items-center space-x-2">
           <IconNote />
-          <Separator orientation="vertical" className="bg-primary" />
-          <div>
+          <Separator
+            orientation="vertical"
+            className="bg-primary h-full"
+            style={{ width: 0.1 }}
+          />
+          <div className="flex flex-col items-start">
             <p className="font-bold text-2xl  text-brand-text-dark">60+</p>
             <p className="text-xs text-brand-text-light font-medium">
               إستشارة متاحة

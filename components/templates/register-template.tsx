@@ -5,24 +5,15 @@ import { Skeleton } from "../ui/skeleton";
 import RegisterForm from "../organisms/register-form";
 import { Separator } from "../ui/separator";
 
-// const SignInWithGoogle = dynamic(() => import("../atoms/sign-in-with-google"), {
-//   ssr: false,
-//   loading: () => (
-//     <Skeleton
-//       style={{ height: 60 }}
-//       className="rounded-full bg-gray-200 w-full"
-//     />
-//   ),
-// });
-// const RegisterForm = dynamic(() => import("../organisms/register-form"), {
-//   ssr: false,
-//   loading: () => (
-//     <Skeleton
-//       style={{ width: 400, height: 400 }}
-//       className="rounded-2xl bg-gray-200"
-//     />
-//   ),
-// });
+const SignInWithGoogle = dynamic(() => import("../atoms/sign-in-with-google"), {
+  ssr: false,
+  loading: () => (
+    <Skeleton
+      style={{ height: 30 }}
+      className="rounded-3xl bg-gray-200 w-full"
+    />
+  ),
+});
 
 export default function RegisterTemplate() {
   return (
@@ -60,7 +51,7 @@ export default function RegisterTemplate() {
 
         <Separator className="flex-1" />
       </div>
-      {/* <SignInWithGoogle /> */}
+      <SignInWithGoogle />
     </div>
   );
 }

@@ -1,38 +1,22 @@
 import { z } from "zod/v4";
 
-// Regex for 10-digit Egyptian mobile numbers starting with 1
-const EG_MOBILE_REGEX = /^1\d{9}$/;
+// Regex for Egyptian mobile numbers starting with 1 followed by 9 digits
+// Captures the 10-digit mobile number (1xxxxxxxxx) in group 1
+// Accepts formats: 1xxxxxxxxx, 01xxxxxxxxx, 201xxxxxxxxx, +201xxxxxxxxx, 00201xxxxxxxxx
+const EG_MOBILE_REGEX = /^(?:\+20|0020|20|0)?(1\d{9})$/;
 
 export const zodEgyptianPhone = z
   .string("رقم الهاتف مطلوب")
-
+  .trim()
+  .default("")
   .refine((num) => EG_MOBILE_REGEX.test(num), {
-    error: "يرجى إدخال رقم هاتف مصر",
+    message: "يرجى إدخال رقم هاتف مصري صحيح",
   })
   .transform<string>((num) => {
-    // Normalize the phone number to start with +20
-    if (num.startsWith("0020")) return `+20${num.slice(4)}`;
-    if (num.startsWith("20")) return `+20${num.slice(2)}`;
-    if (num.startsWith("0")) return `+20${num.slice(1)}`;
-    return `+20${num}`;
+    const match = num.match(EG_MOBILE_REGEX);
+    if (!match) {
+      return "";
+    }
+    // match[1] contains the 10-digit mobile number (1xxxxxxxxx)
+    return `+20${match[1]}`;
   });
-
-// export const egyptianPhone = z.preprocess(
-//   (input) => {
-//     if (typeof input !== "string") return input;
-//     let val = input.trim();
-
-//     if (val.startsWith("0020")) val = val.slice(4);
-//     else if (val.startsWith("20")) val = val.slice(2);
-//     else if (val.startsWith("0")) val = val.slice(1);
-
-//     return val;
-//   },
-//   z
-//     .string("رقم الهاتف مطلوب")
-//     .refine((num) => EG_MOBILE_REGEX.test(num), {
-//       message: "يرجى إدخال رقم هاتف مصري صالح مكون من 10 أرقام ويبدأ بـ 1",
-//       path: [], // You can set path for custom nesting if needed
-//     })
-//     .transform<string>((num) => `+20${num}`)
-// );
