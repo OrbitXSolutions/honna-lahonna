@@ -1,11 +1,10 @@
-import { getServiceCategories } from "@/lib/data/service-categories";
-import { getServiceProvidersGroupedByCategories } from "@/lib/data/service-providers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { SupabasePaths } from "@/lib/constants/supabase";
 import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
 import ProviderCard from "./provider-card";
 import { IconCategories } from "../icons";
+import { getServiceProvidersGroupedByCategories } from "@/lib/data/prisma/service-providers";
 
 const ListProviderCards = ({
   providers,

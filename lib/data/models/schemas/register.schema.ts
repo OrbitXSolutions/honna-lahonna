@@ -18,7 +18,7 @@ export const UserForRegisterSchema = z
       .string()
       .min(6, "تأكيد كلمة المرور يجب أن تكون 6 أحرف على الأقل")
       .max(100, "تأكيد كلمة المرور طويلة جداً"),
-    phone: egyptianPhone,
+    phone: z.string().and(egyptianPhone),
   })
   .refine((data) => data.password === data.confirmPassword, {
     error: "كلمة المرور وتأكيد كلمة المرور غير متطابقين",

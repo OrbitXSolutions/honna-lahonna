@@ -4,6 +4,7 @@ export enum ROUTES {
   PARTNERS = "/partners",
   TESTIMONIALS = "/testimonials",
   LOGIN = "/login",
+  OTP = "/otp",
   REGISTER = "/register",
   SIGNUP = "/signup",
 

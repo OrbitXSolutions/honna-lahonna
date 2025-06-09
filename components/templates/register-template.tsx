@@ -1,9 +1,8 @@
-import { AuthPromoSection } from "@/components/organisms/auth-promo-section";
-import { RegisterForm } from "@/components/organisms/register-form";
-import AuthTemplate from "./auth-template";
 import Logo from "../atoms/logo";
+import { SignInWithGoogle } from "../atoms/sign-in-with-google";
+import { RegisterForm } from "../organisms/register-form";
 
-export default function RegisterTemplate() {
+export default async function RegisterTemplate() {
   return (
     <div className="flex flex-col max-w-lg mx-auto space-y-5">
       <Logo />
@@ -29,6 +28,8 @@ export default function RegisterTemplate() {
         </p>
       </div>
       <RegisterForm />
+
+      <SignInWithGoogle />
     </div>
   );
 }

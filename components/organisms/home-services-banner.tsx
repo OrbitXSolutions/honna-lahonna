@@ -1,11 +1,11 @@
 import { Marquee } from "../magicui/marquee";
 // import Marquee from "react-fast-marquee";
 import type { service_categories } from "@/lib/generated/prisma";
-import { getServiceCategories } from "@/lib/data/service-categories";
 import Image from "next/image";
 import { SupabasePaths } from "@/lib/constants/supabase";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
+import { getServiceCategories } from "@/lib/data/prisma/service-categories";
 
 const ServiceCard = ({ name, icon, slug }: service_categories) => {
   return (

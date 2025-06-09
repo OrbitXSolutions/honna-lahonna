@@ -14,13 +14,13 @@ export async function registerUser(user: UserForRegister) {
   const supabase = await createSsrClient();
 
   const { data, error } = await supabase.auth.signUp({
-    email: parsedUser.data.email,
+    phone: parsedUser.data.phone,
     password: parsedUser.data.password,
     options: {
       data: {
         first_name: parsedUser.data.firstName,
         last_name: parsedUser.data.lastName,
-        phone: parsedUser.data.phone,
+        email: parsedUser.data.email,
       },
     },
   });
@@ -36,6 +36,22 @@ export async function registerUser(user: UserForRegister) {
   //   adminClient.auth.admin.updateUserById(data.user.id, {
   //     phone: parsedUser.data.phone,
   //   });
+
+  return data;
+}
+
+export async function registerWithGoogle() {
+  const supabase = await createSsrClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback`,
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
 
   return data;
 }
