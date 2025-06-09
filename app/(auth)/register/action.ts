@@ -16,5 +16,10 @@ export const registerAction = actionClient
   .action(async ({ parsedInput: data }) => {
     const { user, session } = await registerUser(data);
 
-    redirect(`${ROUTES.OTP}`);
+    if (!user?.phone) {
+      redirect(`${ROUTES.SET_PHONE}`);
+    }
+    if (!user.phone_confirmed_at) {
+      redirect(`${ROUTES.OTP}`);
+    }
   });

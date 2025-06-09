@@ -5,6 +5,7 @@ export enum ROUTES {
   TESTIMONIALS = "/testimonials",
   LOGIN = "/login",
   OTP = "/otp",
+  SET_PHONE = "/set-phone",
   REGISTER = "/register",
   SIGNUP = "/signup",
 

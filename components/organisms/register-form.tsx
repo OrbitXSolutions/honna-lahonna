@@ -91,14 +91,6 @@ export default function RegisterForm() {
     formProps: {
       mode: "onBlur",
       defaultValues: UserForRegisterDefaultValues,
-      // defaultValues: {
-      //   firstName: "",
-      //   lastName: "",
-      //   email: "",
-      //   phone: "",
-      //   password: "",
-      //   confirmPassword: "",
-      // },
     },
   });
 

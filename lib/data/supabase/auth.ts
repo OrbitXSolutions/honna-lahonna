@@ -3,6 +3,10 @@ import {
   UserForRegisterSchema,
 } from "@/lib/data/models/schemas/register.schema";
 import { createSsrClient } from "@/lib/supabase/server";
+import {
+  UserForPhoneLogin,
+  UserForPhoneLoginSchema,
+} from "../models/schemas/login.schema";
 
 export async function registerUser(user: UserForRegister) {
   const parsedUser = UserForRegisterSchema.safeParse(user);
@@ -51,6 +55,30 @@ export async function registerWithGoogle() {
 
   if (error) {
     throw error;
+  }
+
+  return data;
+}
+
+export async function loginWithPhone(user: UserForPhoneLogin) {
+  const parsedUser = UserForPhoneLoginSchema.safeParse(user);
+  if (!parsedUser.success) {
+    throw new Error(
+      "Invalid user data: " + JSON.stringify(parsedUser.error.issues)
+    );
+  }
+  const supabase = await createSsrClient();
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    phone: parsedUser.data.phone,
+    password: parsedUser.data.password,
+  });
+
+  if (error) {
+    throw error;
+  }
+  if (!data.user) {
+    throw new Error("User login failed");
   }
 
   return data;

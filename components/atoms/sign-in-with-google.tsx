@@ -1,15 +1,28 @@
 "use client";
 
+import { ROUTES } from "@/lib/constants/routes";
 import { createClient } from "@/lib/supabase/client";
 import Script from "next/script";
 import { useLayoutEffect } from "react";
 
 export async function handleSignInWithGoogle(response: any) {
   const supabase = createClient();
-  const { data, error } = await supabase.auth.signInWithIdToken({
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.signInWithIdToken({
     provider: "google",
     token: response.credential,
   });
+
+  if (!user?.phone) {
+    // Redirect to set phone page if phone is not set
+    window.location.href = ROUTES.SET_PHONE;
+  }
+  if (!user?.phone_confirmed_at) {
+    // Redirect to OTP page if phone is not confirmed
+    window.location.href = ROUTES.OTP;
+  }
 }
 export default function SignInWithGoogle() {
   useLayoutEffect(() => {

@@ -2,8 +2,10 @@
 import dynamic from "next/dynamic";
 import Logo from "../atoms/logo";
 import { Skeleton } from "../ui/skeleton";
-import RegisterForm from "../organisms/register-form";
 import { Separator } from "../ui/separator";
+import LoginForm from "../organisms/login-form";
+import AppLink from "../atoms/app-link";
+import { ROUTES } from "@/lib/constants/routes";
 
 const SignInWithGoogle = dynamic(() => import("../atoms/sign-in-with-google"), {
   ssr: false,
@@ -30,12 +32,7 @@ export default function LoginTemplate() {
           <span>{"👋"}</span>
         </p>
         <h2 className="text-3xl md:text-4xl font-bold">
-          <span>{"معك لتزدهري في رحلة"}</span>&nbsp;
-          <span className="text-primary">{"حياتك"}</span>
-          <span>
-            <br />
-            {"الخاصة"}
-          </span>
+          <span>{"تسجيل الدخول"}</span>
         </h2>
         <p>
           {
@@ -43,7 +40,7 @@ export default function LoginTemplate() {
           }
         </p>
       </div>
-      <RegisterForm />
+      <LoginForm />
       <div className="flex  items-center justify-center gap-4 ">
         <Separator className="flex-1" />
 
@@ -52,6 +49,12 @@ export default function LoginTemplate() {
         <Separator className="flex-1" />
       </div>
       <SignInWithGoogle />
+      <p className="text-center text-sm text-gray-500">
+        {"ليس لديك حساب؟ "}
+        <AppLink href={ROUTES.REGISTER} className="text-primary font-medium">
+          {"إنشاء حساب"}
+        </AppLink>
+      </p>
     </div>
   );
 }
