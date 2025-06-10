@@ -49,7 +49,7 @@ model service_categories {
 model service_providers {
   id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id                 String?                  @db.Uuid
-  years_of_experience     Int?
+  years_of_experience     Decimal?                 @db.Decimal
   service_name            String?
   governorate_id          String?                  @db.Uuid
   service_category_id     String?                  @db.Uuid

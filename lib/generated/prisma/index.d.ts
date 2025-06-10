@@ -3639,17 +3639,17 @@ export namespace Prisma {
   }
 
   export type Service_providersAvgAggregateOutputType = {
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
   }
 
   export type Service_providersSumAggregateOutputType = {
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
   }
 
   export type Service_providersMinAggregateOutputType = {
     id: string | null
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -3685,7 +3685,7 @@ export namespace Prisma {
   export type Service_providersMaxAggregateOutputType = {
     id: string | null
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -3962,7 +3962,7 @@ export namespace Prisma {
   export type Service_providersGroupByOutputType = {
     id: string
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -4194,7 +4194,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       user_id: string | null
-      years_of_experience: number | null
+      years_of_experience: Prisma.Decimal | null
       service_name: string | null
       governorate_id: string | null
       service_category_id: string | null
@@ -4653,7 +4653,7 @@ export namespace Prisma {
   interface service_providersFieldRefs {
     readonly id: FieldRef<"service_providers", 'String'>
     readonly user_id: FieldRef<"service_providers", 'String'>
-    readonly years_of_experience: FieldRef<"service_providers", 'Int'>
+    readonly years_of_experience: FieldRef<"service_providers", 'Decimal'>
     readonly service_name: FieldRef<"service_providers", 'String'>
     readonly governorate_id: FieldRef<"service_providers", 'String'>
     readonly service_category_id: FieldRef<"service_providers", 'String'>
@@ -6547,16 +6547,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Decimal'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Decimal[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -6589,16 +6589,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -6806,7 +6806,7 @@ export namespace Prisma {
     NOT?: service_providersWhereInput | service_providersWhereInput[]
     id?: UuidFilter<"service_providers"> | string
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -6887,7 +6887,7 @@ export namespace Prisma {
     OR?: service_providersWhereInput[]
     NOT?: service_providersWhereInput | service_providersWhereInput[]
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -6970,7 +6970,7 @@ export namespace Prisma {
     NOT?: service_providersScalarWhereWithAggregatesInput | service_providersScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"service_providers"> | string
     user_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableWithAggregatesFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableWithAggregatesFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
@@ -7354,7 +7354,7 @@ export namespace Prisma {
 
   export type service_providersCreateInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -7391,7 +7391,7 @@ export namespace Prisma {
   export type service_providersUncheckedCreateInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -7426,7 +7426,7 @@ export namespace Prisma {
 
   export type service_providersUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7463,7 +7463,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7499,7 +7499,7 @@ export namespace Prisma {
   export type service_providersCreateManyInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -7534,7 +7534,7 @@ export namespace Prisma {
 
   export type service_providersUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7568,7 +7568,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7995,15 +7995,15 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type Enumservice_delivery_methodNullableFilter<$PrismaModel = never> = {
@@ -8166,20 +8166,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type Enumservice_delivery_methodNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8402,12 +8402,12 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type NullableEnumservice_delivery_methodFieldUpdateOperationsInput = {
@@ -8652,6 +8652,17 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedEnumservice_delivery_methodNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.service_delivery_method | Enumservice_delivery_methodFieldRefInput<$PrismaModel> | null
     in?: $Enums.service_delivery_method[] | ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> | null
@@ -8680,31 +8691,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumservice_delivery_methodNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8754,7 +8754,7 @@ export namespace Prisma {
 
   export type service_providersCreateWithoutGovernoratesInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -8790,7 +8790,7 @@ export namespace Prisma {
   export type service_providersUncheckedCreateWithoutGovernoratesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_category_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -8854,7 +8854,7 @@ export namespace Prisma {
     NOT?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
     id?: UuidFilter<"service_providers"> | string
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -8889,7 +8889,7 @@ export namespace Prisma {
 
   export type service_providersCreateWithoutService_categoriesInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -8925,7 +8925,7 @@ export namespace Prisma {
   export type service_providersUncheckedCreateWithoutService_categoriesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -9241,7 +9241,7 @@ export namespace Prisma {
 
   export type service_providersCreateWithoutUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -9276,7 +9276,7 @@ export namespace Prisma {
 
   export type service_providersUncheckedCreateWithoutUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -9338,7 +9338,7 @@ export namespace Prisma {
   export type service_providersCreateManyGovernoratesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_category_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -9372,7 +9372,7 @@ export namespace Prisma {
 
   export type service_providersUpdateWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9408,7 +9408,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9443,7 +9443,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateManyWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9478,7 +9478,7 @@ export namespace Prisma {
   export type service_providersCreateManyService_categoriesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -9512,7 +9512,7 @@ export namespace Prisma {
 
   export type service_providersUpdateWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9548,7 +9548,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9583,7 +9583,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateManyWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9617,7 +9617,7 @@ export namespace Prisma {
 
   export type service_providersCreateManyUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -9652,7 +9652,7 @@ export namespace Prisma {
 
   export type service_providersUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9687,7 +9687,7 @@ export namespace Prisma {
 
   export type service_providersUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9722,7 +9722,7 @@ export namespace Prisma {
 
   export type service_providersUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null

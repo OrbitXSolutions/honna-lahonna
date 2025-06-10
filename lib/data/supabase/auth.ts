@@ -136,15 +136,21 @@ export async function verifyOtp(input: UserVerifyPhone) {
     throw new Error("User not found");
   }
 
-  const phone = user.phone;
-  if (!phone) {
+  if (!user.phone && !user.new_phone) {
     throw new Error("User phone is not set");
   }
+
+
+  const isPhoneChange = !!user.new_phone;
+
+  const phone = isPhoneChange ? user.new_phone : user.phone;
+
+  if (!phone) throw new Error("User phone is not set");
 
   const { data, error } = await supabase.auth.verifyOtp({
     phone,
     token: parsedInput.data.token,
-    type: "sms",
+    type: isPhoneChange ? "phone_change" : "sms",
   });
 
   if (error) {

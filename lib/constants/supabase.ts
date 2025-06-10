@@ -10,3 +10,24 @@ export class SupabasePaths {
   static readonly USERS = `${SupabasePaths.IMAGES}/users`;
   static readonly SERVICE_PROVIDERS_VIDEOS = `${SupabasePaths.VIDEOS}/service_providers`;
 }
+
+
+export class SupabaseStorageBuckets { 
+  static readonly IMAGES = {
+    name: "images",
+    folders: {
+      SERVICE_CATEGORIES: "service_categories",
+      SERVICE_PROVIDERS: "service_providers",
+      USERS: "users",
+    }
+  }
+  
+  static readonly VIDEOS = {
+    name: "videos",
+    folders: {
+      SERVICE_PROVIDERS: "service_providers",
+    }
+  };
+}
+
+
