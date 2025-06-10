@@ -1,25 +1,27 @@
-"use client";
 import Logo from "../atoms/logo";
 import PhoneOtpForm from "../organisms/phone-otp-form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "../ui/card";
 
 export default function PhoneOtpTemplate() {
   return (
-    <div
-      className="flex flex-col max-w-lg mx-auto space-y-5"
-      suppressHydrationWarning
-    >
-      <Logo />
-      <div className="space-y-3 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold">
-          <span>{"تأكيد رقم الهاتف"}</span>
-        </h2>
-        <p className="text-muted-foreground">
+    <Card className="mx-auto max-w-sm bg-white my-10" suppressHydrationWarning>
+      <CardHeader>
+        <CardTitle className="text-2xl">{"تأكيد رقم الهاتف"}</CardTitle>
+        <CardDescription>
           {
             "لقد أرسلنا رمز تحقق إلى رقم هاتفك. الرجاء إدخال الرمز أدناه للمتابعة."
           }
-        </p>
-      </div>
-      <PhoneOtpForm />
-    </div>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <PhoneOtpForm />
+      </CardContent>
+    </Card>
   );
 }

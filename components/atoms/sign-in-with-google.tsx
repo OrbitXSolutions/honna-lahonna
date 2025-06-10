@@ -14,14 +14,15 @@ export async function handleSignInWithGoogle(response: any) {
     provider: "google",
     token: response.credential,
   });
-
+  debugger;
   if (!user?.phone) {
     // Redirect to set phone page if phone is not set
     window.location.href = ROUTES.SET_PHONE;
-  }
-  if (!user?.phone_confirmed_at) {
-    // Redirect to OTP page if phone is not confirmed
-    window.location.href = ROUTES.OTP;
+  } else {
+    if (!user?.phone_confirmed_at) {
+      // Redirect to OTP page if phone is not confirmed
+      window.location.href = ROUTES.OTP;
+    }
   }
 }
 export default function SignInWithGoogle() {

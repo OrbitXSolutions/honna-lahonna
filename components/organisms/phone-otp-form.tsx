@@ -1,3 +1,4 @@
+"use client";
 import { otpVerifyAction } from "@/app/(auth)/otp/action";
 import {
   UserVerifyPhoneDefaultValues,
@@ -52,7 +53,11 @@ export default function PhoneOtpForm() {
   });
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-8 max-w-3xl mx-auto py-10">
+      <form
+        onSubmit={onSubmit}
+        className="space-y-8 max-w-3xl mx-auto py-10"
+        suppressHydrationWarning
+      >
         {/* Server Error Display */}
         {action.hasErrored && (
           <div className="rounded-md bg-red-50 p-4">
@@ -68,7 +73,13 @@ export default function PhoneOtpForm() {
             <FormItem>
               <FormLabel>رمز التأكيد</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} {...field}>
+                <InputOTP
+                  maxLength={6}
+                  {...field}
+                  className="mx-auto"
+                  style={{ direction: "ltr" }}
+                  dir="ltr"
+                >
                   <InputOTPGroup>
                     <InputOTPSlot index={0} />
                     <InputOTPSlot index={1} />

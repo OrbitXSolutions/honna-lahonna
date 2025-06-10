@@ -212,6 +212,9 @@
   .black-image {
     filter: brightness(0) invert(0);
   }
+  .dir-ltr {
+    direction: ltr;
+  }
 }
 
 @utility image-filter {
@@ -311,4 +314,8 @@
       currentColor 100%
     );
   pointer-events: none;
+}
+
+.dir-ltr {
+  direction: ltr;
 }

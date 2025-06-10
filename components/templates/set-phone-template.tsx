@@ -1,26 +1,29 @@
 "use client";
 import Logo from "../atoms/logo";
+import PhoneOtpForm from "../organisms/phone-otp-form";
 import SetPhoneForm from "../organisms/set-phone-form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "../ui/card";
 
 export default function SetPhoneTemplate() {
   return (
-    <div
-      className="flex flex-col max-w-lg mx-auto space-y-5"
-      suppressHydrationWarning
-    >
-      <Logo />
-
-      <div className="space-y-3 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold">
-          <span>{"إضافة رقم الهاتف"}</span>
-        </h2>
-        <p className="text-muted-foreground">
+    <Card className="mx-auto max-w-sm bg-white my-10" suppressHydrationWarning>
+      <CardHeader>
+        <CardTitle className="text-2xl">{"إدخال رقم الهاتف"}</CardTitle>
+        <CardDescription>
           {
-            "الرجاء إدخال رقم الهاتف الخاص بك للمتابعة. سوف نرسل لك رمز تحقق لمرة واحدة (OTP)."
+            "الرجاء إدخال رقم الهاتف الخاص بك للمتابعة. سوف نرسل لك رمز تحقق (OTP)."
           }
-        </p>
-      </div>
-      <SetPhoneForm />
-    </div>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <SetPhoneForm />
+      </CardContent>
+    </Card>
   );
 }

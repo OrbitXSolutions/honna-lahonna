@@ -56,7 +56,7 @@ export default function SetPhoneForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={onSubmit} className="space-y-6" suppressHydrationWarning>
         {/* Server Error Display */}
         {action.hasErrored && (
           <div className="rounded-md bg-red-50 p-4">

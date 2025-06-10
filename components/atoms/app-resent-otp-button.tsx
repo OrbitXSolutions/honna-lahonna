@@ -1,12 +1,32 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { resendPhoneOtp } from "@/lib/data/supabase/auth";
 import AppButton from "./app-button";
+import { createClient } from "@/lib/supabase/client";
 // Consider adding a toast notification for user feedback
 // import { toast } from "sonner";
 
 const COOLDOWN_SECONDS = 60; // 60 seconds cooldown
+
+async function resendPhoneOtp() {
+  const supabase = createClient();
+  const { data: user, error } = await supabase.auth.getUser();
+  if (error) {
+    throw error;
+  }
+  if (!user) {
+    throw new Error("User not found");
+  }
+  const phone = user.user.phone;
+  if (!phone) {
+    throw new Error("User phone is not set");
+  }
+
+  return await supabase.auth.resend({
+    phone,
+    type: "sms",
+  });
+}
 
 export default function ResendOtpButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,14 +69,16 @@ export default function ResendOtpButton() {
   return (
     <div>
       <AppButton
+        variant={"outline"}
+        className="cursor-pointer"
         onClick={handleResendOtp}
         disabled={isLoading || isCooldownActive}
       >
         {isLoading
-          ? "Sending..."
+          ? "جاري الإرسال..."
           : isCooldownActive
-          ? `Resend OTP in ${cooldownTimeRemaining}s`
-          : "Resend OTP"}
+          ? `يمكنك الإرسال بعد ${cooldownTimeRemaining}s`
+          : "إعادة الإرسال"}
       </AppButton>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>

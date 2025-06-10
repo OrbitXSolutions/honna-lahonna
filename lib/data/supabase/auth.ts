@@ -15,6 +15,7 @@ import {
   UserVerifyPhone,
   UserVerifyPhoneSchema,
 } from "../models/schemas/confirm-phone-otp";
+import { createClient } from "@/lib/supabase/client";
 
 export async function registerUser(user: UserForRegister) {
   const parsedUser = UserForRegisterSchema.safeParse(user);
@@ -156,8 +157,49 @@ export async function verifyOtp(input: UserVerifyPhone) {
   return data;
 }
 
-export async function resendPhoneOtp() {
+export async function verifyOtpChange(input: UserVerifyPhone) {
+  const parsedInput = UserVerifyPhoneSchema.safeParse(input);
+  if (!parsedInput.success) {
+    throw new Error(
+      "Invalid user data: " + JSON.stringify(parsedInput.error.issues)
+    );
+  }
   const supabase = await createSsrClient();
+
+  const {
+    data: { user },
+    error: getUserError,
+  } = await supabase.auth.getUser();
+  if (getUserError) {
+    throw getUserError;
+  }
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const phone = user.phone;
+  if (!phone) {
+    throw new Error("User phone is not set");
+  }
+
+  const { data, error } = await supabase.auth.verifyOtp({
+    phone,
+    token: parsedInput.data.token,
+    type: "phone_change",
+  });
+
+  if (error) {
+    throw error;
+  }
+  if (!data.user) {
+    throw new Error("User OTP verification failed");
+  }
+
+  return data;
+}
+
+export async function resendPhoneOtp() {
+  const supabase = createClient();
 
   const {
     data: { user },
