@@ -1,17 +1,16 @@
-// only client side code
+// client side code
 "use client";
-
 import { SupabaseStorageBuckets } from "@/lib/constants/supabase";
 import { createClient } from "@/lib/supabase/client";
 
-export async function uploadVideo(file: File, fileName: string = "") {
+export async function uploadDocument(file: File, fileName: string = "") {
   if (!file) {
     throw new Error("No file provided");
   }
   const supabase = createClient();
   fileName ??= file.name;
   const { data, error } = await supabase.storage
-    .from(SupabaseStorageBuckets.VIDEOS.name)
+    .from(SupabaseStorageBuckets.DOCUMENTS.name)
     .upload(fileName, file, {
       cacheControl: "3600",
       upsert: true,
