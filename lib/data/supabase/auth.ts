@@ -45,16 +45,11 @@ export async function registerUser(user: UserForRegister) {
     });
 
   if (error) {
+    console.error("Error during user registration:", error);
     throw error;
   }
-  if (!data.user) {
-    throw new Error("User registration failed");
-  }
 
-  //   const adminClient = await createAdminClient();
-  //   adminClient.auth.admin.updateUserById(data.user.id, {
-  //     phone: parsedUser.data.phone,
-  //   });
+  console.log("User registered:", data.user);
 
   return data;
 }
@@ -124,38 +119,43 @@ export async function setUserPhone(input: UserSetPhone) {
 
 export async function verifyOtp(input: UserVerifyPhone) {
   const parsedInput = UserVerifyPhoneSchema.safeParse(input);
-  if (!parsedInput.success) {
+  if (
+    !parsedInput.success ||
+    !parsedInput.data.phone ||
+    !parsedInput.data.token
+  ) {
     throw new Error(
-      "Invalid user data: " + JSON.stringify(parsedInput.error.issues)
+      "Invalid user data: " +
+        JSON.stringify(parsedInput.error?.issues ?? `Invalid input`)
     );
   }
   const supabase = await createSsrClient();
 
-  const {
-    data: { user },
-    error: getUserError,
-  } = await supabase.auth.getUser();
-  if (getUserError) {
-    throw getUserError;
-  }
-  if (!user) {
-    throw new Error("User not found");
-  }
+  // const {
+  //   data: { user },
+  //   error: getUserError,
+  // } = await supabase.auth.getUser();
+  // if (getUserError) {
+  //   throw getUserError;
+  // }
+  // if (!user) {
+  //   throw new Error("User not found");
+  // }
 
-  if (!user.phone && !user.new_phone) {
-    throw new Error("User phone is not set");
-  }
+  // if (!user.phone && !user.new_phone) {
+  //   throw new Error("User phone is not set");
+  // }
 
-  const isPhoneChange = !!user.new_phone;
+  // const isPhoneChange = !!user.new_phone;
 
-  const phone = isPhoneChange ? user.new_phone : user.phone;
+  // const phone = isPhoneChange ? user.new_phone : user.phone;
 
-  if (!phone) throw new Error("User phone is not set");
+  // if (!phone) throw new Error("User phone is not set");
 
   const { data, error } = await supabase.auth.verifyOtp({
-    phone,
+    phone: parsedInput.data.phone,
     token: parsedInput.data.token,
-    type: isPhoneChange ? "phone_change" : "sms",
+    type: parsedInput.data.isChange ? "phone_change" : "sms",
   });
 
   if (error) {

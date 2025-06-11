@@ -7,12 +7,28 @@ import {
 import { UserForPhoneLoginSchema } from "@/lib/data/models/schemas/login.schema";
 import { loginWithPhone, verifyOtp } from "@/lib/data/supabase/auth";
 import { actionClient } from "@/lib/safe-action";
+import { AuthApiError } from "@supabase/supabase-js";
+import { returnValidationErrors } from "next-safe-action";
 import { redirect } from "next/navigation";
 
 export const otpVerifyAction = actionClient
   .inputSchema(UserVerifyPhoneSchema)
   .action(async ({ parsedInput: data }) => {
-    const { user, session } = await verifyOtp(data);
+    try {
+      const { user, session } = await verifyOtp(data);
 
-    redirect(`${ROUTES.HOME}`);
+      redirect(`${ROUTES.HOME}`);
+    } catch (error) {
+      if (error instanceof AuthApiError) {
+        returnValidationErrors(UserVerifyPhoneSchema, {
+          _errors: [error.message],
+        });
+      }
+
+      returnValidationErrors(UserVerifyPhoneSchema, {
+        _errors: [`${error}`],
+
+      })
+    }
+
   });

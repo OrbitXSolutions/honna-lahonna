@@ -1,3 +1,4 @@
+import { ROUTES } from "@/lib/constants/routes";
 import Logo from "../atoms/logo";
 import PhoneOtpForm from "../organisms/phone-otp-form";
 import {
@@ -7,8 +8,15 @@ import {
   CardDescription,
   CardContent,
 } from "../ui/card";
+import { createSsrClient } from "@/lib/supabase/server";
+import { NextPageParams } from "@/lib/utils/next-page-types";
+import { redirect } from "next/navigation";
+import { PrismaClient } from "@/lib/generated/prisma";
+import { Suspense } from "react";
 
-export default function PhoneOtpTemplate() {
+export default async function PhoneOtpTemplate() {
+
+
   return (
     <Card className="mx-auto max-w-sm bg-white my-10" suppressHydrationWarning>
       <CardHeader>
@@ -20,7 +28,9 @@ export default function PhoneOtpTemplate() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <PhoneOtpForm />
+        <Suspense>
+          <PhoneOtpForm />
+        </Suspense>
       </CardContent>
     </Card>
   );

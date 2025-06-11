@@ -18,17 +18,19 @@ import {
 import { IconArrow } from "../icons";
 import Link from "next/link";
 import AppButton from "../atoms/app-button";
-import AppLink from "../atoms/app-link";
+import AppLink from '../atoms/app-link';
+import { useSupabaseUser } from "@/hooks/use-supabase-user";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   // user: User | null
-  onSignOut?: () => Promise<void>;
+  // onSignOut?: () => Promise<void>;
   [key: string]: any;
 }
 
-export default function NavMenu({ isOpen, onClose, user, onSignOut }: Props) {
+export default function NavMenu({ isOpen, onClose }: Props) {
+  const { user, loading, mounted } = useSupabaseUser();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -54,7 +56,7 @@ export default function NavMenu({ isOpen, onClose, user, onSignOut }: Props) {
   };
 
   const handleSignOutClick = async () => {
-    await onSignOut?.();
+    // await onSignOut?.();
     onClose();
   };
 
@@ -138,25 +140,27 @@ export default function NavMenu({ isOpen, onClose, user, onSignOut }: Props) {
                 >
                   {user ? (
                     <>
-                      {/* <Link href="/profile" onClick={handleLinkClick}>
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full border-2 border-primary text-primary hover:bg-primary-light rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium flex items-center justify-center gap-2"
-                          >
-                            <UserCircle className="h-5 w-5 sm:h-6 sm:w-6" />
-                            {user.email?.split('@')[0]}
-                          </Button>
-                        </Link> */}
-                      <Button
-                        onClick={handleSignOutClick}
+                      <Link href="/profile" onClick={handleLinkClick}>
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          className="w-full border-2 border-primary text-primary hover:bg-primary-light rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium flex items-center justify-center gap-2"
+                        >
+                          <UserCircle className="h-5 w-5 sm:h-6 sm:w-6" />
+                          {user.user_metadata["first_name"] ? user.user_metadata["first_name"][0].toUpperCase() : "U"}
+                        </Button>
+                      </Link>
+                      <AppButton
+
                         variant="outline"
                         size="lg"
                         className="w-full border-2 border-red-500 text-red-500 hover:bg-red-50 rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium flex items-center justify-center gap-2"
                       >
-                        <LogOut className="h-5 w-5 sm:h-6 sm:w-6" />
-                        {"تسجيل الخروج"}
-                      </Button>
+                        <AppLink href={ROUTES.LOGOUT} onClick={handleSignOutClick}>
+                          <LogOut className="h-5 w-5 sm:h-6 sm:w-6" />
+                          {"تسجيل الخروج"}
+                        </AppLink>
+                      </AppButton>
                     </>
                   ) : (
                     <>
@@ -166,10 +170,10 @@ export default function NavMenu({ isOpen, onClose, user, onSignOut }: Props) {
                         size="lg"
                         className="w-full border-2 border-primary text-primary hover:bg-primary-light rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium flex items-center justify-center gap-2"
                       >
-                        <Link href="/login" onClick={handleLinkClick}>
+                        <AppLink href={ROUTES.LOGIN} onClick={handleLinkClick}>
                           <LogIn className="h-5 w-5 sm:h-6 sm:w-6" />
                           {"تسجيل الدخول"}
-                        </Link>
+                        </AppLink>
                       </AppButton>
 
                       <Button
@@ -177,7 +181,7 @@ export default function NavMenu({ isOpen, onClose, user, onSignOut }: Props) {
                         asChild
                         className="w-full bg-primary hover:bg-primary/90 text-white rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
                       >
-                        <AppLink href="/register" onClick={handleLinkClick}>
+                        <AppLink href={ROUTES.LOGOUT} onClick={handleLinkClick}>
                           <UserPlus className="h-5 w-5 sm:h-6 sm:w-6" />
                           <span>{"تسجيل"}</span>
                           <IconArrow />

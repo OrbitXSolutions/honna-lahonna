@@ -4,12 +4,13 @@ export enum ROUTES {
   PARTNERS = "/partners",
   TESTIMONIALS = "/testimonials",
   LOGIN = "/login",
+  LOGOUT = "/logout",
   OTP = "/otp",
   SET_PHONE = "/set-phone",
   REGISTER = "/register",
   SIGNUP = "/signup",
 
-  SERVICE_PROVIDER_REGISTRATION_FORM = "/service-provider-registration-form",
+  SERVICE_PROVIDER_REGISTRATION_FORM = "/service-provider/register",
 
   DASHBOARD = "/dashboard",
   PROFILE = "/profile",

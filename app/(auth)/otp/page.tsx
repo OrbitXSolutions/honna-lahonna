@@ -1,6 +1,6 @@
 import PhoneOtpTemplate from "@/components/templates/phone-otp-template";
-import RegisterTemplate from "@/components/templates/register-template";
+import { NextPageParams } from "@/lib/utils/next-page-types";
 
-export default function OtpPage() {
+export default async function OtpPage() {
   return <PhoneOtpTemplate />;
 }

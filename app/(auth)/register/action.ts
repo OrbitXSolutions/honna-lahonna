@@ -14,12 +14,21 @@ import { redirect } from "next/navigation";
 export const registerAction = actionClient
   .inputSchema(UserForRegisterSchema)
   .action(async ({ parsedInput: data }) => {
+    debugger;
     const { user, session } = await registerUser(data);
+
+    console.log("User registered: action", user, session);
+
 
     if (!user?.phone) {
       redirect(`${ROUTES.SET_PHONE}`);
     }
     if (!user.phone_confirmed_at) {
-      redirect(`${ROUTES.OTP}`);
+      redirect(`${ROUTES.OTP}?phone=${user.phone}`);
     }
+
+
+    return {
+      successful: true,
+    };
   });
