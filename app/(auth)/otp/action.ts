@@ -15,20 +15,20 @@ export const otpVerifyAction = actionClient
   .inputSchema(UserVerifyPhoneSchema)
   .action(async ({ parsedInput: data }) => {
     try {
-const { user, session } = await verifyOtp(data);
+      const { user, session } = await verifyOtp(data);
 
-    redirect(`${ROUTES.HOME}`);
-    } catch (error) { 
+      redirect(`${ROUTES.HOME}`);
+    } catch (error) {
       if (error instanceof AuthApiError) {
-        return returnValidationErrors(UserVerifyPhoneSchema, {
+        returnValidationErrors(UserVerifyPhoneSchema, {
           _errors: [error.message],
         });
       }
- 
-       return returnValidationErrors(UserVerifyPhoneSchema, {
-         _errors: [`${error}`],
-         
-        })
+
+      returnValidationErrors(UserVerifyPhoneSchema, {
+        _errors: [`${error}`],
+
+      })
     }
-    
+
   });

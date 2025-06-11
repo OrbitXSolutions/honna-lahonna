@@ -39,16 +39,12 @@ export async function registerUser(user: UserForRegister) {
   });
 
   if (error) {
+    console.error("Error during user registration:", error);
     throw error;
   }
-  if (!data.session) {
-    throw new Error("User registration failed");
-  }
 
-  // const adminClient = await createAdminClient();
-  // adminClient.auth.admin.updateUserById(data.user.id, {
-  //   phone: parsedUser.data.phone,
-  // });
+
+  console.log("User registered:", data.user);
 
   return data;
 }
@@ -125,7 +121,7 @@ export async function verifyOtp(input: UserVerifyPhone) {
   ) {
     throw new Error(
       "Invalid user data: " +
-        JSON.stringify(parsedInput.error?.issues ?? `Invalid input`)
+      JSON.stringify(parsedInput.error?.issues ?? `Invalid input`)
     );
   }
   const supabase = await createSsrClient();

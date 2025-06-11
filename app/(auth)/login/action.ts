@@ -27,11 +27,11 @@ export const loginAction = actionClient
         if (error.code === 'phone_not_confirmed') {
           redirect(`${ROUTES.OTP}?phone=${data.phone}`);
         }
-        return returnValidationErrors(UserForPhoneLoginSchema, {
+        returnValidationErrors(UserForPhoneLoginSchema, {
           _errors: [`${error.message}`]
         });
       }
-      return returnValidationErrors(UserForPhoneLoginSchema, {
+      returnValidationErrors(UserForPhoneLoginSchema, {
         _errors: [`${error}`]
       });
     }

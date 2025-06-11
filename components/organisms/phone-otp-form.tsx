@@ -27,13 +27,19 @@ import {
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import ResendOtpButton from "../atoms/app-resent-otp-button";
+import { useSearchParams } from "next/navigation";
+import { useSupabaseUser } from "@/hooks/use-supabase-user";
 
 interface Props {
   phone: string;
   isChange: boolean;
 }
 
-export default function PhoneOtpForm({ phone, isChange }: Props) {
+export default function PhoneOtpForm() {
+  const searchParams = useSearchParams();
+  const { user } = useSupabaseUser();
+  const phone = user ? user.new_phone : searchParams.get("phone") || "";
+  const isChange = user ? true : false;
   const {
     form,
     action,

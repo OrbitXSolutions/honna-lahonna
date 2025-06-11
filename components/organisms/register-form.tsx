@@ -78,7 +78,7 @@ export default function RegisterForm() {
     resetFormAndAction: resetForm,
   } = useHookFormAction(registerAction, zodResolver(UserForRegisterSchema), {
     actionProps: {
-     
+
       onSuccess: ({ data }) => {
         toast.success("تم التسجيل بنجاح");
       },
@@ -92,7 +92,7 @@ export default function RegisterForm() {
       mode: "onBlur",
       defaultValues: UserForRegisterDefaultValues,
     },
-  }, );
+  },);
 
   return (
     <Form {...form} >
