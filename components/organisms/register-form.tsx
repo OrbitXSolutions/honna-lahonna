@@ -22,6 +22,7 @@ import {
 import { Input } from "../ui/input";
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
+import { PhoneInput } from "../ui/phone-input";
 
 interface RegisterFieldData {
   name: keyof UserForRegister;
@@ -53,7 +54,7 @@ const registerFields: RegisterFieldData[] = [
     name: "phone",
     type: "tel",
     label: "رقم الهاتف",
-    placeholder: "+201234567890",
+    placeholder: "01234567890",
   },
   {
     name: "password",
@@ -78,7 +79,6 @@ export default function RegisterForm() {
     resetFormAndAction: resetForm,
   } = useHookFormAction(registerAction, zodResolver(UserForRegisterSchema), {
     actionProps: {
-
       onSuccess: ({ data }) => {
         toast.success("تم التسجيل بنجاح");
       },
@@ -92,10 +92,10 @@ export default function RegisterForm() {
       mode: "onBlur",
       defaultValues: UserForRegisterDefaultValues,
     },
-  },);
+  });
 
   return (
-    <Form {...form} >
+    <Form {...form}>
       <form onSubmit={onSubmit} className="space-y-6">
         {/* Server Error Display */}
         {action.hasErrored && (
@@ -117,13 +117,25 @@ export default function RegisterForm() {
                 <FormItem className="space-y-2">
                   <FormLabel htmlFor={field.name}>{fieldData.label}</FormLabel>
                   <FormControl>
-                    <Input
-                      id={field.name}
-                      type={fieldData.type}
-                      placeholder={fieldData.placeholder}
-                      disabled={action.isPending}
-                      {...field}
-                    />
+                    {fieldData.type === "tel" ? (
+                      // Use PhoneInput for telephone fields
+                      <PhoneInput
+                        id={field.name}
+                        initialValueFormat="national"
+                        disabled={action.isPending}
+                        placeholder={fieldData.placeholder}
+                        {...field}
+                      />
+                    ) : (
+                      <Input
+                        id={field.name}
+                        type={fieldData.type}
+                        placeholder={fieldData.placeholder}
+                        disabled={action.isPending}
+                        {...field}
+                      />
+                    )}
+                    {/* <PhoneInput placeholder="Enter a phone number" {...field} /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>

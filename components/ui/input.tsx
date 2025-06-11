@@ -1,13 +1,9 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { PhoneInput } from "./phone-input";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  if (type == "tel") {
-    props.dir = "ltr"; // Ensure that telephone inputs are always left-to-right
-    className = cn(className, "text-right");
-    (props.style ??= {}).direction = "ltr"; // Ensure that telephone inputs are always left-to-right
-  }
   return (
     <input
       type={type}

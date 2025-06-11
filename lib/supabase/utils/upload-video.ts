@@ -19,5 +19,8 @@ export async function uploadVideo(file: File, fileName: string = "") {
   if (error) {
     throw new Error(`Error uploading file: ${error.message}`);
   }
-  return data;
+  // onle the file name without the path
+  const filePath = data.path;
+  const fileNameOnly = filePath.split("/").pop() || "";
+  return fileNameOnly;
 }

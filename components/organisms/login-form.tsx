@@ -21,6 +21,7 @@ import { Input } from "../ui/input";
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import { loginAction } from "@/app/(auth)/login/action";
+import { PhoneInput } from "../ui/phone-input";
 
 interface LoginFieldData {
   name: keyof UserForPhoneLogin;
@@ -34,7 +35,7 @@ const loginFields: LoginFieldData[] = [
     name: "phone",
     type: "tel",
     label: "رقم الهاتف",
-    placeholder: "+201234567890",
+    placeholder: "01234567890",
   },
   {
     name: "password",
@@ -63,7 +64,10 @@ export default function LoginForm() {
 
     formProps: {
       mode: "onBlur",
-      defaultValues: UserForPhoneLoginDefaultValues,
+      defaultValues: {
+        ...UserForPhoneLoginDefaultValues,
+        // phone: "+201234567890", // Default phone number format
+      },
     },
   });
 
@@ -90,13 +94,23 @@ export default function LoginForm() {
                 <FormItem className="space-y-2">
                   <FormLabel htmlFor={field.name}>{fieldData.label}</FormLabel>
                   <FormControl>
-                    <Input
-                      id={field.name}
-                      type={fieldData.type}
-                      placeholder={fieldData.placeholder}
-                      disabled={action.isPending}
-                      {...field}
-                    />
+                    {fieldData.type === "tel" ? (
+                      <PhoneInput
+                        id={field.name}
+                        initialValueFormat="national"
+                        placeholder={fieldData.placeholder}
+                        disabled={action.isPending}
+                        {...field}
+                      />
+                    ) : (
+                      <Input
+                        id={field.name}
+                        type={fieldData.type}
+                        placeholder={fieldData.placeholder}
+                        disabled={action.isPending}
+                        {...field}
+                      />
+                    )}
                   </FormControl>
                   <FormMessage />
                 </FormItem>

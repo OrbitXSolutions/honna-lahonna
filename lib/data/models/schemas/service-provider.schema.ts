@@ -226,11 +226,21 @@ export const privateDocumentsSchema = z.object({
   notes: z.string().max(500, "الملاحظات طويلة جداً").optional(),
 });
 
-export const serviceProvideSchema = z.object({
+export const serviceProviderSchema = z.object({
   ...serviceDetails.shape,
   ...serviceProviderSocialMediaSchema.shape,
   ...providerDetailsSchema.shape,
   ...privateDocumentsSchema.shape,
+});
+
+export const serviceProviderTestSchema = z.object({
+  service_name: z.string().min(3, "اسم الخدمة مطلوب"),
+  logo_image_file: z
+    .file("اختر صورة")
+    .max(MAX_LOGO_SIZE_BYTES, "حجم الصورة كبير")
+    .mime(ACCEPTED_IMAGE_MIMES, "صيغة الصورة غير مدعومة")
+    .optional()
+    .nullable(),
 });
 
 export const serviceProviderFormDetailsStepSchema = z
@@ -304,7 +314,7 @@ export type ServiceProviderFormDocumentsStep = z.infer<
   typeof serviceProviderFormDocumentsStepSchema
 >;
 export type ServiceProviderCreateOrUpdate = z.infer<
-  typeof serviceProvideSchema
+  typeof serviceProviderSchema
 >;
 
 export const ServiceProviderFormDetailsStepDefaultValues: ServiceProviderFormDetailsStep =

@@ -1,6 +1,5 @@
-import RegisterTemplate from "@/components/templates/register-template";
-import SetPhoneTemplate from "@/components/templates/set-phone-template";
+import ServiceProviderRegisterTemplate from "@/components/templates/service-proivder-register.template";
 
-export default function SetPhonePage() {
-  return <SetPhoneTemplate />;
+export default function ServiceProviderRegisterPage() {
+  return <ServiceProviderRegisterTemplate />;
 }
