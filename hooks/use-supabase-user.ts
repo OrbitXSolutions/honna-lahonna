@@ -9,8 +9,10 @@ import { createClient } from "@/lib/supabase/client";
 export function useSupabaseUser() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const supabase = createClient();
         const fetchUser = async () => {
             try {
@@ -40,5 +42,5 @@ export function useSupabaseUser() {
         };
     }, []);
 
-    return { user, loading };
+    return { user, loading, mounted };
 }

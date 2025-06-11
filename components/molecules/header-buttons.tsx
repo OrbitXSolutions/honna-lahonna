@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"; // Assuming shadcn/ui path
 import { LogOut, UserPlus } from "lucide-react"; // Example icons
 import { useSupabaseUser } from "@/hooks/use-supabase-user";
+import { Skeleton } from "../ui/skeleton";
 
 interface HeaderButtonsProps {
   className?: string;
@@ -27,11 +28,14 @@ export default function HeaderButtons({
   className = "",
   ...props
 }: Readonly<HeaderButtonsProps>) {
-  const { user, loading } = useSupabaseUser();
+  const { user, loading, mounted } = useSupabaseUser();
 
-  if (loading) {
+  if (loading && mounted) {
     // Optional: render a loading state or null
-    return <div className="w-20 h-10 bg-gray-200 animate-pulse rounded-md" />; // Placeholder for loading
+    return <div className={`flex items-center gap-1 ${className ?? ""}`} {...props}>
+      {children}
+      <Skeleton className="h-10 w-10 rounded-full" /> {/* Skeleton for Avatar */}
+    </div>
   }
 
   if (user) {
