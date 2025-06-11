@@ -38,11 +38,11 @@ export async function registerUser(user: UserForRegister) {
     },
   });
 
-  const { data: signInData, error: errorData } =
-    await supabase.auth.signInWithIdToken({
-      provider: "phone",
-      token: data.session?.access_token || "",
-    });
+  // const { data: signInData, error: errorData } =
+  //   await supabase.auth.signInWithIdToken({
+  //     provider: "phone",
+  //     token: data.session?.access_token || "",
+  //   });
 
   if (error) {
     console.error("Error during user registration:", error);

@@ -14,11 +14,9 @@ import { redirect } from "next/navigation";
 export const registerAction = actionClient
   .inputSchema(UserForRegisterSchema)
   .action(async ({ parsedInput: data }) => {
-    debugger;
     const { user, session } = await registerUser(data);
 
     console.log("User registered: action", user, session);
-
 
     if (!user?.phone) {
       redirect(`${ROUTES.SET_PHONE}`);
@@ -27,8 +25,5 @@ export const registerAction = actionClient
       redirect(`${ROUTES.OTP}?phone=${user.phone}`);
     }
 
-
-    return {
-      successful: true,
-    };
+    redirect(`${ROUTES.HOME}`);
   });

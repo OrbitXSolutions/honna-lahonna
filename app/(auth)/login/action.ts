@@ -12,28 +12,25 @@ import { AuthApiError } from "@supabase/supabase-js";
 export const loginAction = actionClient
   .inputSchema(UserForPhoneLoginSchema)
   .action(async ({ parsedInput: data }) => {
-    try {
-      const { user, session } = await loginWithPhone(data);
-
-      if (!user?.phone) {
-        redirect(`${ROUTES.SET_PHONE}`);
-      }
-      if (!user.phone_confirmed_at) {
-        redirect(`${ROUTES.OTP}`);
-      }
-      redirect(ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM);
-    } catch (error) {
+    const { user, session } = await loginWithPhone(data).catch((error) => {
       if (error instanceof AuthApiError) {
-        if (error.code === 'phone_not_confirmed') {
-          redirect(`${ROUTES.OTP}?phone=${data.phone}`);
-        }
         returnValidationErrors(UserForPhoneLoginSchema, {
-          _errors: [`${error.message}`]
+          _errors: [`${error.message}`],
+        });
+      } else {
+        returnValidationErrors(UserForPhoneLoginSchema, {
+          _errors: [`${error}`],
         });
       }
-      returnValidationErrors(UserForPhoneLoginSchema, {
-        _errors: [`${error}`]
-      });
-    }
+    });
 
+    if (!user?.phone) {
+      redirect(`${ROUTES.SET_PHONE}`);
+    }
+    if (!user.phone_confirmed_at) {
+      redirect(`${ROUTES.OTP}`);
+    }
+    redirect(ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM);
+
+    // }
   });

@@ -1,6 +1,14 @@
+import { otpMiddleware } from "@/app/(auth)/otp/otp.middleware";
 import { createServerClient } from "@supabase/ssr";
+import { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
-import { ROUTES } from "../constants/routes";
+
+export interface SupabaseMiddleware {
+  request: NextRequest;
+  supabaseResponse: NextResponse;
+  supabase: SupabaseClient;
+  user: User | null;
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -39,72 +47,34 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // if (
+  //   !user &&
+  //   request.nextUrl.pathname.startsWith("/otp") &&
+  //   !request.nextUrl.searchParams.has("test")
+  // ) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = "/otp";
+  //   url.searchParams.set("test", "test");
+  //   return NextResponse.redirect(url);
+  // }
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+  supabaseResponse = await otpMiddleware({
+    request,
+    supabaseResponse,
+    supabase,
+    user,
+  });
+  // if (
+  //   !user &&
+  //   !request.nextUrl.pathname.startsWith("/login") &&
+  //   !request.nextUrl.pathname.startsWith("/auth")
+  // ) {
+  //   // no user, potentially respond by redirecting the user to the login page
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = "/login";
+  //   return NextResponse.redirect(url);
+  // }
 
-  if (request.nextUrl.pathname.startsWith(ROUTES.OTP)) {
-    if (!user) {
-      if (request.nextUrl.searchParams.has("phone")) {
-        // if the user is not logged in, but the phone is provided in the URL,
-        // we can allow access to the OTP page
-        const phone = request.nextUrl.searchParams.get("phone");
-        if (!phone) {
-          // if no phone is provided, redirect to login
-          const url = request.nextUrl.clone();
-          url.pathname = ROUTES.LOGIN;
-          return NextResponse.redirect(url);
-        } else {
-          const { data: user, error } = await supabase.from("users").select("*").eq("phone", phone).single();
-          if (error || !user) {
-            // if no user is found with the provided phone, redirect to login
-            const url = request.nextUrl.clone();
-            url.pathname = ROUTES.LOGIN;
-            return NextResponse.redirect(url);
-          }
-        }
-      }
-      else {
-        // if no user and no phone is provided, redirect to login
-        const url = request.nextUrl.clone();
-        url.pathname = ROUTES.LOGIN;
-        return NextResponse.redirect(url);
-      }
-    } else {
-      if (!user.new_phone) {
-        // if the user is logged in but has no new phone set, redirect to set phone page
-        const url = request.nextUrl.clone();
-        url.pathname = ROUTES.SET_PHONE;
-        return NextResponse.redirect(url);
-      }
-      const url = request.nextUrl.clone();
-      url.searchParams.set('isChanged', 'true'); // add a new param
-      supabaseResponse = NextResponse.rewrite(url);
-    }
-
-  }
-
-  if (!user?.phone) {
-    // no phone, potentially respond by redirecting the user to the set phone page
-    const url = request.nextUrl.clone();
-    url.pathname = ROUTES.SET_PHONE;
-    return NextResponse.redirect(url);
-  }
-
-  if (!user?.phone_confirmed_at) {
-    // phone not confirmed, potentially respond by redirecting the user to the OTP page
-    const url = request.nextUrl.clone();
-    url.pathname = ROUTES.OTP;
-    return NextResponse.redirect(url);
-  }
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:

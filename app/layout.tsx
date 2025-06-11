@@ -31,7 +31,9 @@ export default function RootLayout({
     <>
       <html lang="ar" dir="rtl" suppressHydrationWarning>
         <head />
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col`}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -41,16 +43,12 @@ export default function RootLayout({
             <AppHeader />
 
             {/* <PlaygroundHeader /> */}
-            <main className="flex-grow">
-              {children}
-
-            </main>
+            <main className="flex-grow">{children}</main>
             <AppFooter />
-             <Toaster />
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
     </>
-  )
-
+  );
 }

@@ -16,19 +16,18 @@ export const otpVerifyAction = actionClient
   .action(async ({ parsedInput: data }) => {
     try {
       const { user, session } = await verifyOtp(data);
-
-      redirect(`${ROUTES.HOME}`);
     } catch (error) {
       if (error instanceof AuthApiError) {
         returnValidationErrors(UserVerifyPhoneSchema, {
-          _errors: [error.message],
+          // _errors: [error.message],
+          _errors: [`${error.message}`],
         });
       }
 
       returnValidationErrors(UserVerifyPhoneSchema, {
         _errors: [`${error}`],
-
-      })
+      });
     }
 
+    redirect(`${ROUTES.HOME}`);
   });

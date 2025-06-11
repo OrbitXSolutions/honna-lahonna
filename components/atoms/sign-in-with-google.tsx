@@ -14,7 +14,7 @@ export async function handleSignInWithGoogle(response: any) {
     provider: "google",
     token: response.credential,
   });
-  debugger;
+
   if (!user?.phone) {
     // Redirect to set phone page if phone is not set
     window.location.href = ROUTES.SET_PHONE;
@@ -22,6 +22,9 @@ export async function handleSignInWithGoogle(response: any) {
     if (!user?.phone_confirmed_at) {
       // Redirect to OTP page if phone is not confirmed
       window.location.href = ROUTES.OTP;
+    } else {
+      // Redirect to home page if phone is confirmed
+      window.location.href = ROUTES.HOME;
     }
   }
 }

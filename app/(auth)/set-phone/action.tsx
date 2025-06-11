@@ -11,5 +11,5 @@ export const setPhoneAction = actionClient
   .action(async ({ parsedInput: data }) => {
     const { user } = await setUserPhone(data);
 
-    redirect(`${ROUTES.HOME}`);
+    redirect(`${ROUTES.OTP}?phone=${user?.new_phone || ""}&isChanging=true`);
   });

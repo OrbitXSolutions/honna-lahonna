@@ -37,10 +37,8 @@ interface Props {
 
 export default function PhoneOtpForm() {
   const searchParams = useSearchParams();
-
-  const { user } = useSupabaseUser();
-  const phone = user ? user.new_phone : searchParams.get("phone") || "";
-  const isChange = user ? true : false;
+  const phone = searchParams.get("phone") || "";
+  const isChange = searchParams.has("isChanging");
   const {
     form,
     action,
@@ -53,8 +51,14 @@ export default function PhoneOtpForm() {
       },
       onError: ({ error }) => {
         console.error("Registration error:", error);
-        toast.error("فشل في التسجيل");
-        resetForm();
+
+        toast.error(
+          error.serverError ??
+            error.validationErrors?._errors?.join(", ") ??
+            error.thrownError?.message ??
+            "فشل في التسجيل"
+        );
+        // resetForm();
       },
     },
 
@@ -80,8 +84,9 @@ export default function PhoneOtpForm() {
         {action.hasErrored && (
           <div className="rounded-md bg-red-50 p-4">
             <p className="text-sm text-destructive text-center">
-              {action.result?.serverError || "حدث خطأ في الخادم"}
               {action.result?.validationErrors?._errors?.join(", ")}
+
+              {action.result?.serverError}
             </p>
           </div>
         )}

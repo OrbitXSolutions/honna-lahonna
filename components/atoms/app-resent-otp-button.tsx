@@ -9,42 +9,22 @@ import { useSearchParams } from "next/navigation";
 
 const COOLDOWN_SECONDS = 60; // 60 seconds cooldown
 
-async function resendPhoneOtp(phone = '') {
+async function resendPhoneOtp(phone = "", isChange = false) {
   const supabase = createClient();
-  const { data: {user}, error } = await supabase.auth.getUser();
-  const isChange = user ?? false ;
-  if (isChange) {
-    if (error) {
-      throw error;
-    }
-    if (!user) {
-      throw new Error("User not found");
-    }
-    const phone = user.new_phone;
-    if (!phone) {
-      throw new Error("User phone is not set");
-    }
 
-    return await supabase.auth.resend({
-      phone,
-      type: "phone_change",
-    });
-  } else {
-    return await supabase.auth.resend({
-      phone,
-      type: "sms",
-    });
-  }
+  return await supabase.auth.resend({
+    phone,
+    type: isChange ? "phone_change" : "sms",
+  });
 }
 
 export default function ResendOtpButton() {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isCooldownActive, setIsCooldownActive] = useState(false);
   const [cooldownTimeRemaining, setCooldownTimeRemaining] =
     useState(COOLDOWN_SECONDS);
-  
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -63,10 +43,11 @@ export default function ResendOtpButton() {
     setIsLoading(true);
     setError(null);
     try {
-      const phone = searchParams.get("phone") || '';
-      await resendPhoneOtp(phone);
+      const phone = searchParams.get("phone") || "";
+      const isChange = searchParams.has("isChanging");
+      await resendPhoneOtp(phone, isChange);
       //   toast.success("OTP has been resent successfully!");
-      
+
       setIsCooldownActive(true);
     } catch (err) {
       const errorMessage =
