@@ -25,7 +25,17 @@ import {
   completeFormSchema,
   acceptAnySchema,
 } from "@/lib/validations";
-import { Camera, FileText, Video, Award } from "lucide-react";
+import {
+  Camera,
+  FileText,
+  Video,
+  Award,
+  CheckCircle,
+  FileImage,
+  Globe,
+  MapPin,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import { governorates, service_categories } from "@/lib/generated/prisma";
 import { getServiceCategories } from "@/lib/data/prisma/service-categories";
@@ -38,6 +48,8 @@ import { uploadVideo } from "@/lib/supabase/utils/upload-video";
 import { FileUpload } from "../atoms/file-upload";
 import { registerProviderClientAction } from "@/app/service-provider/register/action";
 import { useAction } from "next-safe-action/hooks";
+import { motion } from "motion/react";
+import Logo from "../atoms/logo";
 
 const steps = [
   {
@@ -50,12 +62,79 @@ const steps = [
     title: "التوثيق والشهادات",
     description: "رفع الوثائق والشهادات المطلوبة",
   },
-];
+] as const;
 
+const ServiceInfoRequirements = [
+  {
+    icon: <FileImage className="h-5 w-5 text-primary" />,
+    title: "صورة الشعار أو الخدمة",
+    description: "يفضل أن تكون صورة مربعة وواضحة تعبر عن الخدمة.",
+  },
+  {
+    icon: <FileText className="h-5 w-5 text-primary" />,
+    title: "اسم الخدمة",
+    description: "الاسم الذي سيظهر للعملاء للتعريف بخدمتك.",
+  },
+  {
+    icon: <FileText className="h-5 w-5 text-primary" />,
+    title: "وصف الخدمة",
+    description: "شرح مفصل للخدمة التي تقدمها وما يميزها.",
+  },
+  {
+    icon: <MapPin className="h-5 w-5 text-primary" />,
+    title: "التصنيف والمحافظة",
+    description: "تحديد تصنيف الخدمة والمحافظة التي تتواجد بها.",
+  },
+  {
+    icon: <Award className="h-5 w-5 text-primary" />,
+    title: "سنوات الخبرة وطريقة تقديم الخدمة",
+    description: "عدد سنوات خبرتك وكيفية تقديم الخدمة (أونلاين/حضوري).",
+  },
+  {
+    icon: <Users className="h-5 w-5 text-primary" />,
+    title: "المعلومات الشخصية والاتصال",
+    description: "نبذة تعريفية، رقم الهاتف، والعنوان إذا لزم الأمر.",
+  },
+  {
+    icon: <Globe className="h-5 w-5 text-primary" />,
+    title: "روابط التواصل الاجتماعي والموقع الرسمي",
+    description:
+      "روابط صفحاتك على فيسبوك، انستغرام، واتساب، وموقعك الرسمي إن وجد.",
+  },
+] as const;
+
+const TrustDocumentsRequirements = [
+  {
+    icon: <FileImage className="h-5 w-5 text-amber-600" />,
+    title: "صور بطاقة الهوية (الأمام والخلف)",
+    description: "صور واضحة لبطاقة الهوية الوطنية أو جواز السفر.",
+  },
+  {
+    icon: <Video className="h-5 w-5 text-amber-600" />,
+    title: "فيديو تعريفي (اختياري)",
+    description: "فيديو قصير تعرف فيه بنفسك وبخدماتك.",
+  },
+  {
+    icon: <Award className="h-5 w-5 text-amber-600" />,
+    title: "الشهادات",
+    description: "صور من شهادات الخبرة أو المؤهلات العلمية ذات الصلة.",
+  },
+  {
+    icon: <FileText className="h-5 w-5 text-amber-600" />,
+    title: "مستندات إضافية (اختياري)",
+    description: "أي مستندات أخرى تدعم ملفك كمقدم خدمة.",
+  },
+  {
+    icon: <FileText className="h-5 w-5 text-amber-600" />,
+    title: "ملاحظات إضافية (اختياري)",
+    description: "أي معلومات أو ملاحظات تود إضافتها.",
+  },
+] as const;
 export default function MultiStepForm() {
-  const { execute, result, executeAsync } = useAction(
-    registerProviderClientAction
-  );
+  const [showPreStepsInfo, setShowPreStepsInfo] = useState(true);
+
+  const { result, executeAsync } = useAction(registerProviderClientAction);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -261,7 +340,7 @@ export default function MultiStepForm() {
         ...data, // Remove null values
       };
       // delete files
-      debugger;
+      // debugger;
       finalData.logo_image_file = null;
       finalData.id_card_front_image_file = null;
       finalData.id_card_back_image_file = null;
@@ -294,7 +373,156 @@ export default function MultiStepForm() {
   const goBack = () => {
     setCurrentStep(1);
   };
+  if (showPreStepsInfo) {
+    return (
+      <div className="max-w-4xl mx-auto md:px-4 pb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Card className="shadow-xl border-0 overflow-hidden">
+            <CardHeader className="text-center pb-4 sm:pb-6 lg:pb-8 bg-primary-light px-4 sm:px-6 lg:px-8">
+              <Logo className="h-10 sm:h-12 lg:h-16 w-auto mx-auto mb-3 sm:mb-4" />
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 px-2">
+                مرحباً بك في برنامج تسجيل مقدمي الخدمات
+              </CardTitle>
+              <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base px-2">
+                يسعدنا انضمامك إلى منصتنا. يرجى اتباع الخطوات التالية لإكمال
+                عملية التسجيل وتقديم خدماتك لمجتمعنا.
+              </p>
+            </CardHeader>
+            <CardContent className="p-4 sm:p-6 lg:p-8">
+              <div className="space-y-6 sm:space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                    متطلبات التسجيل كمقدم خدمة
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed mb-6">
+                    قبل البدء في عملية التسجيل، يرجى التأكد من أن لديك جميع
+                    المعلومات والمستندات التالية جاهزة. هذا سيسهل عليك إكمال
+                    النموذج بسرعة وكفاءة.
+                  </p>
+                </motion.div>
 
+                {/* Service Information Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="bg-blue-50 border border-blue-200 rounded-lg p-6"
+                >
+                  <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5" />
+                    معلومات الخدمة المطلوبة
+                  </h3>
+                  <div className="space-y-4">
+                    {ServiceInfoRequirements.map((requirement, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.1 + index * 0.05,
+                        }}
+                        className="flex gap-3"
+                      >
+                        <div className="flex-shrink-0 mt-1">
+                          {requirement.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-800 text-sm">
+                            {requirement.title}
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {requirement.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Trust Documents Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="bg-amber-50 border border-amber-200 rounded-lg p-6"
+                >
+                  <h3 className="text-lg font-semibold text-amber-800 mb-4 flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5" />
+                    مستندات التوثيق المطلوبة
+                  </h3>
+                  <div className="space-y-4">
+                    {TrustDocumentsRequirements.map((requirement, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.2 + index * 0.05,
+                        }}
+                        className="flex gap-3"
+                      >
+                        <div className="flex-shrink-0 mt-1">
+                          {requirement.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-800 text-sm">
+                            {requirement.title}
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {requirement.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Important Note */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="bg-gray-50 border border-gray-200 rounded-lg p-4"
+                >
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    <strong>ملاحظة مهمة:</strong> سيتم مراجعة جميع البيانات
+                    والمستندات المقدمة. قد يستغرق الأمر بعض الوقت للموافقة على
+                    طلبك. تأكد من أن جميع المعلومات دقيقة وكاملة لتجنب أي تأخير.
+                  </p>
+                </motion.div>
+
+                {/* Continue Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="flex justify-center pt-4"
+                >
+                  <Button
+                    onClick={() => setShowPreStepsInfo(false)}
+                    className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base font-medium"
+                    size="lg"
+                  >
+                    متابعة إلى خطوات التسجيل
+                  </Button>
+                </motion.div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    );
+  }
   if (isCompleted) {
     return (
       <div className="min-h-screen bg-background p-4">
@@ -303,7 +531,7 @@ export default function MultiStepForm() {
             <CardContent className="p-12">
               <div className="flex justify-center mb-8">
                 <Image
-                  src="/images/step-5-done.png"
+                  src="/success.png"
                   alt="Success"
                   width={300}
                   height={300}
@@ -427,7 +655,7 @@ export default function MultiStepForm() {
                         )}
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-2 dir-rtl" dir="rtl">
                         <Label htmlFor="governorate_id">المدينة</Label>
                         <Select
                           onValueChange={(value) =>
@@ -435,7 +663,7 @@ export default function MultiStepForm() {
                           }
                           defaultValue={step1Form.getValues("governorate_id")}
                         >
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full dir-rtl">
                             <SelectValue placeholder="اختر المدينة" />
                           </SelectTrigger>
                           <SelectContent>
@@ -463,7 +691,7 @@ export default function MultiStepForm() {
                             "service_category_id"
                           )}
                         >
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full dir-rtl">
                             <SelectValue placeholder="اختر التصنيف" />
                           </SelectTrigger>
                           <SelectContent>
@@ -499,7 +727,7 @@ export default function MultiStepForm() {
                             "service_delivery_method"
                           )}
                         >
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full dir-rtl">
                             <SelectValue placeholder="اختر طريقة تقديم الخدمة" />
                           </SelectTrigger>
                           <SelectContent>
@@ -722,14 +950,14 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="flex justify-between">
+                      <Button type="button" variant="outline" disabled>
+                        السابق
+                      </Button>
                       <Button
                         type="submit"
                         className="bg-primary hover:bg-primary/40"
                       >
                         التالي
-                      </Button>
-                      <Button type="button" variant="outline" disabled>
-                        السابق
                       </Button>
                     </div>
                   </form>

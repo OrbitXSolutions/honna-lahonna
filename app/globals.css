@@ -215,6 +215,9 @@
   .dir-ltr {
     direction: ltr;
   }
+  .dir-rtl {
+    direction: rtl;
+  }
 }
 
 @utility image-filter {
@@ -318,4 +321,7 @@
 
 .dir-ltr {
   direction: ltr;
+}
+.dir-rtl {
+  direction: rtl;
 }

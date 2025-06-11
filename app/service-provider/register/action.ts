@@ -21,7 +21,7 @@ export const registerProviderClientAction = actionClient
         ],
       });
     }
-    debugger;
+    // debugger;
     delete data?.logo_image_file;
     delete data?.id_card_front_image_file;
     delete data?.id_card_back_image_file;

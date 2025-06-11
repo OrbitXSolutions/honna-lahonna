@@ -29,5 +29,5 @@ export const otpVerifyAction = actionClient
       });
     }
 
-    redirect(`${ROUTES.HOME}`);
+    redirect(`${ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}`);
   });

@@ -1,4 +1,5 @@
 import { otpMiddleware } from "@/app/(auth)/otp/otp.middleware";
+import { serviceProviderRegisterMiddleware } from "@/app/service-provider/register/service-provider-register.middleware";
 import { createServerClient } from "@supabase/ssr";
 import { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
@@ -59,6 +60,12 @@ export async function updateSession(request: NextRequest) {
   // }
 
   supabaseResponse = await otpMiddleware({
+    request,
+    supabaseResponse,
+    supabase,
+    user,
+  });
+  supabaseResponse = await serviceProviderRegisterMiddleware({
     request,
     supabaseResponse,
     supabase,
