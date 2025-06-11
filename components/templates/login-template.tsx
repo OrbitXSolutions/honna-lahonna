@@ -9,6 +9,7 @@ import { ROUTES } from "@/lib/constants/routes";
 
 const SignInWithGoogle = dynamic(() => import("../atoms/sign-in-with-google"), {
   ssr: false,
+
   loading: () => (
     <Skeleton
       style={{ height: 30 }}

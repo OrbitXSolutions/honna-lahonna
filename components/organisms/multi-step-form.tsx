@@ -353,16 +353,13 @@ export default function MultiStepForm() {
         const _results = await executeAsync(
           JSON.parse(JSON.stringify(finalDataParsed.data))
         );
+        debugger;
 
         if (!_results.data) {
           throw new Error("Failed to register service provider");
         }
 
-        if (result.data) {
-          setIsCompleted(true);
-        } else {
-          throw new Error("Failed to submit form");
-        }
+        setIsCompleted(true);
       }
     } catch (error) {
       console.error("Submission error:", error);
@@ -527,17 +524,39 @@ export default function MultiStepForm() {
   }
   if (isCompleted) {
     return (
-      <div className="min-h-screen bg-background p-4">
+      <div className="h-full bg-background p-4">
         <div className="max-w-4xl mx-auto">
-          <Card className="text-center">
-            <CardContent className="p-12">
+          <Card className="text-center relative overflow-clip">
+            <CardContent className="p-12 ">
               <div className="flex justify-center mb-8">
+                <Image
+                  src="/hunna-lahunn-cover.png"
+                  alt=""
+                  width={555}
+                  height={555}
+                  className="rounded-lg absolute top-5"
+                />
                 <Image
                   src="/success.png"
                   alt="Success"
                   width={300}
                   height={300}
-                  className="rounded-lg"
+                  className="rounded-lg relative"
+                />
+
+                <Image
+                  src="/flower.png"
+                  alt=""
+                  width={200}
+                  height={200}
+                  className="rounded-lg absolute -top-10 -left-15"
+                />
+                <Image
+                  src="/flower.png"
+                  alt="Success"
+                  width={200}
+                  height={200}
+                  className="rounded-lg absolute -top-10 -left-15"
                 />
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
@@ -1055,6 +1074,18 @@ export default function MultiStepForm() {
                             );
                           }
                         }}
+                        onFileRemove={(file) => {
+                          if (!file) return;
+                          const newCerts = certificates.filter(
+                            (doc) => doc.name !== file.name
+                          );
+                          setCertificates(newCerts);
+                          step2Form.setValue(
+                            "certificates_images_files",
+                            newCerts
+                          );
+                        }}
+                        files={certificates}
                         accept="image/*,.pdf"
                         placeholder="ارفع الشهادات والوثائق"
                         icon={<Award className="w-12 h-12 text-primary" />}
@@ -1073,6 +1104,14 @@ export default function MultiStepForm() {
                             step2Form.setValue("document_list_files", newDocs);
                           }
                         }}
+                        onFileRemove={(file) => {
+                          if (!file) return;
+                          const newDocs = documents.filter(
+                            (doc) => doc.name !== file.name
+                          );
+                          setDocuments(newDocs);
+                          step2Form.setValue("document_list_files", newDocs);
+                        }}
                         // onFileSelect={(file) => {
                         //   const currentDocs =
                         //     step2Form.getValues("document_list_files") || [];
@@ -1083,6 +1122,7 @@ export default function MultiStepForm() {
                         //     ]);
                         //   }
                         // }}
+                        files={documents}
                         accept="image/*,.pdf,.doc,.docx"
                         placeholder="ارفع وثائق إضافية"
                         icon={<FileText className="w-12 h-12 text-primary" />}

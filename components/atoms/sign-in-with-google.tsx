@@ -2,8 +2,9 @@
 
 import { ROUTES } from "@/lib/constants/routes";
 import { createClient } from "@/lib/supabase/client";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
-import { useLayoutEffect } from "react";
+import { use, useEffect, useLayoutEffect } from "react";
 
 export async function handleSignInWithGoogle(response: any) {
   const supabase = createClient();
@@ -33,6 +34,7 @@ export async function handleSignInWithGoogle(response: any) {
   }
 }
 export default function SignInWithGoogle() {
+  const pathname = usePathname();
   useLayoutEffect(() => {
     if (typeof window != "undefined")
       (window as any).handleSignInWithGoogle = handleSignInWithGoogle;
@@ -43,6 +45,24 @@ export default function SignInWithGoogle() {
       }
     };
   }, [handleSignInWithGoogle]);
+
+  useEffect(() => {
+    if (typeof window != "undefined") {
+      // rerender the google sign-in button
+      const googleSignInButton = document.querySelector(".g_id_signin");
+      if (googleSignInButton) {
+        googleSignInButton.innerHTML = "";
+        (window as any).google?.accounts?.id?.renderButton(googleSignInButton, {
+          theme: "outline",
+          size: "large",
+          shape: "rectangular",
+          text: "continue_with",
+          locale: "ar",
+          logo_alignment: "left",
+        });
+      }
+    }
+  }, [pathname]);
   return (
     <>
       <Script src="https://accounts.google.com/gsi/client" async />
