@@ -1,3 +1,6 @@
 import { createSafeActionClient } from "next-safe-action";
 
-export const actionClient = createSafeActionClient();
+export const actionClient = createSafeActionClient({
+    // defaultValidationErrorsShape: "flattened",
+    throwValidationErrors: true,
+});

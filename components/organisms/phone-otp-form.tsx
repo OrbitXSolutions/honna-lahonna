@@ -28,7 +28,12 @@ import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import ResendOtpButton from "../atoms/app-resent-otp-button";
 
-export default function PhoneOtpForm() {
+interface Props {
+  phone: string;
+  isChange: boolean;
+}
+
+export default function PhoneOtpForm({ phone, isChange }: Props) {
   const {
     form,
     action,
@@ -49,6 +54,11 @@ export default function PhoneOtpForm() {
     formProps: {
       mode: "onBlur",
       defaultValues: UserVerifyPhoneDefaultValues,
+      values: {
+        phone,
+        isChange,
+        token: "",
+      },
     },
   });
   return (
@@ -59,10 +69,12 @@ export default function PhoneOtpForm() {
         suppressHydrationWarning
       >
         {/* Server Error Display */}
+        
         {action.hasErrored && (
           <div className="rounded-md bg-red-50 p-4">
             <p className="text-sm text-destructive text-center">
               {action.result?.serverError || "حدث خطأ في الخادم"}
+              {action.result?.validationErrors?._errors?.join(", ") }
             </p>
           </div>
         )}

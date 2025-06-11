@@ -20,6 +20,6 @@ export const registerAction = actionClient
       redirect(`${ROUTES.SET_PHONE}`);
     }
     if (!user.phone_confirmed_at) {
-      redirect(`${ROUTES.OTP}`);
+      redirect(`${ROUTES.OTP}?phone=${user.phone}`);
     }
   });

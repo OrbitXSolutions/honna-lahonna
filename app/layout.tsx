@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PlaygroundHeader } from "@/components/playgrounds/playground-header";
 import { AppHeader } from "@/components/organisms/app-header";
 import { AppFooter } from "@/components/organisms/app-footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({
 
             </main>
             <AppFooter />
+             <Toaster />
           </ThemeProvider>
         </body>
       </html>
