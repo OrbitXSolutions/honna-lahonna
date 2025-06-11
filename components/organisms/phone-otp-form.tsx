@@ -37,6 +37,7 @@ interface Props {
 
 export default function PhoneOtpForm() {
   const searchParams = useSearchParams();
+
   const { user } = useSupabaseUser();
   const phone = user ? user.new_phone : searchParams.get("phone") || "";
   const isChange = user ? true : false;
@@ -75,12 +76,12 @@ export default function PhoneOtpForm() {
         suppressHydrationWarning
       >
         {/* Server Error Display */}
-        
+
         {action.hasErrored && (
           <div className="rounded-md bg-red-50 p-4">
             <p className="text-sm text-destructive text-center">
               {action.result?.serverError || "حدث خطأ في الخادم"}
-              {action.result?.validationErrors?._errors?.join(", ") }
+              {action.result?.validationErrors?._errors?.join(", ")}
             </p>
           </div>
         )}

@@ -85,7 +85,11 @@ export async function updateSession(request: NextRequest) {
         url.pathname = ROUTES.SET_PHONE;
         return NextResponse.redirect(url);
       }
+      const url = request.nextUrl.clone();
+      url.searchParams.set('isChanged', 'true'); // add a new param
+      supabaseResponse = NextResponse.rewrite(url);
     }
+
   }
 
   if (!user?.phone) {
