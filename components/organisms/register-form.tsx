@@ -74,6 +74,7 @@ export default function RegisterForm() {
     form,
     action,
     handleSubmitWithAction: onSubmit,
+
     resetFormAndAction: resetForm,
   } = useHookFormAction(registerAction, zodResolver(UserForRegisterSchema), {
     actionProps: {
@@ -91,10 +92,10 @@ export default function RegisterForm() {
       mode: "onBlur",
       defaultValues: UserForRegisterDefaultValues,
     },
-  });
+  }, );
 
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form onSubmit={onSubmit} className="space-y-6">
         {/* Server Error Display */}
         {action.hasErrored && (
