@@ -29,6 +29,7 @@ const HomeAboutImage = ({ className, ...params }: React.HTMLProps<any>) => {
           alt="Hero Woman about section"
           width={550}
           height={550}
+          priority
           className="rounded-lg mx-auto relative h-full object-contain w-full "
         />
       </div>

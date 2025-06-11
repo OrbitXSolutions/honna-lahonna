@@ -199,6 +199,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  input {
+    direction: unset;
+  }
 }
 
 @layer utilities {
@@ -207,6 +211,12 @@
   }
   .black-image {
     filter: brightness(0) invert(0);
+  }
+  .dir-ltr {
+    direction: ltr;
+  }
+  .dir-rtl {
+    direction: rtl;
   }
 }
 
@@ -307,4 +317,11 @@
       currentColor 100%
     );
   pointer-events: none;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+.dir-rtl {
+  direction: rtl;
 }

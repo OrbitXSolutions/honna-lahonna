@@ -2,6 +2,7 @@ import Link from "next/link";
 import AppButton from "../atoms/app-button";
 import { ROUTES } from "@/lib/constants/routes";
 import { IconArrow, IconKnowMore } from "../icons";
+import AppLink from "../atoms/app-link";
 
 export default function HeaderHeroContent() {
   return (
@@ -26,10 +27,10 @@ export default function HeaderHeroContent() {
       </p>
       <div className="flex max-lg:justify-center gap-3">
         <AppButton asChild>
-          <Link href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
+          <AppLink href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}>
             <span>{"سجلي الأن كمقدمة خدمة"}</span>
             <IconArrow />
-          </Link>
+          </AppLink>
         </AppButton>
         <AppButton asChild variant={"outline"}>
           <Link href={ROUTES.FAQ}>

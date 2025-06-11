@@ -33,6 +33,11 @@ export type service_providers = $Result.DefaultSelection<Prisma.$service_provide
  * 
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model draft_service_providers
+ * 
+ */
+export type draft_service_providers = $Result.DefaultSelection<Prisma.$draft_service_providersPayload>
 
 /**
  * Enums
@@ -229,6 +234,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.draft_service_providers`: Exposes CRUD operations for the **draft_service_providers** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Draft_service_providers
+    * const draft_service_providers = await prisma.draft_service_providers.findMany()
+    * ```
+    */
+  get draft_service_providers(): Prisma.draft_service_providersDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -672,7 +687,8 @@ export namespace Prisma {
     governorates: 'governorates',
     service_categories: 'service_categories',
     service_providers: 'service_providers',
-    users: 'users'
+    users: 'users',
+    draft_service_providers: 'draft_service_providers'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -691,7 +707,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "governorates" | "service_categories" | "service_providers" | "users"
+      modelProps: "governorates" | "service_categories" | "service_providers" | "users" | "draft_service_providers"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -991,6 +1007,80 @@ export namespace Prisma {
           }
         }
       }
+      draft_service_providers: {
+        payload: Prisma.$draft_service_providersPayload<ExtArgs>
+        fields: Prisma.draft_service_providersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.draft_service_providersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.draft_service_providersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          findFirst: {
+            args: Prisma.draft_service_providersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.draft_service_providersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          findMany: {
+            args: Prisma.draft_service_providersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>[]
+          }
+          create: {
+            args: Prisma.draft_service_providersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          createMany: {
+            args: Prisma.draft_service_providersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.draft_service_providersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>[]
+          }
+          delete: {
+            args: Prisma.draft_service_providersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          update: {
+            args: Prisma.draft_service_providersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          deleteMany: {
+            args: Prisma.draft_service_providersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.draft_service_providersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.draft_service_providersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>[]
+          }
+          upsert: {
+            args: Prisma.draft_service_providersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$draft_service_providersPayload>
+          }
+          aggregate: {
+            args: Prisma.Draft_service_providersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDraft_service_providers>
+          }
+          groupBy: {
+            args: Prisma.draft_service_providersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Draft_service_providersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.draft_service_providersCountArgs<ExtArgs>
+            result: $Utils.Optional<Draft_service_providersCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1079,6 +1169,7 @@ export namespace Prisma {
     service_categories?: service_categoriesOmit
     service_providers?: service_providersOmit
     users?: usersOmit
+    draft_service_providers?: draft_service_providersOmit
   }
 
   /* Types for Logging */
@@ -1173,10 +1264,12 @@ export namespace Prisma {
    */
 
   export type GovernoratesCountOutputType = {
+    draft_service_providers: number
     service_providers: number
   }
 
   export type GovernoratesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | GovernoratesCountOutputTypeCountDraft_service_providersArgs
     service_providers?: boolean | GovernoratesCountOutputTypeCountService_providersArgs
   }
 
@@ -1194,6 +1287,13 @@ export namespace Prisma {
   /**
    * GovernoratesCountOutputType without action
    */
+  export type GovernoratesCountOutputTypeCountDraft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: draft_service_providersWhereInput
+  }
+
+  /**
+   * GovernoratesCountOutputType without action
+   */
   export type GovernoratesCountOutputTypeCountService_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: service_providersWhereInput
   }
@@ -1204,10 +1304,12 @@ export namespace Prisma {
    */
 
   export type Service_categoriesCountOutputType = {
+    draft_service_providers: number
     service_providers: number
   }
 
   export type Service_categoriesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | Service_categoriesCountOutputTypeCountDraft_service_providersArgs
     service_providers?: boolean | Service_categoriesCountOutputTypeCountService_providersArgs
   }
 
@@ -1225,6 +1327,13 @@ export namespace Prisma {
   /**
    * Service_categoriesCountOutputType without action
    */
+  export type Service_categoriesCountOutputTypeCountDraft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: draft_service_providersWhereInput
+  }
+
+  /**
+   * Service_categoriesCountOutputType without action
+   */
   export type Service_categoriesCountOutputTypeCountService_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: service_providersWhereInput
   }
@@ -1235,10 +1344,12 @@ export namespace Prisma {
    */
 
   export type UsersCountOutputType = {
+    draft_service_providers: number
     service_providers: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | UsersCountOutputTypeCountDraft_service_providersArgs
     service_providers?: boolean | UsersCountOutputTypeCountService_providersArgs
   }
 
@@ -1251,6 +1362,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UsersCountOutputType
      */
     select?: UsersCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountDraft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: draft_service_providersWhereInput
   }
 
   /**
@@ -1493,6 +1611,7 @@ export namespace Prisma {
     created_by?: boolean
     updated_at?: boolean
     updated_by?: boolean
+    draft_service_providers?: boolean | governorates$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | governorates$service_providersArgs<ExtArgs>
     _count?: boolean | GovernoratesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["governorates"]>
@@ -1547,6 +1666,7 @@ export namespace Prisma {
 
   export type governoratesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "governorate_code" | "meta_title" | "meta_description" | "meta_keywords" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by", ExtArgs["result"]["governorates"]>
   export type governoratesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | governorates$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | governorates$service_providersArgs<ExtArgs>
     _count?: boolean | GovernoratesCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1556,6 +1676,7 @@ export namespace Prisma {
   export type $governoratesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "governorates"
     objects: {
+      draft_service_providers: Prisma.$draft_service_providersPayload<ExtArgs>[]
       service_providers: Prisma.$service_providersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1966,6 +2087,7 @@ export namespace Prisma {
    */
   export interface Prisma__governoratesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    draft_service_providers<T extends governorates$draft_service_providersArgs<ExtArgs> = {}>(args?: Subset<T, governorates$draft_service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     service_providers<T extends governorates$service_providersArgs<ExtArgs> = {}>(args?: Subset<T, governorates$service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2397,6 +2519,30 @@ export namespace Prisma {
   }
 
   /**
+   * governorates.draft_service_providers
+   */
+  export type governorates$draft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    where?: draft_service_providersWhereInput
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    cursor?: draft_service_providersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
    * governorates.service_providers
    */
   export type governorates$service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2675,6 +2821,7 @@ export namespace Prisma {
     updated_by?: boolean
     icon?: boolean
     slug?: boolean
+    draft_service_providers?: boolean | service_categories$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | service_categories$service_providersArgs<ExtArgs>
     _count?: boolean | Service_categoriesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service_categories"]>
@@ -2732,6 +2879,7 @@ export namespace Prisma {
 
   export type service_categoriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "meta_title" | "meta_description" | "meta_keywords" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "icon" | "slug", ExtArgs["result"]["service_categories"]>
   export type service_categoriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | service_categories$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | service_categories$service_providersArgs<ExtArgs>
     _count?: boolean | Service_categoriesCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2741,6 +2889,7 @@ export namespace Prisma {
   export type $service_categoriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "service_categories"
     objects: {
+      draft_service_providers: Prisma.$draft_service_providersPayload<ExtArgs>[]
       service_providers: Prisma.$service_providersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3152,6 +3301,7 @@ export namespace Prisma {
    */
   export interface Prisma__service_categoriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    draft_service_providers<T extends service_categories$draft_service_providersArgs<ExtArgs> = {}>(args?: Subset<T, service_categories$draft_service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     service_providers<T extends service_categories$service_providersArgs<ExtArgs> = {}>(args?: Subset<T, service_categories$service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3584,6 +3734,30 @@ export namespace Prisma {
   }
 
   /**
+   * service_categories.draft_service_providers
+   */
+  export type service_categories$draft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    where?: draft_service_providersWhereInput
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    cursor?: draft_service_providersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
    * service_categories.service_providers
    */
   export type service_categories$service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3639,17 +3813,17 @@ export namespace Prisma {
   }
 
   export type Service_providersAvgAggregateOutputType = {
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
   }
 
   export type Service_providersSumAggregateOutputType = {
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
   }
 
   export type Service_providersMinAggregateOutputType = {
     id: string | null
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -3659,6 +3833,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3676,12 +3851,16 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
   }
 
   export type Service_providersMaxAggregateOutputType = {
     id: string | null
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -3691,6 +3870,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3708,6 +3888,10 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
   }
 
   export type Service_providersCountAggregateOutputType = {
@@ -3741,6 +3925,10 @@ export namespace Prisma {
     updated_at: number
     updated_by: number
     slug: number
+    address: number
+    official_url: number
+    services: number
+    phone: number
     _all: number
   }
 
@@ -3766,6 +3954,7 @@ export namespace Prisma {
     facebook_url?: true
     instagram_url?: true
     whatsapp_url?: true
+    other_urls?: true
     logo_image?: true
     id_card_front_image?: true
     id_card_back_image?: true
@@ -3783,6 +3972,10 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
   }
 
   export type Service_providersMaxAggregateInputType = {
@@ -3798,6 +3991,7 @@ export namespace Prisma {
     facebook_url?: true
     instagram_url?: true
     whatsapp_url?: true
+    other_urls?: true
     logo_image?: true
     id_card_front_image?: true
     id_card_back_image?: true
@@ -3815,6 +4009,10 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
   }
 
   export type Service_providersCountAggregateInputType = {
@@ -3848,6 +4046,10 @@ export namespace Prisma {
     updated_at?: true
     updated_by?: true
     slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
     _all?: true
   }
 
@@ -3940,7 +4142,7 @@ export namespace Prisma {
   export type Service_providersGroupByOutputType = {
     id: string
     user_id: string | null
-    years_of_experience: number | null
+    years_of_experience: Decimal | null
     service_name: string | null
     governorate_id: string | null
     service_category_id: string | null
@@ -3950,7 +4152,7 @@ export namespace Prisma {
     facebook_url: string | null
     instagram_url: string | null
     whatsapp_url: string | null
-    other_urls: JsonValue | null
+    other_urls: string | null
     logo_image: string | null
     id_card_front_image: string | null
     id_card_back_image: string | null
@@ -3968,6 +4170,10 @@ export namespace Prisma {
     updated_at: Date | null
     updated_by: string | null
     slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
     _count: Service_providersCountAggregateOutputType | null
     _avg: Service_providersAvgAggregateOutputType | null
     _sum: Service_providersSumAggregateOutputType | null
@@ -4020,6 +4226,10 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4056,6 +4266,10 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4092,6 +4306,10 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
     users?: boolean | service_providers$usersArgs<ExtArgs>
@@ -4128,9 +4346,13 @@ export namespace Prisma {
     updated_at?: boolean
     updated_by?: boolean
     slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
   }
 
-  export type service_providersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "years_of_experience" | "service_name" | "governorate_id" | "service_category_id" | "service_delivery_method" | "service_description" | "bio" | "facebook_url" | "instagram_url" | "whatsapp_url" | "other_urls" | "logo_image" | "id_card_front_image" | "id_card_back_image" | "certificates_images" | "document_list" | "video_url" | "keywords" | "notes" | "status" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "slug", ExtArgs["result"]["service_providers"]>
+  export type service_providersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "years_of_experience" | "service_name" | "governorate_id" | "service_category_id" | "service_delivery_method" | "service_description" | "bio" | "facebook_url" | "instagram_url" | "whatsapp_url" | "other_urls" | "logo_image" | "id_card_front_image" | "id_card_back_image" | "certificates_images" | "document_list" | "video_url" | "keywords" | "notes" | "status" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "slug" | "address" | "official_url" | "services" | "phone", ExtArgs["result"]["service_providers"]>
   export type service_providersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     governorates?: boolean | service_providers$governoratesArgs<ExtArgs>
     service_categories?: boolean | service_providers$service_categoriesArgs<ExtArgs>
@@ -4157,7 +4379,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       user_id: string | null
-      years_of_experience: number | null
+      years_of_experience: Prisma.Decimal | null
       service_name: string | null
       governorate_id: string | null
       service_category_id: string | null
@@ -4167,7 +4389,7 @@ export namespace Prisma {
       facebook_url: string | null
       instagram_url: string | null
       whatsapp_url: string | null
-      other_urls: Prisma.JsonValue | null
+      other_urls: string | null
       logo_image: string | null
       id_card_front_image: string | null
       id_card_back_image: string | null
@@ -4185,6 +4407,10 @@ export namespace Prisma {
       updated_at: Date | null
       updated_by: string | null
       slug: string | null
+      address: string | null
+      official_url: string | null
+      services: string | null
+      phone: string | null
     }, ExtArgs["result"]["service_providers"]>
     composites: {}
   }
@@ -4613,7 +4839,7 @@ export namespace Prisma {
   interface service_providersFieldRefs {
     readonly id: FieldRef<"service_providers", 'String'>
     readonly user_id: FieldRef<"service_providers", 'String'>
-    readonly years_of_experience: FieldRef<"service_providers", 'Int'>
+    readonly years_of_experience: FieldRef<"service_providers", 'Decimal'>
     readonly service_name: FieldRef<"service_providers", 'String'>
     readonly governorate_id: FieldRef<"service_providers", 'String'>
     readonly service_category_id: FieldRef<"service_providers", 'String'>
@@ -4623,7 +4849,7 @@ export namespace Prisma {
     readonly facebook_url: FieldRef<"service_providers", 'String'>
     readonly instagram_url: FieldRef<"service_providers", 'String'>
     readonly whatsapp_url: FieldRef<"service_providers", 'String'>
-    readonly other_urls: FieldRef<"service_providers", 'Json'>
+    readonly other_urls: FieldRef<"service_providers", 'String'>
     readonly logo_image: FieldRef<"service_providers", 'String'>
     readonly id_card_front_image: FieldRef<"service_providers", 'String'>
     readonly id_card_back_image: FieldRef<"service_providers", 'String'>
@@ -4641,6 +4867,10 @@ export namespace Prisma {
     readonly updated_at: FieldRef<"service_providers", 'DateTime'>
     readonly updated_by: FieldRef<"service_providers", 'String'>
     readonly slug: FieldRef<"service_providers", 'String'>
+    readonly address: FieldRef<"service_providers", 'String'>
+    readonly official_url: FieldRef<"service_providers", 'String'>
+    readonly services: FieldRef<"service_providers", 'String'>
+    readonly phone: FieldRef<"service_providers", 'String'>
   }
     
 
@@ -5123,7 +5353,7 @@ export namespace Prisma {
   }
 
   export type UsersMinAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     first_name: string | null
     last_name: string | null
@@ -5137,10 +5367,12 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
   }
 
   export type UsersMaxAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     first_name: string | null
     last_name: string | null
@@ -5154,10 +5386,12 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
   }
 
   export type UsersCountAggregateOutputType = {
-    user_id: number
+    id: number
     email: number
     first_name: number
     last_name: number
@@ -5171,12 +5405,14 @@ export namespace Prisma {
     created_by: number
     updated_by: number
     deleted_by: number
+    user_id: number
+    is_admin: number
     _all: number
   }
 
 
   export type UsersMinAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5190,10 +5426,12 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
   }
 
   export type UsersMaxAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5207,10 +5445,12 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
   }
 
   export type UsersCountAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     first_name?: true
     last_name?: true
@@ -5224,6 +5464,8 @@ export namespace Prisma {
     created_by?: true
     updated_by?: true
     deleted_by?: true
+    user_id?: true
+    is_admin?: true
     _all?: true
   }
 
@@ -5300,7 +5542,7 @@ export namespace Prisma {
   }
 
   export type UsersGroupByOutputType = {
-    user_id: string
+    id: string
     email: string
     first_name: string | null
     last_name: string | null
@@ -5314,6 +5556,8 @@ export namespace Prisma {
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
+    user_id: string | null
+    is_admin: boolean | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -5334,7 +5578,7 @@ export namespace Prisma {
 
 
   export type usersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5348,12 +5592,15 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
+    draft_service_providers?: boolean | users$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | users$service_providersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5367,10 +5614,12 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5384,10 +5633,12 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     first_name?: boolean
     last_name?: boolean
@@ -5401,10 +5652,13 @@ export namespace Prisma {
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
+    user_id?: boolean
+    is_admin?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "email" | "first_name" | "last_name" | "avatar" | "phone" | "created_at" | "updated_at" | "deleted_at" | "is_deleted" | "is_banned" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "first_name" | "last_name" | "avatar" | "phone" | "created_at" | "updated_at" | "deleted_at" | "is_deleted" | "is_banned" | "created_by" | "updated_by" | "deleted_by" | "user_id" | "is_admin", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    draft_service_providers?: boolean | users$draft_service_providersArgs<ExtArgs>
     service_providers?: boolean | users$service_providersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5414,10 +5668,11 @@ export namespace Prisma {
   export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "users"
     objects: {
+      draft_service_providers: Prisma.$draft_service_providersPayload<ExtArgs>[]
       service_providers: Prisma.$service_providersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      user_id: string
+      id: string
       email: string
       first_name: string | null
       last_name: string | null
@@ -5431,6 +5686,8 @@ export namespace Prisma {
       created_by: string | null
       updated_by: string | null
       deleted_by: string | null
+      user_id: string | null
+      is_admin: boolean | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -5514,8 +5771,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.users.findMany({ take: 10 })
      * 
-     * // Only select the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.findMany({ select: { user_id: true } })
+     * // Only select the `id`
+     * const usersWithIdOnly = await prisma.users.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends usersFindManyArgs>(args?: SelectSubset<T, usersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -5559,9 +5816,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.createManyAndReturn({
-     *   select: { user_id: true },
+     * // Create many Users and only return the `id`
+     * const usersWithIdOnly = await prisma.users.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -5650,9 +5907,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.updateManyAndReturn({
-     *   select: { user_id: true },
+     * // Update zero or more Users and only return the `id`
+     * const usersWithIdOnly = await prisma.users.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5825,6 +6082,7 @@ export namespace Prisma {
    */
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    draft_service_providers<T extends users$draft_service_providersArgs<ExtArgs> = {}>(args?: Subset<T, users$draft_service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     service_providers<T extends users$service_providersArgs<ExtArgs> = {}>(args?: Subset<T, users$service_providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5855,7 +6113,7 @@ export namespace Prisma {
    * Fields of the users model
    */
   interface usersFieldRefs {
-    readonly user_id: FieldRef<"users", 'String'>
+    readonly id: FieldRef<"users", 'String'>
     readonly email: FieldRef<"users", 'String'>
     readonly first_name: FieldRef<"users", 'String'>
     readonly last_name: FieldRef<"users", 'String'>
@@ -5869,6 +6127,8 @@ export namespace Prisma {
     readonly created_by: FieldRef<"users", 'String'>
     readonly updated_by: FieldRef<"users", 'String'>
     readonly deleted_by: FieldRef<"users", 'String'>
+    readonly user_id: FieldRef<"users", 'String'>
+    readonly is_admin: FieldRef<"users", 'Boolean'>
   }
     
 
@@ -6257,6 +6517,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.draft_service_providers
+   */
+  export type users$draft_service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    where?: draft_service_providersWhereInput
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    cursor?: draft_service_providersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
    * users.service_providers
    */
   export type users$service_providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6296,6 +6580,1548 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: usersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model draft_service_providers
+   */
+
+  export type AggregateDraft_service_providers = {
+    _count: Draft_service_providersCountAggregateOutputType | null
+    _avg: Draft_service_providersAvgAggregateOutputType | null
+    _sum: Draft_service_providersSumAggregateOutputType | null
+    _min: Draft_service_providersMinAggregateOutputType | null
+    _max: Draft_service_providersMaxAggregateOutputType | null
+  }
+
+  export type Draft_service_providersAvgAggregateOutputType = {
+    years_of_experience: Decimal | null
+  }
+
+  export type Draft_service_providersSumAggregateOutputType = {
+    years_of_experience: Decimal | null
+  }
+
+  export type Draft_service_providersMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    years_of_experience: Decimal | null
+    service_name: string | null
+    governorate_id: string | null
+    service_category_id: string | null
+    service_delivery_method: $Enums.service_delivery_method | null
+    service_description: string | null
+    bio: string | null
+    facebook_url: string | null
+    instagram_url: string | null
+    whatsapp_url: string | null
+    other_urls: string | null
+    logo_image: string | null
+    id_card_front_image: string | null
+    id_card_back_image: string | null
+    certificates_images: string | null
+    document_list: string | null
+    video_url: string | null
+    keywords: string | null
+    notes: string | null
+    status: $Enums.service_provider_status | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
+    deleted_by: string | null
+    created_at: Date | null
+    created_by: string | null
+    updated_at: Date | null
+    updated_by: string | null
+    slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
+  }
+
+  export type Draft_service_providersMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    years_of_experience: Decimal | null
+    service_name: string | null
+    governorate_id: string | null
+    service_category_id: string | null
+    service_delivery_method: $Enums.service_delivery_method | null
+    service_description: string | null
+    bio: string | null
+    facebook_url: string | null
+    instagram_url: string | null
+    whatsapp_url: string | null
+    other_urls: string | null
+    logo_image: string | null
+    id_card_front_image: string | null
+    id_card_back_image: string | null
+    certificates_images: string | null
+    document_list: string | null
+    video_url: string | null
+    keywords: string | null
+    notes: string | null
+    status: $Enums.service_provider_status | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
+    deleted_by: string | null
+    created_at: Date | null
+    created_by: string | null
+    updated_at: Date | null
+    updated_by: string | null
+    slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
+  }
+
+  export type Draft_service_providersCountAggregateOutputType = {
+    id: number
+    user_id: number
+    years_of_experience: number
+    service_name: number
+    governorate_id: number
+    service_category_id: number
+    service_delivery_method: number
+    service_description: number
+    bio: number
+    facebook_url: number
+    instagram_url: number
+    whatsapp_url: number
+    other_urls: number
+    logo_image: number
+    id_card_front_image: number
+    id_card_back_image: number
+    certificates_images: number
+    document_list: number
+    video_url: number
+    keywords: number
+    notes: number
+    status: number
+    is_deleted: number
+    deleted_at: number
+    deleted_by: number
+    created_at: number
+    created_by: number
+    updated_at: number
+    updated_by: number
+    slug: number
+    address: number
+    official_url: number
+    services: number
+    phone: number
+    _all: number
+  }
+
+
+  export type Draft_service_providersAvgAggregateInputType = {
+    years_of_experience?: true
+  }
+
+  export type Draft_service_providersSumAggregateInputType = {
+    years_of_experience?: true
+  }
+
+  export type Draft_service_providersMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    years_of_experience?: true
+    service_name?: true
+    governorate_id?: true
+    service_category_id?: true
+    service_delivery_method?: true
+    service_description?: true
+    bio?: true
+    facebook_url?: true
+    instagram_url?: true
+    whatsapp_url?: true
+    other_urls?: true
+    logo_image?: true
+    id_card_front_image?: true
+    id_card_back_image?: true
+    certificates_images?: true
+    document_list?: true
+    video_url?: true
+    keywords?: true
+    notes?: true
+    status?: true
+    is_deleted?: true
+    deleted_at?: true
+    deleted_by?: true
+    created_at?: true
+    created_by?: true
+    updated_at?: true
+    updated_by?: true
+    slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
+  }
+
+  export type Draft_service_providersMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    years_of_experience?: true
+    service_name?: true
+    governorate_id?: true
+    service_category_id?: true
+    service_delivery_method?: true
+    service_description?: true
+    bio?: true
+    facebook_url?: true
+    instagram_url?: true
+    whatsapp_url?: true
+    other_urls?: true
+    logo_image?: true
+    id_card_front_image?: true
+    id_card_back_image?: true
+    certificates_images?: true
+    document_list?: true
+    video_url?: true
+    keywords?: true
+    notes?: true
+    status?: true
+    is_deleted?: true
+    deleted_at?: true
+    deleted_by?: true
+    created_at?: true
+    created_by?: true
+    updated_at?: true
+    updated_by?: true
+    slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
+  }
+
+  export type Draft_service_providersCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    years_of_experience?: true
+    service_name?: true
+    governorate_id?: true
+    service_category_id?: true
+    service_delivery_method?: true
+    service_description?: true
+    bio?: true
+    facebook_url?: true
+    instagram_url?: true
+    whatsapp_url?: true
+    other_urls?: true
+    logo_image?: true
+    id_card_front_image?: true
+    id_card_back_image?: true
+    certificates_images?: true
+    document_list?: true
+    video_url?: true
+    keywords?: true
+    notes?: true
+    status?: true
+    is_deleted?: true
+    deleted_at?: true
+    deleted_by?: true
+    created_at?: true
+    created_by?: true
+    updated_at?: true
+    updated_by?: true
+    slug?: true
+    address?: true
+    official_url?: true
+    services?: true
+    phone?: true
+    _all?: true
+  }
+
+  export type Draft_service_providersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which draft_service_providers to aggregate.
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of draft_service_providers to fetch.
+     */
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: draft_service_providersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` draft_service_providers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` draft_service_providers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned draft_service_providers
+    **/
+    _count?: true | Draft_service_providersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Draft_service_providersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Draft_service_providersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Draft_service_providersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Draft_service_providersMaxAggregateInputType
+  }
+
+  export type GetDraft_service_providersAggregateType<T extends Draft_service_providersAggregateArgs> = {
+        [P in keyof T & keyof AggregateDraft_service_providers]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDraft_service_providers[P]>
+      : GetScalarType<T[P], AggregateDraft_service_providers[P]>
+  }
+
+
+
+
+  export type draft_service_providersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: draft_service_providersWhereInput
+    orderBy?: draft_service_providersOrderByWithAggregationInput | draft_service_providersOrderByWithAggregationInput[]
+    by: Draft_service_providersScalarFieldEnum[] | Draft_service_providersScalarFieldEnum
+    having?: draft_service_providersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Draft_service_providersCountAggregateInputType | true
+    _avg?: Draft_service_providersAvgAggregateInputType
+    _sum?: Draft_service_providersSumAggregateInputType
+    _min?: Draft_service_providersMinAggregateInputType
+    _max?: Draft_service_providersMaxAggregateInputType
+  }
+
+  export type Draft_service_providersGroupByOutputType = {
+    id: string
+    user_id: string | null
+    years_of_experience: Decimal | null
+    service_name: string | null
+    governorate_id: string | null
+    service_category_id: string | null
+    service_delivery_method: $Enums.service_delivery_method | null
+    service_description: string | null
+    bio: string | null
+    facebook_url: string | null
+    instagram_url: string | null
+    whatsapp_url: string | null
+    other_urls: string | null
+    logo_image: string | null
+    id_card_front_image: string | null
+    id_card_back_image: string | null
+    certificates_images: string | null
+    document_list: string | null
+    video_url: string | null
+    keywords: string | null
+    notes: string | null
+    status: $Enums.service_provider_status
+    is_deleted: boolean | null
+    deleted_at: Date | null
+    deleted_by: string | null
+    created_at: Date | null
+    created_by: string | null
+    updated_at: Date | null
+    updated_by: string | null
+    slug: string | null
+    address: string | null
+    official_url: string | null
+    services: string | null
+    phone: string | null
+    _count: Draft_service_providersCountAggregateOutputType | null
+    _avg: Draft_service_providersAvgAggregateOutputType | null
+    _sum: Draft_service_providersSumAggregateOutputType | null
+    _min: Draft_service_providersMinAggregateOutputType | null
+    _max: Draft_service_providersMaxAggregateOutputType | null
+  }
+
+  type GetDraft_service_providersGroupByPayload<T extends draft_service_providersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Draft_service_providersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Draft_service_providersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Draft_service_providersGroupByOutputType[P]>
+            : GetScalarType<T[P], Draft_service_providersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type draft_service_providersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    years_of_experience?: boolean
+    service_name?: boolean
+    governorate_id?: boolean
+    service_category_id?: boolean
+    service_delivery_method?: boolean
+    service_description?: boolean
+    bio?: boolean
+    facebook_url?: boolean
+    instagram_url?: boolean
+    whatsapp_url?: boolean
+    other_urls?: boolean
+    logo_image?: boolean
+    id_card_front_image?: boolean
+    id_card_back_image?: boolean
+    certificates_images?: boolean
+    document_list?: boolean
+    video_url?: boolean
+    keywords?: boolean
+    notes?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    updated_at?: boolean
+    updated_by?: boolean
+    slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }, ExtArgs["result"]["draft_service_providers"]>
+
+  export type draft_service_providersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    years_of_experience?: boolean
+    service_name?: boolean
+    governorate_id?: boolean
+    service_category_id?: boolean
+    service_delivery_method?: boolean
+    service_description?: boolean
+    bio?: boolean
+    facebook_url?: boolean
+    instagram_url?: boolean
+    whatsapp_url?: boolean
+    other_urls?: boolean
+    logo_image?: boolean
+    id_card_front_image?: boolean
+    id_card_back_image?: boolean
+    certificates_images?: boolean
+    document_list?: boolean
+    video_url?: boolean
+    keywords?: boolean
+    notes?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    updated_at?: boolean
+    updated_by?: boolean
+    slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }, ExtArgs["result"]["draft_service_providers"]>
+
+  export type draft_service_providersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    years_of_experience?: boolean
+    service_name?: boolean
+    governorate_id?: boolean
+    service_category_id?: boolean
+    service_delivery_method?: boolean
+    service_description?: boolean
+    bio?: boolean
+    facebook_url?: boolean
+    instagram_url?: boolean
+    whatsapp_url?: boolean
+    other_urls?: boolean
+    logo_image?: boolean
+    id_card_front_image?: boolean
+    id_card_back_image?: boolean
+    certificates_images?: boolean
+    document_list?: boolean
+    video_url?: boolean
+    keywords?: boolean
+    notes?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    updated_at?: boolean
+    updated_by?: boolean
+    slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }, ExtArgs["result"]["draft_service_providers"]>
+
+  export type draft_service_providersSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    years_of_experience?: boolean
+    service_name?: boolean
+    governorate_id?: boolean
+    service_category_id?: boolean
+    service_delivery_method?: boolean
+    service_description?: boolean
+    bio?: boolean
+    facebook_url?: boolean
+    instagram_url?: boolean
+    whatsapp_url?: boolean
+    other_urls?: boolean
+    logo_image?: boolean
+    id_card_front_image?: boolean
+    id_card_back_image?: boolean
+    certificates_images?: boolean
+    document_list?: boolean
+    video_url?: boolean
+    keywords?: boolean
+    notes?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    updated_at?: boolean
+    updated_by?: boolean
+    slug?: boolean
+    address?: boolean
+    official_url?: boolean
+    services?: boolean
+    phone?: boolean
+  }
+
+  export type draft_service_providersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "years_of_experience" | "service_name" | "governorate_id" | "service_category_id" | "service_delivery_method" | "service_description" | "bio" | "facebook_url" | "instagram_url" | "whatsapp_url" | "other_urls" | "logo_image" | "id_card_front_image" | "id_card_back_image" | "certificates_images" | "document_list" | "video_url" | "keywords" | "notes" | "status" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "created_by" | "updated_at" | "updated_by" | "slug" | "address" | "official_url" | "services" | "phone", ExtArgs["result"]["draft_service_providers"]>
+  export type draft_service_providersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }
+  export type draft_service_providersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }
+  export type draft_service_providersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    governorates?: boolean | draft_service_providers$governoratesArgs<ExtArgs>
+    service_categories?: boolean | draft_service_providers$service_categoriesArgs<ExtArgs>
+    users?: boolean | draft_service_providers$usersArgs<ExtArgs>
+  }
+
+  export type $draft_service_providersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "draft_service_providers"
+    objects: {
+      governorates: Prisma.$governoratesPayload<ExtArgs> | null
+      service_categories: Prisma.$service_categoriesPayload<ExtArgs> | null
+      users: Prisma.$usersPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string | null
+      years_of_experience: Prisma.Decimal | null
+      service_name: string | null
+      governorate_id: string | null
+      service_category_id: string | null
+      service_delivery_method: $Enums.service_delivery_method | null
+      service_description: string | null
+      bio: string | null
+      facebook_url: string | null
+      instagram_url: string | null
+      whatsapp_url: string | null
+      other_urls: string | null
+      logo_image: string | null
+      id_card_front_image: string | null
+      id_card_back_image: string | null
+      certificates_images: string | null
+      document_list: string | null
+      video_url: string | null
+      keywords: string | null
+      notes: string | null
+      status: $Enums.service_provider_status
+      is_deleted: boolean | null
+      deleted_at: Date | null
+      deleted_by: string | null
+      created_at: Date | null
+      created_by: string | null
+      updated_at: Date | null
+      updated_by: string | null
+      slug: string | null
+      address: string | null
+      official_url: string | null
+      services: string | null
+      phone: string | null
+    }, ExtArgs["result"]["draft_service_providers"]>
+    composites: {}
+  }
+
+  type draft_service_providersGetPayload<S extends boolean | null | undefined | draft_service_providersDefaultArgs> = $Result.GetResult<Prisma.$draft_service_providersPayload, S>
+
+  type draft_service_providersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<draft_service_providersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Draft_service_providersCountAggregateInputType | true
+    }
+
+  export interface draft_service_providersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['draft_service_providers'], meta: { name: 'draft_service_providers' } }
+    /**
+     * Find zero or one Draft_service_providers that matches the filter.
+     * @param {draft_service_providersFindUniqueArgs} args - Arguments to find a Draft_service_providers
+     * @example
+     * // Get one Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends draft_service_providersFindUniqueArgs>(args: SelectSubset<T, draft_service_providersFindUniqueArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Draft_service_providers that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {draft_service_providersFindUniqueOrThrowArgs} args - Arguments to find a Draft_service_providers
+     * @example
+     * // Get one Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends draft_service_providersFindUniqueOrThrowArgs>(args: SelectSubset<T, draft_service_providersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Draft_service_providers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersFindFirstArgs} args - Arguments to find a Draft_service_providers
+     * @example
+     * // Get one Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends draft_service_providersFindFirstArgs>(args?: SelectSubset<T, draft_service_providersFindFirstArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Draft_service_providers that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersFindFirstOrThrowArgs} args - Arguments to find a Draft_service_providers
+     * @example
+     * // Get one Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends draft_service_providersFindFirstOrThrowArgs>(args?: SelectSubset<T, draft_service_providersFindFirstOrThrowArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Draft_service_providers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findMany()
+     * 
+     * // Get first 10 Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const draft_service_providersWithIdOnly = await prisma.draft_service_providers.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends draft_service_providersFindManyArgs>(args?: SelectSubset<T, draft_service_providersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Draft_service_providers.
+     * @param {draft_service_providersCreateArgs} args - Arguments to create a Draft_service_providers.
+     * @example
+     * // Create one Draft_service_providers
+     * const Draft_service_providers = await prisma.draft_service_providers.create({
+     *   data: {
+     *     // ... data to create a Draft_service_providers
+     *   }
+     * })
+     * 
+     */
+    create<T extends draft_service_providersCreateArgs>(args: SelectSubset<T, draft_service_providersCreateArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Draft_service_providers.
+     * @param {draft_service_providersCreateManyArgs} args - Arguments to create many Draft_service_providers.
+     * @example
+     * // Create many Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends draft_service_providersCreateManyArgs>(args?: SelectSubset<T, draft_service_providersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Draft_service_providers and returns the data saved in the database.
+     * @param {draft_service_providersCreateManyAndReturnArgs} args - Arguments to create many Draft_service_providers.
+     * @example
+     * // Create many Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Draft_service_providers and only return the `id`
+     * const draft_service_providersWithIdOnly = await prisma.draft_service_providers.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends draft_service_providersCreateManyAndReturnArgs>(args?: SelectSubset<T, draft_service_providersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Draft_service_providers.
+     * @param {draft_service_providersDeleteArgs} args - Arguments to delete one Draft_service_providers.
+     * @example
+     * // Delete one Draft_service_providers
+     * const Draft_service_providers = await prisma.draft_service_providers.delete({
+     *   where: {
+     *     // ... filter to delete one Draft_service_providers
+     *   }
+     * })
+     * 
+     */
+    delete<T extends draft_service_providersDeleteArgs>(args: SelectSubset<T, draft_service_providersDeleteArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Draft_service_providers.
+     * @param {draft_service_providersUpdateArgs} args - Arguments to update one Draft_service_providers.
+     * @example
+     * // Update one Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends draft_service_providersUpdateArgs>(args: SelectSubset<T, draft_service_providersUpdateArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Draft_service_providers.
+     * @param {draft_service_providersDeleteManyArgs} args - Arguments to filter Draft_service_providers to delete.
+     * @example
+     * // Delete a few Draft_service_providers
+     * const { count } = await prisma.draft_service_providers.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends draft_service_providersDeleteManyArgs>(args?: SelectSubset<T, draft_service_providersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Draft_service_providers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends draft_service_providersUpdateManyArgs>(args: SelectSubset<T, draft_service_providersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Draft_service_providers and returns the data updated in the database.
+     * @param {draft_service_providersUpdateManyAndReturnArgs} args - Arguments to update many Draft_service_providers.
+     * @example
+     * // Update many Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Draft_service_providers and only return the `id`
+     * const draft_service_providersWithIdOnly = await prisma.draft_service_providers.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends draft_service_providersUpdateManyAndReturnArgs>(args: SelectSubset<T, draft_service_providersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Draft_service_providers.
+     * @param {draft_service_providersUpsertArgs} args - Arguments to update or create a Draft_service_providers.
+     * @example
+     * // Update or create a Draft_service_providers
+     * const draft_service_providers = await prisma.draft_service_providers.upsert({
+     *   create: {
+     *     // ... data to create a Draft_service_providers
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Draft_service_providers we want to update
+     *   }
+     * })
+     */
+    upsert<T extends draft_service_providersUpsertArgs>(args: SelectSubset<T, draft_service_providersUpsertArgs<ExtArgs>>): Prisma__draft_service_providersClient<$Result.GetResult<Prisma.$draft_service_providersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Draft_service_providers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersCountArgs} args - Arguments to filter Draft_service_providers to count.
+     * @example
+     * // Count the number of Draft_service_providers
+     * const count = await prisma.draft_service_providers.count({
+     *   where: {
+     *     // ... the filter for the Draft_service_providers we want to count
+     *   }
+     * })
+    **/
+    count<T extends draft_service_providersCountArgs>(
+      args?: Subset<T, draft_service_providersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Draft_service_providersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Draft_service_providers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Draft_service_providersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Draft_service_providersAggregateArgs>(args: Subset<T, Draft_service_providersAggregateArgs>): Prisma.PrismaPromise<GetDraft_service_providersAggregateType<T>>
+
+    /**
+     * Group by Draft_service_providers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {draft_service_providersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends draft_service_providersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: draft_service_providersGroupByArgs['orderBy'] }
+        : { orderBy?: draft_service_providersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, draft_service_providersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDraft_service_providersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the draft_service_providers model
+   */
+  readonly fields: draft_service_providersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for draft_service_providers.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__draft_service_providersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    governorates<T extends draft_service_providers$governoratesArgs<ExtArgs> = {}>(args?: Subset<T, draft_service_providers$governoratesArgs<ExtArgs>>): Prisma__governoratesClient<$Result.GetResult<Prisma.$governoratesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    service_categories<T extends draft_service_providers$service_categoriesArgs<ExtArgs> = {}>(args?: Subset<T, draft_service_providers$service_categoriesArgs<ExtArgs>>): Prisma__service_categoriesClient<$Result.GetResult<Prisma.$service_categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users<T extends draft_service_providers$usersArgs<ExtArgs> = {}>(args?: Subset<T, draft_service_providers$usersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the draft_service_providers model
+   */
+  interface draft_service_providersFieldRefs {
+    readonly id: FieldRef<"draft_service_providers", 'String'>
+    readonly user_id: FieldRef<"draft_service_providers", 'String'>
+    readonly years_of_experience: FieldRef<"draft_service_providers", 'Decimal'>
+    readonly service_name: FieldRef<"draft_service_providers", 'String'>
+    readonly governorate_id: FieldRef<"draft_service_providers", 'String'>
+    readonly service_category_id: FieldRef<"draft_service_providers", 'String'>
+    readonly service_delivery_method: FieldRef<"draft_service_providers", 'service_delivery_method'>
+    readonly service_description: FieldRef<"draft_service_providers", 'String'>
+    readonly bio: FieldRef<"draft_service_providers", 'String'>
+    readonly facebook_url: FieldRef<"draft_service_providers", 'String'>
+    readonly instagram_url: FieldRef<"draft_service_providers", 'String'>
+    readonly whatsapp_url: FieldRef<"draft_service_providers", 'String'>
+    readonly other_urls: FieldRef<"draft_service_providers", 'String'>
+    readonly logo_image: FieldRef<"draft_service_providers", 'String'>
+    readonly id_card_front_image: FieldRef<"draft_service_providers", 'String'>
+    readonly id_card_back_image: FieldRef<"draft_service_providers", 'String'>
+    readonly certificates_images: FieldRef<"draft_service_providers", 'String'>
+    readonly document_list: FieldRef<"draft_service_providers", 'String'>
+    readonly video_url: FieldRef<"draft_service_providers", 'String'>
+    readonly keywords: FieldRef<"draft_service_providers", 'String'>
+    readonly notes: FieldRef<"draft_service_providers", 'String'>
+    readonly status: FieldRef<"draft_service_providers", 'service_provider_status'>
+    readonly is_deleted: FieldRef<"draft_service_providers", 'Boolean'>
+    readonly deleted_at: FieldRef<"draft_service_providers", 'DateTime'>
+    readonly deleted_by: FieldRef<"draft_service_providers", 'String'>
+    readonly created_at: FieldRef<"draft_service_providers", 'DateTime'>
+    readonly created_by: FieldRef<"draft_service_providers", 'String'>
+    readonly updated_at: FieldRef<"draft_service_providers", 'DateTime'>
+    readonly updated_by: FieldRef<"draft_service_providers", 'String'>
+    readonly slug: FieldRef<"draft_service_providers", 'String'>
+    readonly address: FieldRef<"draft_service_providers", 'String'>
+    readonly official_url: FieldRef<"draft_service_providers", 'String'>
+    readonly services: FieldRef<"draft_service_providers", 'String'>
+    readonly phone: FieldRef<"draft_service_providers", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * draft_service_providers findUnique
+   */
+  export type draft_service_providersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter, which draft_service_providers to fetch.
+     */
+    where: draft_service_providersWhereUniqueInput
+  }
+
+  /**
+   * draft_service_providers findUniqueOrThrow
+   */
+  export type draft_service_providersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter, which draft_service_providers to fetch.
+     */
+    where: draft_service_providersWhereUniqueInput
+  }
+
+  /**
+   * draft_service_providers findFirst
+   */
+  export type draft_service_providersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter, which draft_service_providers to fetch.
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of draft_service_providers to fetch.
+     */
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for draft_service_providers.
+     */
+    cursor?: draft_service_providersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` draft_service_providers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` draft_service_providers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of draft_service_providers.
+     */
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
+   * draft_service_providers findFirstOrThrow
+   */
+  export type draft_service_providersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter, which draft_service_providers to fetch.
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of draft_service_providers to fetch.
+     */
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for draft_service_providers.
+     */
+    cursor?: draft_service_providersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` draft_service_providers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` draft_service_providers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of draft_service_providers.
+     */
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
+   * draft_service_providers findMany
+   */
+  export type draft_service_providersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter, which draft_service_providers to fetch.
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of draft_service_providers to fetch.
+     */
+    orderBy?: draft_service_providersOrderByWithRelationInput | draft_service_providersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing draft_service_providers.
+     */
+    cursor?: draft_service_providersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` draft_service_providers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` draft_service_providers.
+     */
+    skip?: number
+    distinct?: Draft_service_providersScalarFieldEnum | Draft_service_providersScalarFieldEnum[]
+  }
+
+  /**
+   * draft_service_providers create
+   */
+  export type draft_service_providersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a draft_service_providers.
+     */
+    data?: XOR<draft_service_providersCreateInput, draft_service_providersUncheckedCreateInput>
+  }
+
+  /**
+   * draft_service_providers createMany
+   */
+  export type draft_service_providersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many draft_service_providers.
+     */
+    data: draft_service_providersCreateManyInput | draft_service_providersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * draft_service_providers createManyAndReturn
+   */
+  export type draft_service_providersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * The data used to create many draft_service_providers.
+     */
+    data: draft_service_providersCreateManyInput | draft_service_providersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * draft_service_providers update
+   */
+  export type draft_service_providersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a draft_service_providers.
+     */
+    data: XOR<draft_service_providersUpdateInput, draft_service_providersUncheckedUpdateInput>
+    /**
+     * Choose, which draft_service_providers to update.
+     */
+    where: draft_service_providersWhereUniqueInput
+  }
+
+  /**
+   * draft_service_providers updateMany
+   */
+  export type draft_service_providersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update draft_service_providers.
+     */
+    data: XOR<draft_service_providersUpdateManyMutationInput, draft_service_providersUncheckedUpdateManyInput>
+    /**
+     * Filter which draft_service_providers to update
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * Limit how many draft_service_providers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * draft_service_providers updateManyAndReturn
+   */
+  export type draft_service_providersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * The data used to update draft_service_providers.
+     */
+    data: XOR<draft_service_providersUpdateManyMutationInput, draft_service_providersUncheckedUpdateManyInput>
+    /**
+     * Filter which draft_service_providers to update
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * Limit how many draft_service_providers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * draft_service_providers upsert
+   */
+  export type draft_service_providersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the draft_service_providers to update in case it exists.
+     */
+    where: draft_service_providersWhereUniqueInput
+    /**
+     * In case the draft_service_providers found by the `where` argument doesn't exist, create a new draft_service_providers with this data.
+     */
+    create: XOR<draft_service_providersCreateInput, draft_service_providersUncheckedCreateInput>
+    /**
+     * In case the draft_service_providers was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<draft_service_providersUpdateInput, draft_service_providersUncheckedUpdateInput>
+  }
+
+  /**
+   * draft_service_providers delete
+   */
+  export type draft_service_providersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
+    /**
+     * Filter which draft_service_providers to delete.
+     */
+    where: draft_service_providersWhereUniqueInput
+  }
+
+  /**
+   * draft_service_providers deleteMany
+   */
+  export type draft_service_providersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which draft_service_providers to delete
+     */
+    where?: draft_service_providersWhereInput
+    /**
+     * Limit how many draft_service_providers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * draft_service_providers.governorates
+   */
+  export type draft_service_providers$governoratesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the governorates
+     */
+    select?: governoratesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the governorates
+     */
+    omit?: governoratesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: governoratesInclude<ExtArgs> | null
+    where?: governoratesWhereInput
+  }
+
+  /**
+   * draft_service_providers.service_categories
+   */
+  export type draft_service_providers$service_categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_categories
+     */
+    select?: service_categoriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_categories
+     */
+    omit?: service_categoriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_categoriesInclude<ExtArgs> | null
+    where?: service_categoriesWhereInput
+  }
+
+  /**
+   * draft_service_providers.users
+   */
+  export type draft_service_providers$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
+  }
+
+  /**
+   * draft_service_providers without action
+   */
+  export type draft_service_providersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the draft_service_providers
+     */
+    select?: draft_service_providersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the draft_service_providers
+     */
+    omit?: draft_service_providersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: draft_service_providersInclude<ExtArgs> | null
   }
 
 
@@ -6382,14 +8208,18 @@ export namespace Prisma {
     created_by: 'created_by',
     updated_at: 'updated_at',
     updated_by: 'updated_by',
-    slug: 'slug'
+    slug: 'slug',
+    address: 'address',
+    official_url: 'official_url',
+    services: 'services',
+    phone: 'phone'
   };
 
   export type Service_providersScalarFieldEnum = (typeof Service_providersScalarFieldEnum)[keyof typeof Service_providersScalarFieldEnum]
 
 
   export const UsersScalarFieldEnum: {
-    user_id: 'user_id',
+    id: 'id',
     email: 'email',
     first_name: 'first_name',
     last_name: 'last_name',
@@ -6402,10 +8232,52 @@ export namespace Prisma {
     is_banned: 'is_banned',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by'
+    deleted_by: 'deleted_by',
+    user_id: 'user_id',
+    is_admin: 'is_admin'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const Draft_service_providersScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    years_of_experience: 'years_of_experience',
+    service_name: 'service_name',
+    governorate_id: 'governorate_id',
+    service_category_id: 'service_category_id',
+    service_delivery_method: 'service_delivery_method',
+    service_description: 'service_description',
+    bio: 'bio',
+    facebook_url: 'facebook_url',
+    instagram_url: 'instagram_url',
+    whatsapp_url: 'whatsapp_url',
+    other_urls: 'other_urls',
+    logo_image: 'logo_image',
+    id_card_front_image: 'id_card_front_image',
+    id_card_back_image: 'id_card_back_image',
+    certificates_images: 'certificates_images',
+    document_list: 'document_list',
+    video_url: 'video_url',
+    keywords: 'keywords',
+    notes: 'notes',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    deleted_at: 'deleted_at',
+    deleted_by: 'deleted_by',
+    created_at: 'created_at',
+    created_by: 'created_by',
+    updated_at: 'updated_at',
+    updated_by: 'updated_by',
+    slug: 'slug',
+    address: 'address',
+    official_url: 'official_url',
+    services: 'services',
+    phone: 'phone'
+  };
+
+  export type Draft_service_providersScalarFieldEnum = (typeof Draft_service_providersScalarFieldEnum)[keyof typeof Draft_service_providersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6414,14 +8286,6 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -6438,15 +8302,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -6490,16 +8345,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Decimal'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Decimal[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -6518,20 +8373,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'service_provider_status'
    */
   export type Enumservice_provider_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_provider_status'>
@@ -6546,16 +8387,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -6579,6 +8420,7 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"governorates"> | string | null
     updated_at?: DateTimeNullableFilter<"governorates"> | Date | string | null
     updated_by?: StringNullableFilter<"governorates"> | string | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
   }
 
@@ -6596,6 +8438,7 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
+    draft_service_providers?: draft_service_providersOrderByRelationAggregateInput
     service_providers?: service_providersOrderByRelationAggregateInput
   }
 
@@ -6616,6 +8459,7 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"governorates"> | string | null
     updated_at?: DateTimeNullableFilter<"governorates"> | Date | string | null
     updated_by?: StringNullableFilter<"governorates"> | string | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
   }, "id" | "governorate_code">
 
@@ -6675,6 +8519,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"service_categories"> | string | null
     icon?: StringNullableFilter<"service_categories"> | string | null
     slug?: StringNullableFilter<"service_categories"> | string | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
   }
 
@@ -6693,6 +8538,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     icon?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
+    draft_service_providers?: draft_service_providersOrderByRelationAggregateInput
     service_providers?: service_providersOrderByRelationAggregateInput
   }
 
@@ -6714,6 +8560,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"service_categories"> | string | null
     icon?: StringNullableFilter<"service_categories"> | string | null
     slug?: StringNullableFilter<"service_categories"> | string | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
   }, "id">
 
@@ -6763,7 +8610,7 @@ export namespace Prisma {
     NOT?: service_providersWhereInput | service_providersWhereInput[]
     id?: UuidFilter<"service_providers"> | string
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -6773,7 +8620,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -6791,6 +8638,10 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
+    phone?: StringNullableFilter<"service_providers"> | string | null
     governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
     service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -6827,6 +8678,10 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
     governorates?: governoratesOrderByWithRelationInput
     service_categories?: service_categoriesOrderByWithRelationInput
     users?: usersOrderByWithRelationInput
@@ -6838,7 +8693,7 @@ export namespace Prisma {
     OR?: service_providersWhereInput[]
     NOT?: service_providersWhereInput | service_providersWhereInput[]
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -6848,7 +8703,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -6866,6 +8721,10 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
+    phone?: StringNullableFilter<"service_providers"> | string | null
     governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
     service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -6902,6 +8761,10 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
     _count?: service_providersCountOrderByAggregateInput
     _avg?: service_providersAvgOrderByAggregateInput
     _max?: service_providersMaxOrderByAggregateInput
@@ -6915,7 +8778,7 @@ export namespace Prisma {
     NOT?: service_providersScalarWhereWithAggregatesInput | service_providersScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"service_providers"> | string
     user_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableWithAggregatesFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableWithAggregatesFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableWithAggregatesFilter<"service_providers"> | string | null
@@ -6925,7 +8788,7 @@ export namespace Prisma {
     facebook_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     instagram_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableWithAggregatesFilter<"service_providers">
+    other_urls?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     logo_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
@@ -6943,13 +8806,17 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
     slug?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    address?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    official_url?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    services?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"service_providers"> | string | null
   }
 
   export type usersWhereInput = {
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
-    user_id?: UuidFilter<"users"> | string
+    id?: UuidFilter<"users"> | string
     email?: StringFilter<"users"> | string
     first_name?: StringNullableFilter<"users"> | string | null
     last_name?: StringNullableFilter<"users"> | string | null
@@ -6963,11 +8830,14 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"users"> | string | null
     updated_by?: StringNullableFilter<"users"> | string | null
     deleted_by?: StringNullableFilter<"users"> | string | null
+    user_id?: UuidNullableFilter<"users"> | string | null
+    is_admin?: BoolNullableFilter<"users"> | boolean | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
@@ -6981,12 +8851,16 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
+    is_admin?: SortOrderInput | SortOrder
+    draft_service_providers?: draft_service_providersOrderByRelationAggregateInput
     service_providers?: service_providersOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
-    user_id?: string
+    id?: string
     email?: string
+    user_id?: string
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
@@ -7002,11 +8876,13 @@ export namespace Prisma {
     created_by?: StringNullableFilter<"users"> | string | null
     updated_by?: StringNullableFilter<"users"> | string | null
     deleted_by?: StringNullableFilter<"users"> | string | null
+    is_admin?: BoolNullableFilter<"users"> | boolean | null
+    draft_service_providers?: Draft_service_providersListRelationFilter
     service_providers?: Service_providersListRelationFilter
-  }, "user_id" | "email">
+  }, "id" | "email" | "user_id">
 
   export type usersOrderByWithAggregationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
@@ -7020,6 +8896,8 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
+    is_admin?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
@@ -7029,7 +8907,7 @@ export namespace Prisma {
     AND?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
     OR?: usersScalarWhereWithAggregatesInput[]
     NOT?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    user_id?: UuidWithAggregatesFilter<"users"> | string
+    id?: UuidWithAggregatesFilter<"users"> | string
     email?: StringWithAggregatesFilter<"users"> | string
     first_name?: StringNullableWithAggregatesFilter<"users"> | string | null
     last_name?: StringNullableWithAggregatesFilter<"users"> | string | null
@@ -7043,6 +8921,216 @@ export namespace Prisma {
     created_by?: StringNullableWithAggregatesFilter<"users"> | string | null
     updated_by?: StringNullableWithAggregatesFilter<"users"> | string | null
     deleted_by?: StringNullableWithAggregatesFilter<"users"> | string | null
+    user_id?: UuidNullableWithAggregatesFilter<"users"> | string | null
+    is_admin?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
+  }
+
+  export type draft_service_providersWhereInput = {
+    AND?: draft_service_providersWhereInput | draft_service_providersWhereInput[]
+    OR?: draft_service_providersWhereInput[]
+    NOT?: draft_service_providersWhereInput | draft_service_providersWhereInput[]
+    id?: UuidFilter<"draft_service_providers"> | string
+    user_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    years_of_experience?: DecimalNullableFilter<"draft_service_providers"> | Decimal | DecimalJsLike | number | string | null
+    service_name?: StringNullableFilter<"draft_service_providers"> | string | null
+    governorate_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_category_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_delivery_method?: Enumservice_delivery_methodNullableFilter<"draft_service_providers"> | $Enums.service_delivery_method | null
+    service_description?: StringNullableFilter<"draft_service_providers"> | string | null
+    bio?: StringNullableFilter<"draft_service_providers"> | string | null
+    facebook_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    instagram_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    whatsapp_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    other_urls?: StringNullableFilter<"draft_service_providers"> | string | null
+    logo_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_front_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_back_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    certificates_images?: StringNullableFilter<"draft_service_providers"> | string | null
+    document_list?: StringNullableFilter<"draft_service_providers"> | string | null
+    video_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    keywords?: StringNullableFilter<"draft_service_providers"> | string | null
+    notes?: StringNullableFilter<"draft_service_providers"> | string | null
+    status?: Enumservice_provider_statusFilter<"draft_service_providers"> | $Enums.service_provider_status
+    is_deleted?: BoolNullableFilter<"draft_service_providers"> | boolean | null
+    deleted_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    deleted_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    created_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    created_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    updated_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    updated_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    slug?: StringNullableFilter<"draft_service_providers"> | string | null
+    address?: StringNullableFilter<"draft_service_providers"> | string | null
+    official_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    services?: StringNullableFilter<"draft_service_providers"> | string | null
+    phone?: StringNullableFilter<"draft_service_providers"> | string | null
+    governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
+    service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
+    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+  }
+
+  export type draft_service_providersOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    years_of_experience?: SortOrderInput | SortOrder
+    service_name?: SortOrderInput | SortOrder
+    governorate_id?: SortOrderInput | SortOrder
+    service_category_id?: SortOrderInput | SortOrder
+    service_delivery_method?: SortOrderInput | SortOrder
+    service_description?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    facebook_url?: SortOrderInput | SortOrder
+    instagram_url?: SortOrderInput | SortOrder
+    whatsapp_url?: SortOrderInput | SortOrder
+    other_urls?: SortOrderInput | SortOrder
+    logo_image?: SortOrderInput | SortOrder
+    id_card_front_image?: SortOrderInput | SortOrder
+    id_card_back_image?: SortOrderInput | SortOrder
+    certificates_images?: SortOrderInput | SortOrder
+    document_list?: SortOrderInput | SortOrder
+    video_url?: SortOrderInput | SortOrder
+    keywords?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    created_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    governorates?: governoratesOrderByWithRelationInput
+    service_categories?: service_categoriesOrderByWithRelationInput
+    users?: usersOrderByWithRelationInput
+  }
+
+  export type draft_service_providersWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: draft_service_providersWhereInput | draft_service_providersWhereInput[]
+    OR?: draft_service_providersWhereInput[]
+    NOT?: draft_service_providersWhereInput | draft_service_providersWhereInput[]
+    user_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    years_of_experience?: DecimalNullableFilter<"draft_service_providers"> | Decimal | DecimalJsLike | number | string | null
+    service_name?: StringNullableFilter<"draft_service_providers"> | string | null
+    governorate_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_category_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_delivery_method?: Enumservice_delivery_methodNullableFilter<"draft_service_providers"> | $Enums.service_delivery_method | null
+    service_description?: StringNullableFilter<"draft_service_providers"> | string | null
+    bio?: StringNullableFilter<"draft_service_providers"> | string | null
+    facebook_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    instagram_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    whatsapp_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    other_urls?: StringNullableFilter<"draft_service_providers"> | string | null
+    logo_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_front_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_back_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    certificates_images?: StringNullableFilter<"draft_service_providers"> | string | null
+    document_list?: StringNullableFilter<"draft_service_providers"> | string | null
+    video_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    keywords?: StringNullableFilter<"draft_service_providers"> | string | null
+    notes?: StringNullableFilter<"draft_service_providers"> | string | null
+    status?: Enumservice_provider_statusFilter<"draft_service_providers"> | $Enums.service_provider_status
+    is_deleted?: BoolNullableFilter<"draft_service_providers"> | boolean | null
+    deleted_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    deleted_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    created_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    created_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    updated_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    updated_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    slug?: StringNullableFilter<"draft_service_providers"> | string | null
+    address?: StringNullableFilter<"draft_service_providers"> | string | null
+    official_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    services?: StringNullableFilter<"draft_service_providers"> | string | null
+    phone?: StringNullableFilter<"draft_service_providers"> | string | null
+    governorates?: XOR<GovernoratesNullableScalarRelationFilter, governoratesWhereInput> | null
+    service_categories?: XOR<Service_categoriesNullableScalarRelationFilter, service_categoriesWhereInput> | null
+    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+  }, "id">
+
+  export type draft_service_providersOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    years_of_experience?: SortOrderInput | SortOrder
+    service_name?: SortOrderInput | SortOrder
+    governorate_id?: SortOrderInput | SortOrder
+    service_category_id?: SortOrderInput | SortOrder
+    service_delivery_method?: SortOrderInput | SortOrder
+    service_description?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    facebook_url?: SortOrderInput | SortOrder
+    instagram_url?: SortOrderInput | SortOrder
+    whatsapp_url?: SortOrderInput | SortOrder
+    other_urls?: SortOrderInput | SortOrder
+    logo_image?: SortOrderInput | SortOrder
+    id_card_front_image?: SortOrderInput | SortOrder
+    id_card_back_image?: SortOrderInput | SortOrder
+    certificates_images?: SortOrderInput | SortOrder
+    document_list?: SortOrderInput | SortOrder
+    video_url?: SortOrderInput | SortOrder
+    keywords?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    created_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    slug?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    official_url?: SortOrderInput | SortOrder
+    services?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    _count?: draft_service_providersCountOrderByAggregateInput
+    _avg?: draft_service_providersAvgOrderByAggregateInput
+    _max?: draft_service_providersMaxOrderByAggregateInput
+    _min?: draft_service_providersMinOrderByAggregateInput
+    _sum?: draft_service_providersSumOrderByAggregateInput
+  }
+
+  export type draft_service_providersScalarWhereWithAggregatesInput = {
+    AND?: draft_service_providersScalarWhereWithAggregatesInput | draft_service_providersScalarWhereWithAggregatesInput[]
+    OR?: draft_service_providersScalarWhereWithAggregatesInput[]
+    NOT?: draft_service_providersScalarWhereWithAggregatesInput | draft_service_providersScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"draft_service_providers"> | string
+    user_id?: UuidNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    years_of_experience?: DecimalNullableWithAggregatesFilter<"draft_service_providers"> | Decimal | DecimalJsLike | number | string | null
+    service_name?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    governorate_id?: UuidNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    service_category_id?: UuidNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    service_delivery_method?: Enumservice_delivery_methodNullableWithAggregatesFilter<"draft_service_providers"> | $Enums.service_delivery_method | null
+    service_description?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    facebook_url?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    instagram_url?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    whatsapp_url?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    other_urls?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    logo_image?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    id_card_front_image?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    id_card_back_image?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    certificates_images?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    document_list?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    video_url?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    keywords?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    status?: Enumservice_provider_statusWithAggregatesFilter<"draft_service_providers"> | $Enums.service_provider_status
+    is_deleted?: BoolNullableWithAggregatesFilter<"draft_service_providers"> | boolean | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"draft_service_providers"> | Date | string | null
+    deleted_by?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"draft_service_providers"> | Date | string | null
+    created_by?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"draft_service_providers"> | Date | string | null
+    updated_by?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    slug?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    address?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    official_url?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    services?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"draft_service_providers"> | string | null
   }
 
   export type governoratesCreateInput = {
@@ -7059,6 +9147,7 @@ export namespace Prisma {
     created_by?: string | null
     updated_at?: Date | string | null
     updated_by?: string | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutGovernoratesInput
     service_providers?: service_providersCreateNestedManyWithoutGovernoratesInput
   }
 
@@ -7076,6 +9165,7 @@ export namespace Prisma {
     created_by?: string | null
     updated_at?: Date | string | null
     updated_by?: string | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutGovernoratesInput
     service_providers?: service_providersUncheckedCreateNestedManyWithoutGovernoratesInput
   }
 
@@ -7093,6 +9183,7 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutGovernoratesNestedInput
     service_providers?: service_providersUpdateManyWithoutGovernoratesNestedInput
   }
 
@@ -7110,6 +9201,7 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput
     service_providers?: service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput
   }
 
@@ -7176,6 +9268,7 @@ export namespace Prisma {
     updated_by?: string | null
     icon?: string | null
     slug?: string | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutService_categoriesInput
     service_providers?: service_providersCreateNestedManyWithoutService_categoriesInput
   }
 
@@ -7194,6 +9287,7 @@ export namespace Prisma {
     updated_by?: string | null
     icon?: string | null
     slug?: string | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutService_categoriesInput
     service_providers?: service_providersUncheckedCreateNestedManyWithoutService_categoriesInput
   }
 
@@ -7212,6 +9306,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutService_categoriesNestedInput
     service_providers?: service_providersUpdateManyWithoutService_categoriesNestedInput
   }
 
@@ -7230,6 +9325,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput
     service_providers?: service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput
   }
 
@@ -7286,7 +9382,7 @@ export namespace Prisma {
 
   export type service_providersCreateInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -7294,7 +9390,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7312,6 +9408,10 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
     governorates?: governoratesCreateNestedOneWithoutService_providersInput
     service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
     users?: usersCreateNestedOneWithoutService_providersInput
@@ -7320,7 +9420,7 @@ export namespace Prisma {
   export type service_providersUncheckedCreateInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -7330,7 +9430,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7348,11 +9448,15 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
   export type service_providersUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7360,7 +9464,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7378,6 +9482,10 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
@@ -7386,7 +9494,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7396,7 +9504,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7414,12 +9522,16 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersCreateManyInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -7429,7 +9541,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -7447,11 +9559,15 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
   export type service_providersUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7459,7 +9575,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7477,12 +9593,16 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7492,7 +9612,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7510,10 +9630,14 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersCreateInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7527,11 +9651,14 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutUsersInput
     service_providers?: service_providersCreateNestedManyWithoutUsersInput
   }
 
   export type usersUncheckedCreateInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7545,11 +9672,14 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutUsersInput
     service_providers?: service_providersUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7563,11 +9693,14 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutUsersNestedInput
     service_providers?: service_providersUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7581,11 +9714,14 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutUsersNestedInput
     service_providers?: service_providersUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersCreateManyInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -7599,10 +9735,12 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
   }
 
   export type usersUpdateManyMutationInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7616,10 +9754,12 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type usersUncheckedUpdateManyInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7633,6 +9773,264 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type draft_service_providersCreateInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    governorates?: governoratesCreateNestedOneWithoutDraft_service_providersInput
+    service_categories?: service_categoriesCreateNestedOneWithoutDraft_service_providersInput
+    users?: usersCreateNestedOneWithoutDraft_service_providersInput
+  }
+
+  export type draft_service_providersUncheckedCreateInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    governorates?: governoratesUpdateOneWithoutDraft_service_providersNestedInput
+    service_categories?: service_categoriesUpdateOneWithoutDraft_service_providersNestedInput
+    users?: usersUpdateOneWithoutDraft_service_providersNestedInput
+  }
+
+  export type draft_service_providersUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type draft_service_providersCreateManyInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type draft_service_providersUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -7693,6 +10091,12 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type Draft_service_providersListRelationFilter = {
+    every?: draft_service_providersWhereInput
+    some?: draft_service_providersWhereInput
+    none?: draft_service_providersWhereInput
+  }
+
   export type Service_providersListRelationFilter = {
     every?: service_providersWhereInput
     some?: service_providersWhereInput
@@ -7702,6 +10106,10 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type draft_service_providersOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type service_providersOrderByRelationAggregateInput = {
@@ -7892,15 +10300,15 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type Enumservice_delivery_methodNullableFilter<$PrismaModel = never> = {
@@ -7908,29 +10316,6 @@ export namespace Prisma {
     in?: $Enums.service_delivery_method[] | ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> | null
     notIn?: $Enums.service_delivery_method[] | ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> | null
     not?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel> | $Enums.service_delivery_method | null
-  }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type Enumservice_provider_statusFilter<$PrismaModel = never> = {
@@ -7986,6 +10371,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
   }
 
   export type service_providersAvgOrderByAggregateInput = {
@@ -8005,6 +10394,7 @@ export namespace Prisma {
     facebook_url?: SortOrder
     instagram_url?: SortOrder
     whatsapp_url?: SortOrder
+    other_urls?: SortOrder
     logo_image?: SortOrder
     id_card_front_image?: SortOrder
     id_card_back_image?: SortOrder
@@ -8022,6 +10412,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
   }
 
   export type service_providersMinOrderByAggregateInput = {
@@ -8037,6 +10431,7 @@ export namespace Prisma {
     facebook_url?: SortOrder
     instagram_url?: SortOrder
     whatsapp_url?: SortOrder
+    other_urls?: SortOrder
     logo_image?: SortOrder
     id_card_front_image?: SortOrder
     id_card_back_image?: SortOrder
@@ -8054,6 +10449,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     updated_by?: SortOrder
     slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
   }
 
   export type service_providersSumOrderByAggregateInput = {
@@ -8075,20 +10474,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type Enumservice_delivery_methodNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8099,32 +10498,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
     _max?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type Enumservice_provider_statusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8149,7 +10522,7 @@ export namespace Prisma {
   }
 
   export type usersCountOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8163,10 +10536,12 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8180,10 +10555,12 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
@@ -8197,6 +10574,8 @@ export namespace Prisma {
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
+    user_id?: SortOrder
+    is_admin?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8213,11 +10592,144 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type draft_service_providersCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    years_of_experience?: SortOrder
+    service_name?: SortOrder
+    governorate_id?: SortOrder
+    service_category_id?: SortOrder
+    service_delivery_method?: SortOrder
+    service_description?: SortOrder
+    bio?: SortOrder
+    facebook_url?: SortOrder
+    instagram_url?: SortOrder
+    whatsapp_url?: SortOrder
+    other_urls?: SortOrder
+    logo_image?: SortOrder
+    id_card_front_image?: SortOrder
+    id_card_back_image?: SortOrder
+    certificates_images?: SortOrder
+    document_list?: SortOrder
+    video_url?: SortOrder
+    keywords?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+    updated_at?: SortOrder
+    updated_by?: SortOrder
+    slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
+  }
+
+  export type draft_service_providersAvgOrderByAggregateInput = {
+    years_of_experience?: SortOrder
+  }
+
+  export type draft_service_providersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    years_of_experience?: SortOrder
+    service_name?: SortOrder
+    governorate_id?: SortOrder
+    service_category_id?: SortOrder
+    service_delivery_method?: SortOrder
+    service_description?: SortOrder
+    bio?: SortOrder
+    facebook_url?: SortOrder
+    instagram_url?: SortOrder
+    whatsapp_url?: SortOrder
+    other_urls?: SortOrder
+    logo_image?: SortOrder
+    id_card_front_image?: SortOrder
+    id_card_back_image?: SortOrder
+    certificates_images?: SortOrder
+    document_list?: SortOrder
+    video_url?: SortOrder
+    keywords?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+    updated_at?: SortOrder
+    updated_by?: SortOrder
+    slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
+  }
+
+  export type draft_service_providersMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    years_of_experience?: SortOrder
+    service_name?: SortOrder
+    governorate_id?: SortOrder
+    service_category_id?: SortOrder
+    service_delivery_method?: SortOrder
+    service_description?: SortOrder
+    bio?: SortOrder
+    facebook_url?: SortOrder
+    instagram_url?: SortOrder
+    whatsapp_url?: SortOrder
+    other_urls?: SortOrder
+    logo_image?: SortOrder
+    id_card_front_image?: SortOrder
+    id_card_back_image?: SortOrder
+    certificates_images?: SortOrder
+    document_list?: SortOrder
+    video_url?: SortOrder
+    keywords?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+    updated_at?: SortOrder
+    updated_by?: SortOrder
+    slug?: SortOrder
+    address?: SortOrder
+    official_url?: SortOrder
+    services?: SortOrder
+    phone?: SortOrder
+  }
+
+  export type draft_service_providersSumOrderByAggregateInput = {
+    years_of_experience?: SortOrder
+  }
+
+  export type draft_service_providersCreateNestedManyWithoutGovernoratesInput = {
+    create?: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput> | draft_service_providersCreateWithoutGovernoratesInput[] | draft_service_providersUncheckedCreateWithoutGovernoratesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutGovernoratesInput | draft_service_providersCreateOrConnectWithoutGovernoratesInput[]
+    createMany?: draft_service_providersCreateManyGovernoratesInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+  }
+
   export type service_providersCreateNestedManyWithoutGovernoratesInput = {
     create?: XOR<service_providersCreateWithoutGovernoratesInput, service_providersUncheckedCreateWithoutGovernoratesInput> | service_providersCreateWithoutGovernoratesInput[] | service_providersUncheckedCreateWithoutGovernoratesInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutGovernoratesInput | service_providersCreateOrConnectWithoutGovernoratesInput[]
     createMany?: service_providersCreateManyGovernoratesInputEnvelope
     connect?: service_providersWhereUniqueInput | service_providersWhereUniqueInput[]
+  }
+
+  export type draft_service_providersUncheckedCreateNestedManyWithoutGovernoratesInput = {
+    create?: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput> | draft_service_providersCreateWithoutGovernoratesInput[] | draft_service_providersUncheckedCreateWithoutGovernoratesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutGovernoratesInput | draft_service_providersCreateOrConnectWithoutGovernoratesInput[]
+    createMany?: draft_service_providersCreateManyGovernoratesInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
   }
 
   export type service_providersUncheckedCreateNestedManyWithoutGovernoratesInput = {
@@ -8243,6 +10755,20 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type draft_service_providersUpdateManyWithoutGovernoratesNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput> | draft_service_providersCreateWithoutGovernoratesInput[] | draft_service_providersUncheckedCreateWithoutGovernoratesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutGovernoratesInput | draft_service_providersCreateOrConnectWithoutGovernoratesInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutGovernoratesInput | draft_service_providersUpsertWithWhereUniqueWithoutGovernoratesInput[]
+    createMany?: draft_service_providersCreateManyGovernoratesInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutGovernoratesInput | draft_service_providersUpdateWithWhereUniqueWithoutGovernoratesInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutGovernoratesInput | draft_service_providersUpdateManyWithWhereWithoutGovernoratesInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
+  }
+
   export type service_providersUpdateManyWithoutGovernoratesNestedInput = {
     create?: XOR<service_providersCreateWithoutGovernoratesInput, service_providersUncheckedCreateWithoutGovernoratesInput> | service_providersCreateWithoutGovernoratesInput[] | service_providersUncheckedCreateWithoutGovernoratesInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutGovernoratesInput | service_providersCreateOrConnectWithoutGovernoratesInput[]
@@ -8255,6 +10781,20 @@ export namespace Prisma {
     update?: service_providersUpdateWithWhereUniqueWithoutGovernoratesInput | service_providersUpdateWithWhereUniqueWithoutGovernoratesInput[]
     updateMany?: service_providersUpdateManyWithWhereWithoutGovernoratesInput | service_providersUpdateManyWithWhereWithoutGovernoratesInput[]
     deleteMany?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
+  }
+
+  export type draft_service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput> | draft_service_providersCreateWithoutGovernoratesInput[] | draft_service_providersUncheckedCreateWithoutGovernoratesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutGovernoratesInput | draft_service_providersCreateOrConnectWithoutGovernoratesInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutGovernoratesInput | draft_service_providersUpsertWithWhereUniqueWithoutGovernoratesInput[]
+    createMany?: draft_service_providersCreateManyGovernoratesInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutGovernoratesInput | draft_service_providersUpdateWithWhereUniqueWithoutGovernoratesInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutGovernoratesInput | draft_service_providersUpdateManyWithWhereWithoutGovernoratesInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
   }
 
   export type service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput = {
@@ -8271,6 +10811,13 @@ export namespace Prisma {
     deleteMany?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
   }
 
+  export type draft_service_providersCreateNestedManyWithoutService_categoriesInput = {
+    create?: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput> | draft_service_providersCreateWithoutService_categoriesInput[] | draft_service_providersUncheckedCreateWithoutService_categoriesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutService_categoriesInput | draft_service_providersCreateOrConnectWithoutService_categoriesInput[]
+    createMany?: draft_service_providersCreateManyService_categoriesInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+  }
+
   export type service_providersCreateNestedManyWithoutService_categoriesInput = {
     create?: XOR<service_providersCreateWithoutService_categoriesInput, service_providersUncheckedCreateWithoutService_categoriesInput> | service_providersCreateWithoutService_categoriesInput[] | service_providersUncheckedCreateWithoutService_categoriesInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutService_categoriesInput | service_providersCreateOrConnectWithoutService_categoriesInput[]
@@ -8278,11 +10825,32 @@ export namespace Prisma {
     connect?: service_providersWhereUniqueInput | service_providersWhereUniqueInput[]
   }
 
+  export type draft_service_providersUncheckedCreateNestedManyWithoutService_categoriesInput = {
+    create?: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput> | draft_service_providersCreateWithoutService_categoriesInput[] | draft_service_providersUncheckedCreateWithoutService_categoriesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutService_categoriesInput | draft_service_providersCreateOrConnectWithoutService_categoriesInput[]
+    createMany?: draft_service_providersCreateManyService_categoriesInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+  }
+
   export type service_providersUncheckedCreateNestedManyWithoutService_categoriesInput = {
     create?: XOR<service_providersCreateWithoutService_categoriesInput, service_providersUncheckedCreateWithoutService_categoriesInput> | service_providersCreateWithoutService_categoriesInput[] | service_providersUncheckedCreateWithoutService_categoriesInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutService_categoriesInput | service_providersCreateOrConnectWithoutService_categoriesInput[]
     createMany?: service_providersCreateManyService_categoriesInputEnvelope
     connect?: service_providersWhereUniqueInput | service_providersWhereUniqueInput[]
+  }
+
+  export type draft_service_providersUpdateManyWithoutService_categoriesNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput> | draft_service_providersCreateWithoutService_categoriesInput[] | draft_service_providersUncheckedCreateWithoutService_categoriesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutService_categoriesInput | draft_service_providersCreateOrConnectWithoutService_categoriesInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutService_categoriesInput | draft_service_providersUpsertWithWhereUniqueWithoutService_categoriesInput[]
+    createMany?: draft_service_providersCreateManyService_categoriesInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutService_categoriesInput | draft_service_providersUpdateWithWhereUniqueWithoutService_categoriesInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutService_categoriesInput | draft_service_providersUpdateManyWithWhereWithoutService_categoriesInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
   }
 
   export type service_providersUpdateManyWithoutService_categoriesNestedInput = {
@@ -8297,6 +10865,20 @@ export namespace Prisma {
     update?: service_providersUpdateWithWhereUniqueWithoutService_categoriesInput | service_providersUpdateWithWhereUniqueWithoutService_categoriesInput[]
     updateMany?: service_providersUpdateManyWithWhereWithoutService_categoriesInput | service_providersUpdateManyWithWhereWithoutService_categoriesInput[]
     deleteMany?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
+  }
+
+  export type draft_service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput> | draft_service_providersCreateWithoutService_categoriesInput[] | draft_service_providersUncheckedCreateWithoutService_categoriesInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutService_categoriesInput | draft_service_providersCreateOrConnectWithoutService_categoriesInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutService_categoriesInput | draft_service_providersUpsertWithWhereUniqueWithoutService_categoriesInput[]
+    createMany?: draft_service_providersCreateManyService_categoriesInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutService_categoriesInput | draft_service_providersUpdateWithWhereUniqueWithoutService_categoriesInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutService_categoriesInput | draft_service_providersUpdateManyWithWhereWithoutService_categoriesInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
   }
 
   export type service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput = {
@@ -8331,12 +10913,12 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type NullableEnumservice_delivery_methodFieldUpdateOperationsInput = {
@@ -8377,11 +10959,25 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutService_providersInput, usersUpdateWithoutService_providersInput>, usersUncheckedUpdateWithoutService_providersInput>
   }
 
+  export type draft_service_providersCreateNestedManyWithoutUsersInput = {
+    create?: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput> | draft_service_providersCreateWithoutUsersInput[] | draft_service_providersUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutUsersInput | draft_service_providersCreateOrConnectWithoutUsersInput[]
+    createMany?: draft_service_providersCreateManyUsersInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+  }
+
   export type service_providersCreateNestedManyWithoutUsersInput = {
     create?: XOR<service_providersCreateWithoutUsersInput, service_providersUncheckedCreateWithoutUsersInput> | service_providersCreateWithoutUsersInput[] | service_providersUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutUsersInput | service_providersCreateOrConnectWithoutUsersInput[]
     createMany?: service_providersCreateManyUsersInputEnvelope
     connect?: service_providersWhereUniqueInput | service_providersWhereUniqueInput[]
+  }
+
+  export type draft_service_providersUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput> | draft_service_providersCreateWithoutUsersInput[] | draft_service_providersUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutUsersInput | draft_service_providersCreateOrConnectWithoutUsersInput[]
+    createMany?: draft_service_providersCreateManyUsersInputEnvelope
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
   }
 
   export type service_providersUncheckedCreateNestedManyWithoutUsersInput = {
@@ -8393,6 +10989,20 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type draft_service_providersUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput> | draft_service_providersCreateWithoutUsersInput[] | draft_service_providersUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutUsersInput | draft_service_providersCreateOrConnectWithoutUsersInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutUsersInput | draft_service_providersUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: draft_service_providersCreateManyUsersInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutUsersInput | draft_service_providersUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutUsersInput | draft_service_providersUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
   }
 
   export type service_providersUpdateManyWithoutUsersNestedInput = {
@@ -8409,6 +11019,20 @@ export namespace Prisma {
     deleteMany?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
   }
 
+  export type draft_service_providersUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput> | draft_service_providersCreateWithoutUsersInput[] | draft_service_providersUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: draft_service_providersCreateOrConnectWithoutUsersInput | draft_service_providersCreateOrConnectWithoutUsersInput[]
+    upsert?: draft_service_providersUpsertWithWhereUniqueWithoutUsersInput | draft_service_providersUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: draft_service_providersCreateManyUsersInputEnvelope
+    set?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    disconnect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    delete?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    connect?: draft_service_providersWhereUniqueInput | draft_service_providersWhereUniqueInput[]
+    update?: draft_service_providersUpdateWithWhereUniqueWithoutUsersInput | draft_service_providersUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: draft_service_providersUpdateManyWithWhereWithoutUsersInput | draft_service_providersUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
+  }
+
   export type service_providersUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<service_providersCreateWithoutUsersInput, service_providersUncheckedCreateWithoutUsersInput> | service_providersCreateWithoutUsersInput[] | service_providersUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: service_providersCreateOrConnectWithoutUsersInput | service_providersCreateOrConnectWithoutUsersInput[]
@@ -8421,6 +11045,54 @@ export namespace Prisma {
     update?: service_providersUpdateWithWhereUniqueWithoutUsersInput | service_providersUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: service_providersUpdateManyWithWhereWithoutUsersInput | service_providersUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
+  }
+
+  export type governoratesCreateNestedOneWithoutDraft_service_providersInput = {
+    create?: XOR<governoratesCreateWithoutDraft_service_providersInput, governoratesUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: governoratesCreateOrConnectWithoutDraft_service_providersInput
+    connect?: governoratesWhereUniqueInput
+  }
+
+  export type service_categoriesCreateNestedOneWithoutDraft_service_providersInput = {
+    create?: XOR<service_categoriesCreateWithoutDraft_service_providersInput, service_categoriesUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: service_categoriesCreateOrConnectWithoutDraft_service_providersInput
+    connect?: service_categoriesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutDraft_service_providersInput = {
+    create?: XOR<usersCreateWithoutDraft_service_providersInput, usersUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutDraft_service_providersInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type governoratesUpdateOneWithoutDraft_service_providersNestedInput = {
+    create?: XOR<governoratesCreateWithoutDraft_service_providersInput, governoratesUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: governoratesCreateOrConnectWithoutDraft_service_providersInput
+    upsert?: governoratesUpsertWithoutDraft_service_providersInput
+    disconnect?: governoratesWhereInput | boolean
+    delete?: governoratesWhereInput | boolean
+    connect?: governoratesWhereUniqueInput
+    update?: XOR<XOR<governoratesUpdateToOneWithWhereWithoutDraft_service_providersInput, governoratesUpdateWithoutDraft_service_providersInput>, governoratesUncheckedUpdateWithoutDraft_service_providersInput>
+  }
+
+  export type service_categoriesUpdateOneWithoutDraft_service_providersNestedInput = {
+    create?: XOR<service_categoriesCreateWithoutDraft_service_providersInput, service_categoriesUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: service_categoriesCreateOrConnectWithoutDraft_service_providersInput
+    upsert?: service_categoriesUpsertWithoutDraft_service_providersInput
+    disconnect?: service_categoriesWhereInput | boolean
+    delete?: service_categoriesWhereInput | boolean
+    connect?: service_categoriesWhereUniqueInput
+    update?: XOR<XOR<service_categoriesUpdateToOneWithWhereWithoutDraft_service_providersInput, service_categoriesUpdateWithoutDraft_service_providersInput>, service_categoriesUncheckedUpdateWithoutDraft_service_providersInput>
+  }
+
+  export type usersUpdateOneWithoutDraft_service_providersNestedInput = {
+    create?: XOR<usersCreateWithoutDraft_service_providersInput, usersUncheckedCreateWithoutDraft_service_providersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutDraft_service_providersInput
+    upsert?: usersUpsertWithoutDraft_service_providersInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutDraft_service_providersInput, usersUpdateWithoutDraft_service_providersInput>, usersUncheckedUpdateWithoutDraft_service_providersInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -8581,6 +11253,17 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedEnumservice_delivery_methodNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.service_delivery_method | Enumservice_delivery_methodFieldRefInput<$PrismaModel> | null
     in?: $Enums.service_delivery_method[] | ListEnumservice_delivery_methodFieldRefInput<$PrismaModel> | null
@@ -8609,31 +11292,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumservice_delivery_methodNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8644,29 +11316,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
     _max?: NestedEnumservice_delivery_methodNullableFilter<$PrismaModel>
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumservice_provider_statusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8704,9 +11353,9 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type service_providersCreateWithoutGovernoratesInput = {
+  export type draft_service_providersCreateWithoutGovernoratesInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -8714,7 +11363,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8732,14 +11381,18 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
-    service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
-    users?: usersCreateNestedOneWithoutService_providersInput
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    service_categories?: service_categoriesCreateNestedOneWithoutDraft_service_providersInput
+    users?: usersCreateNestedOneWithoutDraft_service_providersInput
   }
 
-  export type service_providersUncheckedCreateWithoutGovernoratesInput = {
+  export type draft_service_providersUncheckedCreateWithoutGovernoratesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_category_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -8748,7 +11401,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8766,6 +11419,92 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersCreateOrConnectWithoutGovernoratesInput = {
+    where: draft_service_providersWhereUniqueInput
+    create: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput>
+  }
+
+  export type draft_service_providersCreateManyGovernoratesInputEnvelope = {
+    data: draft_service_providersCreateManyGovernoratesInput | draft_service_providersCreateManyGovernoratesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_providersCreateWithoutGovernoratesInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
+    users?: usersCreateNestedOneWithoutService_providersInput
+  }
+
+  export type service_providersUncheckedCreateWithoutGovernoratesInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutGovernoratesInput = {
@@ -8776,6 +11515,62 @@ export namespace Prisma {
   export type service_providersCreateManyGovernoratesInputEnvelope = {
     data: service_providersCreateManyGovernoratesInput | service_providersCreateManyGovernoratesInput[]
     skipDuplicates?: boolean
+  }
+
+  export type draft_service_providersUpsertWithWhereUniqueWithoutGovernoratesInput = {
+    where: draft_service_providersWhereUniqueInput
+    update: XOR<draft_service_providersUpdateWithoutGovernoratesInput, draft_service_providersUncheckedUpdateWithoutGovernoratesInput>
+    create: XOR<draft_service_providersCreateWithoutGovernoratesInput, draft_service_providersUncheckedCreateWithoutGovernoratesInput>
+  }
+
+  export type draft_service_providersUpdateWithWhereUniqueWithoutGovernoratesInput = {
+    where: draft_service_providersWhereUniqueInput
+    data: XOR<draft_service_providersUpdateWithoutGovernoratesInput, draft_service_providersUncheckedUpdateWithoutGovernoratesInput>
+  }
+
+  export type draft_service_providersUpdateManyWithWhereWithoutGovernoratesInput = {
+    where: draft_service_providersScalarWhereInput
+    data: XOR<draft_service_providersUpdateManyMutationInput, draft_service_providersUncheckedUpdateManyWithoutGovernoratesInput>
+  }
+
+  export type draft_service_providersScalarWhereInput = {
+    AND?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
+    OR?: draft_service_providersScalarWhereInput[]
+    NOT?: draft_service_providersScalarWhereInput | draft_service_providersScalarWhereInput[]
+    id?: UuidFilter<"draft_service_providers"> | string
+    user_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    years_of_experience?: DecimalNullableFilter<"draft_service_providers"> | Decimal | DecimalJsLike | number | string | null
+    service_name?: StringNullableFilter<"draft_service_providers"> | string | null
+    governorate_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_category_id?: UuidNullableFilter<"draft_service_providers"> | string | null
+    service_delivery_method?: Enumservice_delivery_methodNullableFilter<"draft_service_providers"> | $Enums.service_delivery_method | null
+    service_description?: StringNullableFilter<"draft_service_providers"> | string | null
+    bio?: StringNullableFilter<"draft_service_providers"> | string | null
+    facebook_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    instagram_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    whatsapp_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    other_urls?: StringNullableFilter<"draft_service_providers"> | string | null
+    logo_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_front_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    id_card_back_image?: StringNullableFilter<"draft_service_providers"> | string | null
+    certificates_images?: StringNullableFilter<"draft_service_providers"> | string | null
+    document_list?: StringNullableFilter<"draft_service_providers"> | string | null
+    video_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    keywords?: StringNullableFilter<"draft_service_providers"> | string | null
+    notes?: StringNullableFilter<"draft_service_providers"> | string | null
+    status?: Enumservice_provider_statusFilter<"draft_service_providers"> | $Enums.service_provider_status
+    is_deleted?: BoolNullableFilter<"draft_service_providers"> | boolean | null
+    deleted_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    deleted_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    created_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    created_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    updated_at?: DateTimeNullableFilter<"draft_service_providers"> | Date | string | null
+    updated_by?: StringNullableFilter<"draft_service_providers"> | string | null
+    slug?: StringNullableFilter<"draft_service_providers"> | string | null
+    address?: StringNullableFilter<"draft_service_providers"> | string | null
+    official_url?: StringNullableFilter<"draft_service_providers"> | string | null
+    services?: StringNullableFilter<"draft_service_providers"> | string | null
+    phone?: StringNullableFilter<"draft_service_providers"> | string | null
   }
 
   export type service_providersUpsertWithWhereUniqueWithoutGovernoratesInput = {
@@ -8800,7 +11595,7 @@ export namespace Prisma {
     NOT?: service_providersScalarWhereInput | service_providersScalarWhereInput[]
     id?: UuidFilter<"service_providers"> | string
     user_id?: UuidNullableFilter<"service_providers"> | string | null
-    years_of_experience?: IntNullableFilter<"service_providers"> | number | null
+    years_of_experience?: DecimalNullableFilter<"service_providers"> | Decimal | DecimalJsLike | number | string | null
     service_name?: StringNullableFilter<"service_providers"> | string | null
     governorate_id?: UuidNullableFilter<"service_providers"> | string | null
     service_category_id?: UuidNullableFilter<"service_providers"> | string | null
@@ -8810,7 +11605,7 @@ export namespace Prisma {
     facebook_url?: StringNullableFilter<"service_providers"> | string | null
     instagram_url?: StringNullableFilter<"service_providers"> | string | null
     whatsapp_url?: StringNullableFilter<"service_providers"> | string | null
-    other_urls?: JsonNullableFilter<"service_providers">
+    other_urls?: StringNullableFilter<"service_providers"> | string | null
     logo_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_front_image?: StringNullableFilter<"service_providers"> | string | null
     id_card_back_image?: StringNullableFilter<"service_providers"> | string | null
@@ -8828,11 +11623,15 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"service_providers"> | Date | string | null
     updated_by?: StringNullableFilter<"service_providers"> | string | null
     slug?: StringNullableFilter<"service_providers"> | string | null
+    address?: StringNullableFilter<"service_providers"> | string | null
+    official_url?: StringNullableFilter<"service_providers"> | string | null
+    services?: StringNullableFilter<"service_providers"> | string | null
+    phone?: StringNullableFilter<"service_providers"> | string | null
   }
 
-  export type service_providersCreateWithoutService_categoriesInput = {
+  export type draft_service_providersCreateWithoutService_categoriesInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -8840,7 +11639,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8858,14 +11657,18 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
-    governorates?: governoratesCreateNestedOneWithoutService_providersInput
-    users?: usersCreateNestedOneWithoutService_providersInput
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    governorates?: governoratesCreateNestedOneWithoutDraft_service_providersInput
+    users?: usersCreateNestedOneWithoutDraft_service_providersInput
   }
 
-  export type service_providersUncheckedCreateWithoutService_categoriesInput = {
+  export type draft_service_providersUncheckedCreateWithoutService_categoriesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -8874,7 +11677,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -8892,6 +11695,92 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersCreateOrConnectWithoutService_categoriesInput = {
+    where: draft_service_providersWhereUniqueInput
+    create: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput>
+  }
+
+  export type draft_service_providersCreateManyService_categoriesInputEnvelope = {
+    data: draft_service_providersCreateManyService_categoriesInput | draft_service_providersCreateManyService_categoriesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_providersCreateWithoutService_categoriesInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    governorates?: governoratesCreateNestedOneWithoutService_providersInput
+    users?: usersCreateNestedOneWithoutService_providersInput
+  }
+
+  export type service_providersUncheckedCreateWithoutService_categoriesInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutService_categoriesInput = {
@@ -8902,6 +11791,22 @@ export namespace Prisma {
   export type service_providersCreateManyService_categoriesInputEnvelope = {
     data: service_providersCreateManyService_categoriesInput | service_providersCreateManyService_categoriesInput[]
     skipDuplicates?: boolean
+  }
+
+  export type draft_service_providersUpsertWithWhereUniqueWithoutService_categoriesInput = {
+    where: draft_service_providersWhereUniqueInput
+    update: XOR<draft_service_providersUpdateWithoutService_categoriesInput, draft_service_providersUncheckedUpdateWithoutService_categoriesInput>
+    create: XOR<draft_service_providersCreateWithoutService_categoriesInput, draft_service_providersUncheckedCreateWithoutService_categoriesInput>
+  }
+
+  export type draft_service_providersUpdateWithWhereUniqueWithoutService_categoriesInput = {
+    where: draft_service_providersWhereUniqueInput
+    data: XOR<draft_service_providersUpdateWithoutService_categoriesInput, draft_service_providersUncheckedUpdateWithoutService_categoriesInput>
+  }
+
+  export type draft_service_providersUpdateManyWithWhereWithoutService_categoriesInput = {
+    where: draft_service_providersScalarWhereInput
+    data: XOR<draft_service_providersUpdateManyMutationInput, draft_service_providersUncheckedUpdateManyWithoutService_categoriesInput>
   }
 
   export type service_providersUpsertWithWhereUniqueWithoutService_categoriesInput = {
@@ -8934,6 +11839,7 @@ export namespace Prisma {
     created_by?: string | null
     updated_at?: Date | string | null
     updated_by?: string | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutGovernoratesInput
   }
 
   export type governoratesUncheckedCreateWithoutService_providersInput = {
@@ -8950,6 +11856,7 @@ export namespace Prisma {
     created_by?: string | null
     updated_at?: Date | string | null
     updated_by?: string | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutGovernoratesInput
   }
 
   export type governoratesCreateOrConnectWithoutService_providersInput = {
@@ -8972,6 +11879,7 @@ export namespace Prisma {
     updated_by?: string | null
     icon?: string | null
     slug?: string | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutService_categoriesInput
   }
 
   export type service_categoriesUncheckedCreateWithoutService_providersInput = {
@@ -8989,6 +11897,7 @@ export namespace Prisma {
     updated_by?: string | null
     icon?: string | null
     slug?: string | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutService_categoriesInput
   }
 
   export type service_categoriesCreateOrConnectWithoutService_providersInput = {
@@ -8997,7 +11906,7 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutService_providersInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -9011,10 +11920,13 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    draft_service_providers?: draft_service_providersCreateNestedManyWithoutUsersInput
   }
 
   export type usersUncheckedCreateWithoutService_providersInput = {
-    user_id: string
+    id?: string
     email: string
     first_name?: string | null
     last_name?: string | null
@@ -9028,6 +11940,9 @@ export namespace Prisma {
     created_by?: string | null
     updated_by?: string | null
     deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    draft_service_providers?: draft_service_providersUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersCreateOrConnectWithoutService_providersInput = {
@@ -9060,6 +11975,7 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutGovernoratesNestedInput
   }
 
   export type governoratesUncheckedUpdateWithoutService_providersInput = {
@@ -9076,6 +11992,7 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput
   }
 
   export type service_categoriesUpsertWithoutService_providersInput = {
@@ -9104,6 +12021,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutService_categoriesNestedInput
   }
 
   export type service_categoriesUncheckedUpdateWithoutService_providersInput = {
@@ -9121,6 +12039,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput
   }
 
   export type usersUpsertWithoutService_providersInput = {
@@ -9135,7 +12054,7 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutService_providersInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9149,10 +12068,13 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    draft_service_providers?: draft_service_providersUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUncheckedUpdateWithoutService_providersInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9166,11 +12088,14 @@ export namespace Prisma {
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    draft_service_providers?: draft_service_providersUncheckedUpdateManyWithoutUsersNestedInput
   }
 
-  export type service_providersCreateWithoutUsersInput = {
+  export type draft_service_providersCreateWithoutUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
     service_description?: string | null
@@ -9178,7 +12103,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9196,13 +12121,17 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
-    governorates?: governoratesCreateNestedOneWithoutService_providersInput
-    service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    governorates?: governoratesCreateNestedOneWithoutDraft_service_providersInput
+    service_categories?: service_categoriesCreateNestedOneWithoutDraft_service_providersInput
   }
 
-  export type service_providersUncheckedCreateWithoutUsersInput = {
+  export type draft_service_providersUncheckedCreateWithoutUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -9212,7 +12141,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9230,6 +12159,92 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersCreateOrConnectWithoutUsersInput = {
+    where: draft_service_providersWhereUniqueInput
+    create: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput>
+  }
+
+  export type draft_service_providersCreateManyUsersInputEnvelope = {
+    data: draft_service_providersCreateManyUsersInput | draft_service_providersCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_providersCreateWithoutUsersInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+    governorates?: governoratesCreateNestedOneWithoutService_providersInput
+    service_categories?: service_categoriesCreateNestedOneWithoutService_providersInput
+  }
+
+  export type service_providersUncheckedCreateWithoutUsersInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
   export type service_providersCreateOrConnectWithoutUsersInput = {
@@ -9240,6 +12255,22 @@ export namespace Prisma {
   export type service_providersCreateManyUsersInputEnvelope = {
     data: service_providersCreateManyUsersInput | service_providersCreateManyUsersInput[]
     skipDuplicates?: boolean
+  }
+
+  export type draft_service_providersUpsertWithWhereUniqueWithoutUsersInput = {
+    where: draft_service_providersWhereUniqueInput
+    update: XOR<draft_service_providersUpdateWithoutUsersInput, draft_service_providersUncheckedUpdateWithoutUsersInput>
+    create: XOR<draft_service_providersCreateWithoutUsersInput, draft_service_providersUncheckedCreateWithoutUsersInput>
+  }
+
+  export type draft_service_providersUpdateWithWhereUniqueWithoutUsersInput = {
+    where: draft_service_providersWhereUniqueInput
+    data: XOR<draft_service_providersUpdateWithoutUsersInput, draft_service_providersUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type draft_service_providersUpdateManyWithWhereWithoutUsersInput = {
+    where: draft_service_providersScalarWhereInput
+    data: XOR<draft_service_providersUpdateManyMutationInput, draft_service_providersUncheckedUpdateManyWithoutUsersInput>
   }
 
   export type service_providersUpsertWithWhereUniqueWithoutUsersInput = {
@@ -9258,10 +12289,278 @@ export namespace Prisma {
     data: XOR<service_providersUpdateManyMutationInput, service_providersUncheckedUpdateManyWithoutUsersInput>
   }
 
-  export type service_providersCreateManyGovernoratesInput = {
+  export type governoratesCreateWithoutDraft_service_providersInput = {
+    id?: string
+    name: string
+    governorate_code?: string | null
+    meta_title?: string | null
+    meta_description?: string | null
+    meta_keywords?: string | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    service_providers?: service_providersCreateNestedManyWithoutGovernoratesInput
+  }
+
+  export type governoratesUncheckedCreateWithoutDraft_service_providersInput = {
+    id?: string
+    name: string
+    governorate_code?: string | null
+    meta_title?: string | null
+    meta_description?: string | null
+    meta_keywords?: string | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    service_providers?: service_providersUncheckedCreateNestedManyWithoutGovernoratesInput
+  }
+
+  export type governoratesCreateOrConnectWithoutDraft_service_providersInput = {
+    where: governoratesWhereUniqueInput
+    create: XOR<governoratesCreateWithoutDraft_service_providersInput, governoratesUncheckedCreateWithoutDraft_service_providersInput>
+  }
+
+  export type service_categoriesCreateWithoutDraft_service_providersInput = {
+    id?: string
+    name: string
+    meta_title?: string | null
+    meta_description?: string | null
+    meta_keywords?: string | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    icon?: string | null
+    slug?: string | null
+    service_providers?: service_providersCreateNestedManyWithoutService_categoriesInput
+  }
+
+  export type service_categoriesUncheckedCreateWithoutDraft_service_providersInput = {
+    id?: string
+    name: string
+    meta_title?: string | null
+    meta_description?: string | null
+    meta_keywords?: string | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    icon?: string | null
+    slug?: string | null
+    service_providers?: service_providersUncheckedCreateNestedManyWithoutService_categoriesInput
+  }
+
+  export type service_categoriesCreateOrConnectWithoutDraft_service_providersInput = {
+    where: service_categoriesWhereUniqueInput
+    create: XOR<service_categoriesCreateWithoutDraft_service_providersInput, service_categoriesUncheckedCreateWithoutDraft_service_providersInput>
+  }
+
+  export type usersCreateWithoutDraft_service_providersInput = {
+    id?: string
+    email: string
+    first_name?: string | null
+    last_name?: string | null
+    avatar?: string | null
+    phone?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    is_banned?: boolean | null
+    created_by?: string | null
+    updated_by?: string | null
+    deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    service_providers?: service_providersCreateNestedManyWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutDraft_service_providersInput = {
+    id?: string
+    email: string
+    first_name?: string | null
+    last_name?: string | null
+    avatar?: string | null
+    phone?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    deleted_at?: Date | string | null
+    is_deleted?: boolean | null
+    is_banned?: boolean | null
+    created_by?: string | null
+    updated_by?: string | null
+    deleted_by?: string | null
+    user_id?: string | null
+    is_admin?: boolean | null
+    service_providers?: service_providersUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutDraft_service_providersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutDraft_service_providersInput, usersUncheckedCreateWithoutDraft_service_providersInput>
+  }
+
+  export type governoratesUpsertWithoutDraft_service_providersInput = {
+    update: XOR<governoratesUpdateWithoutDraft_service_providersInput, governoratesUncheckedUpdateWithoutDraft_service_providersInput>
+    create: XOR<governoratesCreateWithoutDraft_service_providersInput, governoratesUncheckedCreateWithoutDraft_service_providersInput>
+    where?: governoratesWhereInput
+  }
+
+  export type governoratesUpdateToOneWithWhereWithoutDraft_service_providersInput = {
+    where?: governoratesWhereInput
+    data: XOR<governoratesUpdateWithoutDraft_service_providersInput, governoratesUncheckedUpdateWithoutDraft_service_providersInput>
+  }
+
+  export type governoratesUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    governorate_code?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_title?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_description?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    service_providers?: service_providersUpdateManyWithoutGovernoratesNestedInput
+  }
+
+  export type governoratesUncheckedUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    governorate_code?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_title?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_description?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    service_providers?: service_providersUncheckedUpdateManyWithoutGovernoratesNestedInput
+  }
+
+  export type service_categoriesUpsertWithoutDraft_service_providersInput = {
+    update: XOR<service_categoriesUpdateWithoutDraft_service_providersInput, service_categoriesUncheckedUpdateWithoutDraft_service_providersInput>
+    create: XOR<service_categoriesCreateWithoutDraft_service_providersInput, service_categoriesUncheckedCreateWithoutDraft_service_providersInput>
+    where?: service_categoriesWhereInput
+  }
+
+  export type service_categoriesUpdateToOneWithWhereWithoutDraft_service_providersInput = {
+    where?: service_categoriesWhereInput
+    data: XOR<service_categoriesUpdateWithoutDraft_service_providersInput, service_categoriesUncheckedUpdateWithoutDraft_service_providersInput>
+  }
+
+  export type service_categoriesUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    meta_title?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_description?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    service_providers?: service_providersUpdateManyWithoutService_categoriesNestedInput
+  }
+
+  export type service_categoriesUncheckedUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    meta_title?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_description?: NullableStringFieldUpdateOperationsInput | string | null
+    meta_keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    service_providers?: service_providersUncheckedUpdateManyWithoutService_categoriesNestedInput
+  }
+
+  export type usersUpsertWithoutDraft_service_providersInput = {
+    update: XOR<usersUpdateWithoutDraft_service_providersInput, usersUncheckedUpdateWithoutDraft_service_providersInput>
+    create: XOR<usersCreateWithoutDraft_service_providersInput, usersUncheckedCreateWithoutDraft_service_providersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutDraft_service_providersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutDraft_service_providersInput, usersUncheckedUpdateWithoutDraft_service_providersInput>
+  }
+
+  export type usersUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    is_banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    service_providers?: service_providersUpdateManyWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutDraft_service_providersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    is_banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    service_providers?: service_providersUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type draft_service_providersCreateManyGovernoratesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     service_category_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -9270,7 +12569,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9288,11 +12587,51 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
-  export type service_providersUpdateWithoutGovernoratesInput = {
+  export type service_providersCreateManyGovernoratesInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersUpdateWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9300,7 +12639,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9318,6 +12657,118 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    service_categories?: service_categoriesUpdateOneWithoutDraft_service_providersNestedInput
+    users?: usersUpdateOneWithoutDraft_service_providersNestedInput
+  }
+
+  export type draft_service_providersUncheckedUpdateWithoutGovernoratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type draft_service_providersUncheckedUpdateManyWithoutGovernoratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type service_providersUpdateWithoutGovernoratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
   }
@@ -9325,7 +12776,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9334,7 +12785,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9352,12 +12803,16 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutGovernoratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9366,7 +12821,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9384,12 +12839,16 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type service_providersCreateManyService_categoriesInput = {
+  export type draft_service_providersCreateManyService_categoriesInput = {
     id?: string
     user_id?: string | null
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_delivery_method?: $Enums.service_delivery_method | null
@@ -9398,7 +12857,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9416,11 +12875,51 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
-  export type service_providersUpdateWithoutService_categoriesInput = {
+  export type service_providersCreateManyService_categoriesInput = {
+    id?: string
+    user_id?: string | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersUpdateWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9428,7 +12927,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9446,6 +12945,118 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    governorates?: governoratesUpdateOneWithoutDraft_service_providersNestedInput
+    users?: usersUpdateOneWithoutDraft_service_providersNestedInput
+  }
+
+  export type draft_service_providersUncheckedUpdateWithoutService_categoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type draft_service_providersUncheckedUpdateManyWithoutService_categoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type service_providersUpdateWithoutService_categoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     users?: usersUpdateOneWithoutService_providersNestedInput
   }
@@ -9453,7 +13064,7 @@ export namespace Prisma {
   export type service_providersUncheckedUpdateWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9462,7 +13073,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9480,12 +13091,16 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutService_categoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
@@ -9494,7 +13109,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9512,11 +13127,15 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type service_providersCreateManyUsersInput = {
+  export type draft_service_providersCreateManyUsersInput = {
     id?: string
-    years_of_experience?: number | null
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
     service_name?: string | null
     governorate_id?: string | null
     service_category_id?: string | null
@@ -9526,7 +13145,7 @@ export namespace Prisma {
     facebook_url?: string | null
     instagram_url?: string | null
     whatsapp_url?: string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: string | null
     logo_image?: string | null
     id_card_front_image?: string | null
     id_card_back_image?: string | null
@@ -9544,11 +13163,51 @@ export namespace Prisma {
     updated_at?: Date | string | null
     updated_by?: string | null
     slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
   }
 
-  export type service_providersUpdateWithoutUsersInput = {
+  export type service_providersCreateManyUsersInput = {
+    id?: string
+    years_of_experience?: Decimal | DecimalJsLike | number | string | null
+    service_name?: string | null
+    governorate_id?: string | null
+    service_category_id?: string | null
+    service_delivery_method?: $Enums.service_delivery_method | null
+    service_description?: string | null
+    bio?: string | null
+    facebook_url?: string | null
+    instagram_url?: string | null
+    whatsapp_url?: string | null
+    other_urls?: string | null
+    logo_image?: string | null
+    id_card_front_image?: string | null
+    id_card_back_image?: string | null
+    certificates_images?: string | null
+    document_list?: string | null
+    video_url?: string | null
+    keywords?: string | null
+    notes?: string | null
+    status?: $Enums.service_provider_status
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_at?: Date | string | null
+    created_by?: string | null
+    updated_at?: Date | string | null
+    updated_by?: string | null
+    slug?: string | null
+    address?: string | null
+    official_url?: string | null
+    services?: string | null
+    phone?: string | null
+  }
+
+  export type draft_service_providersUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
     service_description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9556,7 +13215,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9574,13 +13233,125 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    governorates?: governoratesUpdateOneWithoutDraft_service_providersNestedInput
+    service_categories?: service_categoriesUpdateOneWithoutDraft_service_providersNestedInput
+  }
+
+  export type draft_service_providersUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type draft_service_providersUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type service_providersUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    service_name?: NullableStringFieldUpdateOperationsInput | string | null
+    service_delivery_method?: NullableEnumservice_delivery_methodFieldUpdateOperationsInput | $Enums.service_delivery_method | null
+    service_description?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
+    id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates_images?: NullableStringFieldUpdateOperationsInput | string | null
+    document_list?: NullableStringFieldUpdateOperationsInput | string | null
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumservice_provider_statusFieldUpdateOperationsInput | $Enums.service_provider_status
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     governorates?: governoratesUpdateOneWithoutService_providersNestedInput
     service_categories?: service_categoriesUpdateOneWithoutService_providersNestedInput
   }
 
   export type service_providersUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9590,7 +13361,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9608,11 +13379,15 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type service_providersUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    years_of_experience?: NullableIntFieldUpdateOperationsInput | number | null
+    years_of_experience?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     service_name?: NullableStringFieldUpdateOperationsInput | string | null
     governorate_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_category_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9622,7 +13397,7 @@ export namespace Prisma {
     facebook_url?: NullableStringFieldUpdateOperationsInput | string | null
     instagram_url?: NullableStringFieldUpdateOperationsInput | string | null
     whatsapp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    other_urls?: NullableJsonNullValueInput | InputJsonValue
+    other_urls?: NullableStringFieldUpdateOperationsInput | string | null
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_front_image?: NullableStringFieldUpdateOperationsInput | string | null
     id_card_back_image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9640,6 +13415,10 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    official_url?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

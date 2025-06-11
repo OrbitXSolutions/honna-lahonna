@@ -21,3 +21,5 @@ export { default as IconNote } from "./icon-note";
 export { default as IconMembers } from "./icon-members";
 export { default as IconStar } from "./icon-star";
 export { default as IconCategories } from "./icon-categories";
+export { default as IconPerson } from "./icon-person";
+export { default as IconGovernorate } from "./icon-governorate";

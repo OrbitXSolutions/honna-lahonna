@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PlaygroundHeader } from "@/components/playgrounds/playground-header";
 import { AppHeader } from "@/components/organisms/app-header";
 import { AppFooter } from "@/components/organisms/app-footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({
     <>
       <html lang="ar" dir="rtl" suppressHydrationWarning>
         <head />
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col`}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -40,15 +43,12 @@ export default function RootLayout({
             <AppHeader />
 
             {/* <PlaygroundHeader /> */}
-            <main className="flex-grow">
-              {children}
-
-            </main>
+            <main className="flex-grow">{children}</main>
             <AppFooter />
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
     </>
-  )
-
+  );
 }

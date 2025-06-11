@@ -10,44 +10,48 @@ datasource db {
 }
 
 model governorates {
-  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String
-  governorate_code  String?             @unique
-  meta_title        String?
-  meta_description  String?
-  meta_keywords     String?
-  is_deleted        Boolean?            @default(false)
-  deleted_at        DateTime?           @db.Timestamptz(6)
-  deleted_by        String?
-  created_at        DateTime?           @default(now()) @db.Timestamptz(6)
-  created_by        String?
-  updated_at        DateTime?           @default(now()) @db.Timestamptz(6)
-  updated_by        String?
-  service_providers service_providers[]
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                    String
+  governorate_code        String?                   @unique
+  meta_title              String?
+  meta_description        String?
+  meta_keywords           String?
+  is_deleted              Boolean?                  @default(false)
+  deleted_at              DateTime?                 @db.Timestamptz(6)
+  deleted_by              String?
+  created_at              DateTime?                 @default(now()) @db.Timestamptz(6)
+  created_by              String?
+  updated_at              DateTime?                 @default(now()) @db.Timestamptz(6)
+  updated_by              String?
+  draft_service_providers draft_service_providers[]
+  service_providers       service_providers[]
 }
 
 model service_categories {
-  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String
-  meta_title        String?
-  meta_description  String?
-  meta_keywords     String?
-  is_deleted        Boolean?            @default(false)
-  deleted_at        DateTime?           @db.Timestamptz(6)
-  deleted_by        String?
-  created_at        DateTime?           @default(now()) @db.Timestamptz(6)
-  created_by        String?
-  updated_at        DateTime?           @default(now()) @db.Timestamptz(6)
-  updated_by        String?
-  icon              String?
-  slug              String?
-  service_providers service_providers[]
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                    String
+  meta_title              String?
+  meta_description        String?
+  meta_keywords           String?
+  is_deleted              Boolean?                  @default(false)
+  deleted_at              DateTime?                 @db.Timestamptz(6)
+  deleted_by              String?
+  created_at              DateTime?                 @default(now()) @db.Timestamptz(6)
+  created_by              String?
+  updated_at              DateTime?                 @default(now()) @db.Timestamptz(6)
+  updated_by              String?
+  icon                    String?
+  slug                    String?
+  draft_service_providers draft_service_providers[]
+  service_providers       service_providers[]
+
+  @@index([slug])
 }
 
 model service_providers {
   id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id                 String?                  @db.Uuid
-  years_of_experience     Int?
+  years_of_experience     Decimal?                 @db.Decimal
   service_name            String?
   governorate_id          String?                  @db.Uuid
   service_category_id     String?                  @db.Uuid
@@ -57,7 +61,7 @@ model service_providers {
   facebook_url            String?
   instagram_url           String?
   whatsapp_url            String?
-  other_urls              Json?
+  other_urls              String?
   logo_image              String?
   id_card_front_image     String?
   id_card_back_image      String?
@@ -75,27 +79,80 @@ model service_providers {
   updated_at              DateTime?                @default(now()) @db.Timestamptz(6)
   updated_by              String?
   slug                    String?
+  address                 String?
+  official_url            String?
+  services                String?
+  phone                   String?
   governorates            governorates?            @relation(fields: [governorate_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   service_categories      service_categories?      @relation(fields: [service_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users                   users?                   @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "service_providers_user_id_fkey1")
+  users                   users?                   @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "service_providers_user_id_fkey1")
+
+  @@index([slug])
+  @@index([user_id])
 }
 
 model users {
-  user_id           String              @id @db.Uuid
-  email             String              @unique
-  first_name        String?
-  last_name         String?
-  avatar            String?
-  phone             String?
-  created_at        DateTime            @default(now()) @db.Timestamptz(6)
-  updated_at        DateTime?           @db.Timestamptz(6)
-  deleted_at        DateTime?           @db.Timestamptz(6)
-  is_deleted        Boolean?            @default(false)
-  is_banned         Boolean?            @default(false)
-  created_by        String?
-  updated_by        String?
-  deleted_by        String?
-  service_providers service_providers[]
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                   String                    @unique
+  first_name              String?
+  last_name               String?
+  avatar                  String?
+  phone                   String?
+  created_at              DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime?                 @db.Timestamptz(6)
+  deleted_at              DateTime?                 @db.Timestamptz(6)
+  is_deleted              Boolean?                  @default(false)
+  is_banned               Boolean?                  @default(false)
+  created_by              String?
+  updated_by              String?
+  deleted_by              String?
+  user_id                 String?                   @unique @db.Uuid
+  is_admin                Boolean?                  @default(false)
+  draft_service_providers draft_service_providers[]
+  service_providers       service_providers[]
+}
+
+model draft_service_providers {
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id                 String?                  @db.Uuid
+  years_of_experience     Decimal?                 @db.Decimal
+  service_name            String?
+  governorate_id          String?                  @db.Uuid
+  service_category_id     String?                  @db.Uuid
+  service_delivery_method service_delivery_method?
+  service_description     String?
+  bio                     String?
+  facebook_url            String?
+  instagram_url           String?
+  whatsapp_url            String?
+  other_urls              String?
+  logo_image              String?
+  id_card_front_image     String?
+  id_card_back_image      String?
+  certificates_images     String?
+  document_list           String?
+  video_url               String?
+  keywords                String?
+  notes                   String?
+  status                  service_provider_status  @default(pending)
+  is_deleted              Boolean?                 @default(false)
+  deleted_at              DateTime?                @db.Timestamptz(6)
+  deleted_by              String?
+  created_at              DateTime?                @default(now()) @db.Timestamptz(6)
+  created_by              String?
+  updated_at              DateTime?                @default(now()) @db.Timestamptz(6)
+  updated_by              String?
+  slug                    String?
+  address                 String?
+  official_url            String?
+  services                String?
+  phone                   String?
+  governorates            governorates?            @relation(fields: [governorate_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  service_categories      service_categories?      @relation(fields: [service_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users                   users?                   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([slug])
+  @@index([user_id])
 }
 
 enum service_delivery_method {

@@ -1,4 +1,8 @@
 "use server";
+import { CacheTags } from "@/lib/constants/cache-tags";
+import { PaginatedResult } from "@/lib/data/models/pagination-response";
+import { ServiceProviderQuery } from "@/lib/data/models/queries/service-provider-query";
+import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
 import {
   PrismaClient,
   type service_providers,
@@ -6,16 +10,14 @@ import {
   service_categories,
 } from "@/lib/generated/prisma";
 import { unstable_cache } from "next/cache";
-import { CacheTags } from "../constants/cache-tags";
-import { PaginationParams } from "./models/pagination-request";
-import { PaginatedResult } from "./models/pagination-response";
-import { ServiceProviderQuery } from "./models/queries/service-provider-query";
-import { ServiceProviderVM } from "./models/vm/service-provider";
 
 export const getServiceProviders = unstable_cache(
   async (): Promise<service_providers[]> => {
     const prisma = new PrismaClient();
     const serviceProviders = await prisma.service_providers.findMany({
+      where: {
+        is_deleted: false, // Ensure we only get non-deleted providers
+      },
       include: {
         service_categories: true,
         governorates: true,
@@ -219,6 +221,7 @@ export const getServiceProvidersByCategory = async (
     filter: {
       service_category_id: categoryId,
       ...(params.filter || {}),
+      is_deleted: false, // Ensure not deleted
     },
   });
 };
@@ -233,6 +236,7 @@ export const getServiceProvidersByGovernorate = async (
     filter: {
       governorate_id: governorateId,
       ...(params.filter || {}),
+      is_deleted: false, // Ensure not deleted
     },
   });
 };
@@ -246,6 +250,7 @@ export const getApprovedServiceProviders = async (
     filter: {
       status: "approved",
       ...(params.filter || {}),
+      is_deleted: false, // Ensure not deleted
     },
   });
 };
@@ -330,7 +335,8 @@ export const getServiceProvidersGroupedByCategories = unstable_cache(
       // First, get top 4 service providers across all categories for "all"
       const topProviders = await prisma.service_providers.findMany({
         where: {
-          status: "approved", // Only approved providers
+          status: "approved", // Only approved providers,
+          is_deleted: false, // Ensure not deleted
         },
         take: takeProviders, // Always top 4 for "all" category
         include: {
@@ -353,6 +359,7 @@ export const getServiceProvidersGroupedByCategories = unstable_cache(
         where: {
           service_category_id: category.id,
           status: "approved", // Only approved providers
+          is_deleted: false, // Ensure not deleted
         },
         take: takeProviders,
         include: {
