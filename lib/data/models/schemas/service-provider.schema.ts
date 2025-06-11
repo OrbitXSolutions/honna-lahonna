@@ -363,7 +363,7 @@ export class ServiceProviderMapper {
       keywords: data.keywords,
       years_of_experience: Decimal(data.years_of_experience),
       address: data.address || null,
-      // phone: data.phone,
+      phone: data.phone,
       bio: data.bio || null,
       facebook_url: data.facebook_url || null,
       instagram_url: data.instagram_url || null,
@@ -395,7 +395,7 @@ export class ServiceProviderMapper {
       keywords: dbData.keywords || "",
       years_of_experience: dbData.years_of_experience?.toNumber() || 0,
       address: dbData.address || "",
-      // phone: dbData.phone || "",
+      phone: dbData.phone || "",
       bio: dbData.bio || "",
       facebook_url: dbData.facebook_url || "",
       instagram_url: dbData.instagram_url || "",
@@ -409,7 +409,6 @@ export class ServiceProviderMapper {
       certificates_images: dbData.certificates_images || "",
       document_list: dbData.document_list || "",
       notes: dbData.notes || "",
-
     };
   }
 }

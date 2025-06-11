@@ -38,6 +38,12 @@ export async function registerUser(user: UserForRegister) {
     },
   });
 
+  const { data: signInData, error: errorData } =
+    await supabase.auth.signInWithIdToken({
+      provider: "phone",
+      token: data.session?.access_token || "",
+    });
+
   if (error) {
     throw error;
   }
@@ -139,7 +145,6 @@ export async function verifyOtp(input: UserVerifyPhone) {
   if (!user.phone && !user.new_phone) {
     throw new Error("User phone is not set");
   }
-
 
   const isPhoneChange = !!user.new_phone;
 
