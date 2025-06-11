@@ -23,8 +23,12 @@ export async function handleSignInWithGoogle(response: any) {
       // Redirect to OTP page if phone is not confirmed
       window.location.href = ROUTES.OTP;
     } else {
+      if (!user?.user_metadata?.is_service_provider) {
+        window.location.href = ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM;
+      } else {
+        window.location.href = ROUTES.HOME;
+      }
       // Redirect to home page if phone is confirmed
-      window.location.href = ROUTES.HOME;
     }
   }
 }

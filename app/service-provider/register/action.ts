@@ -29,10 +29,27 @@ export const registerProviderClientAction = actionClient
     delete data?.certificates_images_files;
     delete data?.document_list_files;
 
+    let userPublicData = await prisma.users.findUnique({
+      where: {
+        user_id: user.id,
+      },
+    });
+    if (!userPublicData) {
+      userPublicData = await prisma.users.create({
+        data: {
+          user_id: user.id,
+          email: user.email || "",
+          phone: user.phone || "",
+          first_name: user.user_metadata?.first_name || "",
+          last_name: user.user_metadata?.last_name || "",
+          created_by: user.id,
+        },
+      });
+    }
     const results = await prisma.service_providers.create({
       data: {
         ...data,
-        user_id: user.id,
+        user_id: userPublicData.id,
         created_by: user.id,
       },
     });
@@ -46,5 +63,5 @@ export const registerProviderClientAction = actionClient
       });
     }
 
-    return results;
+    return JSON.parse(JSON.stringify(results));
   });

@@ -350,7 +350,9 @@ export default function MultiStepForm() {
 
       const finalDataParsed = acceptAnySchema.safeParse(finalData);
       if (finalDataParsed.success) {
-        const _results = await executeAsync(finalDataParsed.data);
+        const _results = await executeAsync(
+          JSON.parse(JSON.stringify(finalDataParsed.data))
+        );
 
         if (!_results.data) {
           throw new Error("Failed to register service provider");
