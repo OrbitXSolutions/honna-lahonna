@@ -223,7 +223,7 @@ export default function ServiceProviderTemplate({
       >
         <TabsList dir="rtl" className="mx-auto">
           <TabsTrigger value="bio">
-            <IconBio className="rounded-full " />
+            <IconBio className="scale-110" />
             {"نبذة عني"}
           </TabsTrigger>
           <TabsTrigger value={"contact"}>
