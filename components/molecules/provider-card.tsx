@@ -9,6 +9,7 @@ import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
 import Image from "next/image";
 import GridBackground from "./grid-background";
+import AppLink from "../atoms/app-link";
 
 interface Props {
   providerData: ServiceProviderVM;
@@ -39,7 +40,7 @@ export default function ProviderCard({ providerData, ...props }: Props) {
           alt={serviceData.title ?? ""}
           height={200}
           width={200}
-          className="mx-auto rounded-xl w-full object-cover"
+          className="mx-auto rounded-xl w-full object-cover aspect-square"
         />
       </figure>
       <h2 className=" font-bold">
@@ -66,12 +67,13 @@ export default function ProviderCard({ providerData, ...props }: Props) {
       </div>
 
       <AppButton asChild>
-        <Link
+        <AppLink
+          loaderClassName="text-white"
           href={`${ROUTES.SERVICES}/${providerData.slug}`}
           className="w-full text-center"
         >
           {"عرض تفاصيل"}
-        </Link>
+        </AppLink>
       </AppButton>
     </div>
   );

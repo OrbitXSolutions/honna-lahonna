@@ -23,3 +23,8 @@ export { default as IconStar } from "./icon-star";
 export { default as IconCategories } from "./icon-categories";
 export { default as IconPerson } from "./icon-person";
 export { default as IconGovernorate } from "./icon-governorate";
+export { default as IconVerified } from "./icon-verified";
+export { default as IconEducation } from "./icon-education";
+export { default as IconBio } from "./icon-bio";
+export { default as IconContact } from "./icon-contact";
+export { default as IconWhatsapp } from "./icon-whatsapp";

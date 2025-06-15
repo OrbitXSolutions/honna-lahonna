@@ -10,7 +10,29 @@ import {
   service_categories,
 } from "@/lib/generated/prisma";
 import { unstable_cache } from "next/cache";
+export const getServiceProviderBySlug = unstable_cache(
+  async (slug: string): Promise<ServiceProviderVM | null> => {
+    const prisma = new PrismaClient();
+    // Find the service provider by slug
+    const serviceProvider = await prisma.service_providers.findFirst({
+      where: {
+        slug,
+        is_deleted: false, // Ensure we only get non-deleted providers
+      },
+      include: {
+        service_categories: true,
+        governorates: true,
+        users: true,
+      },
+    });
 
+    if (!serviceProvider) return null;
+    // Map to ViewModel
+    return serviceProvider as ServiceProviderVM;
+  },
+  [CacheTags.SERVICE_PROVIDERS],
+  { revalidate: 60 * 60 }
+);
 export const getServiceProviders = unstable_cache(
   async (): Promise<service_providers[]> => {
     const prisma = new PrismaClient();
@@ -39,7 +61,7 @@ export const getServiceProvidersPaginated = unstable_cache(
 
     // Default pagination values
     const page = params.page || 1;
-    const limit = Math.min(params.limit || 10, 100); // Cap at 100 items per page
+    const limit = Math.min(params.limit || 12, 100); // Cap at 100 items per page
     const skip = params.skip ?? (page - 1) * limit;
     const take = params.take ?? limit;
 
@@ -153,6 +175,20 @@ export const getServiceProvidersPaginated = unstable_cache(
           },
         },
       ];
+    }
+
+    if (params.governorate_code) {
+      // If governorate_code is provided, filter by it
+      whereClause.governorates = {
+        governorate_code: params.governorate_code,
+      };
+    }
+
+    if (params.category_code) {
+      // If category_code is provided, filter by it
+      whereClause.service_categories = {
+        slug: params.category_code,
+      };
     }
 
     // Build orderBy clause
