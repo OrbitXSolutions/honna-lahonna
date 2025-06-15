@@ -31,7 +31,7 @@ const UserAvatar = ({ serviceProvider }: Props): React.ReactNode => {
   const avatarUrl = SupabasePaths.USERS + "/" + serviceProvider.users?.avatar;
 
   return (
-    <Avatar className="w-27 h-27 text-6xl p-1 bg-gray-200 border-3 border-primary">
+    <Avatar className="w-27 h-27 text-6xl  bg-gray-200 border-3 border-primary">
       <AvatarImage src={avatarUrl} alt={firstName} className="object-cover" />
       <AvatarFallback>{firstName.charAt(0)}</AvatarFallback>
     </Avatar>
@@ -197,6 +197,7 @@ export default function ServiceProviderTemplate({
   className,
   ...props
 }: Props) {
+  const otherUrls = serviceProvider.other_urls?.split(",") || [];
   return (
     <div
       className={`service-provider-template ${className} container mx-auto relative mt-5 mb-10`}
@@ -302,6 +303,19 @@ export default function ServiceProviderTemplate({
                 url={serviceProvider.whatsapp_url}
                 icon={<IconWhatsapp className="w-6 h-6" />}
               />
+              {otherUrls && otherUrls.length > 0 && (
+                <>
+                  {otherUrls.map((url, index) => {
+                    return (
+                      <ContactContainer
+                        key={index}
+                        url={url.trim()}
+                        icon={<IconWeb className="w-6 h-6" />}
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
             <h3 className="text-2xl text-bold">{"الأوفلاين"}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
