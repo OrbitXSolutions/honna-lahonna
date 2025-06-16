@@ -11,7 +11,7 @@ export enum ROUTES {
   SIGNUP = "/signup",
 
   SERVICE_PROVIDER_REGISTRATION_FORM = "/service-provider/register",
-
+  SERVICE_PROVIDER_PROFILE = "/service-provider/profile",
   DASHBOARD = "/dashboard",
   PROFILE = "/profile",
   SETTINGS = "/settings",

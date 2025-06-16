@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"; // Assuming shadcn/ui path
-import { LogOut, UserPlus } from "lucide-react"; // Example icons
+import { LogOut, User, UserPlus } from "lucide-react"; // Example icons
 import { useSupabaseUser } from "@/hooks/use-supabase-user";
 import { Skeleton } from "../ui/skeleton";
 import { Spinner } from "../ui/spinner";
@@ -47,6 +47,7 @@ export default function HeaderButtons({
     const userInitial = user.user_metadata["first_name"]
       ? user.user_metadata["first_name"][0].toUpperCase()
       : "U";
+    const isServiceProvider = user.user_metadata?.is_service_provider;
     return (
       <div className={`flex items-center gap-1 ${className ?? ""}`} {...props}>
         {children}
@@ -63,13 +64,23 @@ export default function HeaderButtons({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <AppLink
-                href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}
-                className="flex items-center w-full"
-              >
-                <UserPlus className="mr-2 h-4 w-4" />
-                <span>{"سجل كمقدم خدمة"}</span>
-              </AppLink>
+              {isServiceProvider ? (
+                <AppLink
+                  href={ROUTES.SERVICE_PROVIDER_PROFILE}
+                  className="flex items-center w-full"
+                >
+                  <User className="mr-2 h-4 w-4" />
+                  <span>{"الملف الشخصي"}</span>
+                </AppLink>
+              ) : (
+                <AppLink
+                  href={ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}
+                  className="flex items-center w-full"
+                >
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  <span>{"سجل كمقدم خدمة"}</span>
+                </AppLink>
+              )}
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <AppLink
