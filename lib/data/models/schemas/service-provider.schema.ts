@@ -1,5 +1,4 @@
 import { service_providers } from "@/lib/generated/prisma";
-import { Decimal } from "@/lib/generated/prisma/runtime/library";
 import { z } from "zod/v4"; // Or your standard Zod import
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024; // 5MB for logo
@@ -158,7 +157,10 @@ export const providerDetailsSchema = z.object({
   address: z.string("العنوان مطلوب").max(255, "العنوان طويل جداً").optional(),
   phone: z.string("رقم الهاتف مطلوب").max(20, "رقم الهاتف طويل جداً"),
 
-  bio: z.string().max(1000, "النبذة التعريفية طويلة جداً").optional(),
+  bio: z
+    .string("السيرة الذاتية مطلوبة")
+    .max(1000, "النبذة التعريفية طويلة جداً")
+    .optional(),
 });
 
 export const privateDocumentsSchema = z.object({
@@ -357,6 +359,11 @@ export const ServiceProviderCreateOrUpdateDefaultValues: ServiceProviderCreateOr
     ...ServiceProviderFormDocumentsStepDefaultValues,
   };
 
+export const profileUpdateSchema = z.object({
+  bio: z.string().optional(),
+  service_description: z.string().optional(),
+});
+
 export class ServiceProviderMapper {
   static toDb(
     data: ServiceProviderCreateOrUpdate,
@@ -371,7 +378,7 @@ export class ServiceProviderMapper {
       services: data.services,
       slug: data.slug,
       keywords: data.keywords,
-      years_of_experience: Decimal(data.years_of_experience),
+      years_of_experience: data.years_of_experience as any,
       address: data.address || null,
       phone: data.phone,
       bio: data.bio || null,
