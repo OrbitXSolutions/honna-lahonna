@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Share } from "lucide-react";
 interface Props {
-  path: "services";
+  path?: "services";
   slug?: string; // Optional slug prop
   [key: string]: any; // Allow additional props if needed
 }
@@ -30,10 +30,17 @@ export function ShareDialog({
           <Share /> {"مشاركة"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>{"مشاركة الرابط"}</DialogTitle>
-          <DialogDescription>{"شارك رابط صفحتك"}</DialogDescription>
+      <DialogContent
+        dir="rtl"
+        className="sm:max-w-md text-start flex-col-reverse dir-rtl"
+      >
+        <DialogHeader className="dir-rtl text-start">
+          <DialogTitle className="dir-rtl text-center">
+            {"مشاركة الرابط"}
+          </DialogTitle>
+          <DialogDescription className="text-center">
+            {"شارك رابط صفحتك"}
+          </DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-2">
           <div className="grid flex-1 gap-2">
@@ -42,6 +49,7 @@ export function ShareDialog({
             </Label>
             <Input
               id="link"
+              className="bg-white text-center"
               defaultValue={`${window.location.origin}/${path}${
                 slug ? `/${slug}` : ""
               }`}

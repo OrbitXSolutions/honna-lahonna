@@ -23,6 +23,7 @@ import ProfileBio from "../organisms/profile-bio";
 import { service_provider_status } from "@/lib/generated/prisma";
 import { Badge } from "../ui/badge";
 import { BadgeCheckIcon, ClockFading } from "lucide-react";
+import { ShareDialog } from "../organisms/share-profile-dialog";
 interface Props {
   serviceProvider: ServiceProviderVM;
   children?: React.ReactNode;
@@ -247,7 +248,12 @@ export default function ServiceProviderProfileTemplate({
 
         <div className="translate-y-1/2 relative z-10 start-5 flex items-center gap-5">
           <UserAvatar serviceProvider={serviceProvider} />
-          <UserNameAndCategory serviceProvider={serviceProvider} />
+          <div className="flex justify-between flex-wrap w-full ">
+            <UserNameAndCategory serviceProvider={serviceProvider} />
+            <div className="pt-10 pe-10">
+              <ShareDialog slug={serviceProvider.slug || serviceProvider.id} />
+            </div>
+          </div>
         </div>
       </div>
 
