@@ -49,6 +49,8 @@ import { FileUpload } from "../atoms/file-upload";
 import { registerProviderClientAction } from "@/app/service-provider/register/action";
 import { useAction } from "next-safe-action/hooks";
 import { motion } from "motion/react";
+import { toast } from "sonner";
+import { MessageAlert } from "@/components/atoms/message-alert";
 import Logo from "../atoms/logo";
 
 const steps = [
@@ -138,6 +140,7 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [step1Data, setStep1Data] = useState<Step1Data | null>(null);
   const [governorates, setGovernorates] = useState<governorates[]>([]);
   const [serviceCategories, setServiceCategories] = useState<
@@ -347,20 +350,43 @@ export default function MultiStepForm() {
 
       const finalDataParsed = acceptAnySchema.safeParse(finalData);
       if (finalDataParsed.success) {
-        const _results = await executeAsync(
-          JSON.parse(JSON.stringify(finalDataParsed.data))
-        );
-        debugger;
+        const payload = JSON.parse(JSON.stringify(finalDataParsed.data));
+        const _results = await executeAsync(payload);
+        // Detailed logging for diagnostics
+        console.group("Service Provider Registration Result");
+        console.log("Payload:", payload);
+        console.log("Result:", _results);
+        console.groupEnd();
 
-        if (!_results.data) {
-          throw new Error("Failed to register service provider");
+        if (_results?.data) {
+          setSubmitError(null);
+          setIsCompleted(true);
+          toast.success("تم إرسال طلب التسجيل بنجاح");
+        } else {
+          // Build a user-friendly error message
+          const ve: any = (_results as any)?.validationErrors;
+          const serverError: string | undefined = (_results as any)?.serverError;
+          let friendly = "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.";
+          if (serverError) friendly = serverError;
+          // Extract first validation error if exists
+          if (ve) {
+            const firstField = Object.keys(ve)[0];
+            const firstMsg = ve[firstField]?._errors?.[0];
+            if (firstMsg) friendly = firstMsg;
+          }
+          setSubmitError(friendly);
+          toast.error(friendly);
+          return; // stop here; don't mark completed
         }
-
-        setIsCompleted(true);
       }
     } catch (error) {
-      console.error("Submission error:", error);
-      alert(`حدث خطأ أثناء الإرسال: ${error}. يرجى المحاولة مرة أخرى.`);
+      console.error("Submission error (exception):", error);
+      const msg =
+        error instanceof Error
+          ? error.message
+          : "حدث خطأ غير متوقع أثناء الإرسال";
+      setSubmitError(msg);
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -996,6 +1022,9 @@ export default function MultiStepForm() {
                     onSubmit={step2Form.handleSubmit(onStep2Submit)}
                     className="space-y-6"
                   >
+                    {submitError && (
+                      <MessageAlert type="error" message={submitError} />
+                    )}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <Label className="text-lg font-semibold mb-4 block">
@@ -1153,7 +1182,7 @@ export default function MultiStepForm() {
                       )}
                     </div>
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-3 items-center">
                       <Button type="button" variant="outline" onClick={goBack}>
                         السابق
                       </Button>
@@ -1165,6 +1194,9 @@ export default function MultiStepForm() {
                         {isSubmitting ? "جاري الإرسال..." : "إرسال البيانات"}
                       </Button>
                     </div>
+                    {submitError && (
+                      <MessageAlert type="error" message={submitError} />
+                    )}
                   </form>
                 )}
               </CardContent>

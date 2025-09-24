@@ -118,9 +118,11 @@ export default function HeaderButtons({
   return (
     <div className={`flex gap-1 ${className ?? ""}`} {...props}>
       {children}
-      <AppButton variant="outline">
-        <span>{"تواصلي معنا"}</span>
-        <IconCall />
+      <AppButton asChild variant="outline">
+        <AppLink href={ROUTES.ABOUT}>
+          <span>{"تواصلي معنا"}</span>
+          <IconCall />
+        </AppLink>
       </AppButton>
       <AppButton asChild>
         <AppLink loaderClassName="text-white" href={ROUTES.REGISTER}>
