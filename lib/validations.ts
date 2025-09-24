@@ -1,5 +1,12 @@
 import { z } from "zod/v4";
 
+// Helper: treat empty string as undefined for optional URL fields
+const optionalUrl = (message: string) =>
+  z.preprocess(
+    (val) => (typeof val === "string" && val.trim() === "" ? undefined : val),
+    z.string().url(message).optional()
+  );
+
 // Define constants for file validation
 const MAX_LOGO_SIZE = 5 * 1024 * 1024; // 5MB
 const MAX_ID_CARD_SIZE = 2 * 1024 * 1024; // 2MB
@@ -62,10 +69,10 @@ export const step1Schema = z.object({
     .string({ error: "رقم الهاتف مطلوب" })
     .max(20, "رقم الهاتف طويل جداً"),
   address: z.string().max(255, "العنوان طويل جداً").optional(),
-  facebook_url: z.url("رابط فيسبوك غير صالح").optional(),
-  instagram_url: z.url("رابط إنستاجرام غير صالح").optional(),
-  whatsapp_url: z.url("رابط واتساب غير صالح").optional(),
-  official_url: z.url("رابط الموقع الرسمي غير صالح").optional(),
+  facebook_url: optionalUrl("رابط فيسبوك غير صالح"),
+  instagram_url: optionalUrl("رابط إنستاجرام غير صالح"),
+  whatsapp_url: optionalUrl("رابط واتساب غير صالح"),
+  official_url: optionalUrl("رابط الموقع الرسمي غير صالح"),
   other_urls: z.string().max(500, "قائمة الروابط الأخرى طويلة جداً").optional(),
   services: z.string().max(500, "قائمة الخدمات طويلة جداً").optional(),
   keywords: z.string().max(255, "الكلمات المفتاحية طويلة جداً").optional(),
@@ -82,19 +89,43 @@ export const step1Schema = z.object({
 });
 
 // Step 2: Documents Schema
-export const step2Schema = z.object({
-  id_card_front_image: z.string().optional(),
-  id_card_front_image_file: z.file().optional().nullable(),
-  id_card_back_image: z.string().optional(),
-  id_card_back_image_file: z.file().optional().nullable(),
-  video_url: z.string().optional(),
-  video_url_file: z.file().optional().nullable(),
-  certificates_images: z.string().optional(),
-  certificates_images_files: z.array(z.file()).optional().nullable(),
-  document_list: z.string().optional(),
-  document_list_files: z.array(z.file()).optional().nullable(),
-  notes: z.string().max(500, "الملاحظات طويلة جداً").optional(),
-});
+export const step2Schema = z
+  .object({
+    id_card_front_image: z.string().optional(),
+    id_card_front_image_file: z.file().optional().nullable(),
+    id_card_back_image: z.string().optional(),
+    id_card_back_image_file: z.file().optional().nullable(),
+    video_url: z.string().optional(),
+    video_url_file: z.file().optional().nullable(),
+    certificates_images: z.string().optional(),
+    certificates_images_files: z.array(z.file()).optional().nullable(),
+    document_list: z.string().optional(),
+    document_list_files: z.array(z.file()).optional().nullable(),
+    notes: z.string().max(500, "الملاحظات طويلة جداً").optional(),
+  })
+  .superRefine((val, ctx) => {
+    if (!val.id_card_front_image_file) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "صورة البطاقة الأمامية مطلوبة",
+        path: ["id_card_front_image_file"],
+      });
+    }
+    if (!val.id_card_back_image_file) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "صورة البطاقة الخلفية مطلوبة",
+        path: ["id_card_back_image_file"],
+      });
+    }
+    if (!val.video_url_file) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "الفيديو التعريفي مطلوب",
+        path: ["video_url_file"],
+      });
+    }
+  });
 export const acceptAnySchema = z
   .object({
     ...step1Schema.shape,

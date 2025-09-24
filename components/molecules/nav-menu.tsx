@@ -44,11 +44,12 @@ export default function NavMenu({ isOpen, onClose }: Props) {
 
   const navItems = [
     { label: "الرئيسية", href: ROUTES.HOME, icon: Home },
-    { label: "من نحن", href: ROUTES.ABOUT, icon: Users },
     { label: "خدماتنا", href: ROUTES.SERVICES, icon: Briefcase },
-    { label: "شركاء النجاح", href: ROUTES.PARTNERS, icon: BookOpen },
-    { label: "الآراء", href: ROUTES.TESTIMONIALS, icon: HelpCircle },
-    { label: "الأسئلة الشائعة", href: ROUTES.FAQ, icon: Phone },
+    { label: "من نحن", href: ROUTES.ABOUT, icon: Users },
+
+    // { label: "شركاء النجاح", href: ROUTES.PARTNERS, icon: BookOpen },
+    // { label: "الآراء", href: ROUTES.TESTIMONIALS, icon: HelpCircle },
+    //{ label: "الأسئلة الشائعة", href: ROUTES.FAQ, icon: Phone },
   ];
 
   const handleLinkClick = () => {

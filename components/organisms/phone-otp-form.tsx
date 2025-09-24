@@ -54,9 +54,9 @@ export default function PhoneOtpForm() {
 
         toast.error(
           error.serverError ??
-            error.validationErrors?._errors?.join(", ") ??
-            error.thrownError?.message ??
-            "فشل في التسجيل"
+          error.validationErrors?._errors?.join(", ") ??
+          error.thrownError?.message ??
+          " لقد حدث خطأ في التسجيل"
         );
         // resetForm();
       },
@@ -79,6 +79,12 @@ export default function PhoneOtpForm() {
         className="space-y-8 max-w-3xl mx-auto py-10"
         suppressHydrationWarning
       >
+        {/* Display phone number info */}
+        {phone && (
+          <p className="text-center text-sm text-muted-foreground">
+            تم إرسال رمز التأكيد إلى: <span className="font-medium">{phone}</span>
+          </p>
+        )}
         {/* Server Error Display */}
 
         {action.hasErrored && (

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Share } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 interface Props {
   path?: "services";
   slug?: string; // Optional slug prop
@@ -22,6 +23,18 @@ export function ShareDialog({
   path = "services",
   slug,
 }: Props): React.ReactNode {
+  // Compute share URL on client to avoid SSR window reference
+  const [origin, setOrigin] = useState<string>("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+  const shareUrl = useMemo(() => {
+    const base = origin || ""; // empty during SSR; input remains readable
+    const suffix = slug ? `/${slug}` : "";
+    return `${base}/${path}${suffix}`;
+  }, [origin, path, slug]);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,14 +60,7 @@ export function ShareDialog({
             <Label htmlFor="link" className="sr-only">
               {"الرابط"}
             </Label>
-            <Input
-              id="link"
-              className="bg-white text-center"
-              defaultValue={`${window.location.origin}/${path}${
-                slug ? `/${slug}` : ""
-              }`}
-              readOnly
-            />
+            <Input id="link" className="bg-white text-center" value={shareUrl} readOnly />
           </div>
         </div>
         <DialogFooter className="sm:justify-start">

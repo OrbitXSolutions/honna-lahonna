@@ -18,20 +18,24 @@ export default async function PhoneOtpTemplate() {
 
 
   return (
-    <Card className="mx-auto max-w-sm bg-white my-10" suppressHydrationWarning>
-      <CardHeader>
-        <CardTitle className="text-2xl">{"تأكيد رقم الهاتف"}</CardTitle>
-        <CardDescription>
-          {
-            "لقد أرسلنا رمز تحقق إلى رقم هاتفك. الرجاء إدخال الرمز أدناه للمتابعة."
-          }
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Suspense>
-          <PhoneOtpForm />
-        </Suspense>
-      </CardContent>
-    </Card>
+    <div className="min-h-screen w-full flex items-center justify-center px-4">
+      <Card className="w-full max-w-md bg-white shadow-md" suppressHydrationWarning>
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl" style={{ color: "#d8859cfd" }}>{
+            "تأكيد رقم الهاتف"
+          }</CardTitle>
+          <CardDescription>
+            {
+              "لقد أرسلنا رمز تحقق إلى رقم هاتفك. الرجاء إدخال الرمز أدناه للمتابعة."
+            }
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Suspense>
+            <PhoneOtpForm />
+          </Suspense>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

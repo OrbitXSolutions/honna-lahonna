@@ -15,11 +15,12 @@ export default function HeaderNavs({
         >
             {[
                 { title: 'الرئيسية', href: ROUTES.HOME },
-                { title: 'من نحن', href: ROUTES.ABOUT },
                 { title: 'خدماتنا', href: ROUTES.SERVICES },
-                { title: 'شركاء النجاح', href: ROUTES.PARTNERS },
-                { title: 'الآراء', href: ROUTES.TESTIMONIALS },
-                { title: 'الأسئلة الشائعة', href: ROUTES.FAQ },
+                { title: 'من نحن', href: ROUTES.ABOUT },
+
+                // { title: 'شركاء النجاح', href: ROUTES.PARTNERS },
+                // { title: 'الآراء', href: ROUTES.TESTIMONIALS },
+                // { title: 'الأسئلة الشائعة', href: ROUTES.FAQ },
             ].map((item) => (<NavLinkButton
                 key={item.href}
                 href={item.href}

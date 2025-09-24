@@ -171,7 +171,7 @@ export default function MultiStepForm() {
   }, []);
 
   const step1Form = useForm<Step1Data>({
-    resolver: zodResolver(step1Schema),
+    resolver: zodResolver(step1Schema) as any,
     defaultValues: step1DefaultValues,
   });
 
@@ -198,8 +198,7 @@ export default function MultiStepForm() {
           uploadPromises.push(
             uploadImage(
               step1Data.logo_image_file,
-              `${
-                SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
+              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
               }/logo-${Date.now()}-${step1Data.logo_image_file.name}`
             ).then((fileName) => {
               step1Data.logo_image = fileName;
@@ -216,8 +215,7 @@ export default function MultiStepForm() {
           uploadPromises.push(
             uploadImage(
               data.id_card_front_image_file,
-              `${
-                SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
+              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
               }/id-front-${Date.now()}-${data.id_card_front_image_file.name}`
             ).then((fileName) => {
               data.id_card_front_image = fileName;
@@ -233,8 +231,7 @@ export default function MultiStepForm() {
           uploadPromises.push(
             uploadImage(
               data.id_card_back_image_file,
-              `${
-                SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
+              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
               }/id-back-${Date.now()}-${data.id_card_back_image_file.name}`
             ).then((fileName) => {
               data.id_card_back_image = fileName;
@@ -251,8 +248,7 @@ export default function MultiStepForm() {
           uploadPromises.push(
             uploadVideo(
               data.video_url_file,
-              `${
-                SupabaseStorageBuckets.VIDEOS.folders.SERVICE_PROVIDERS
+              `${SupabaseStorageBuckets.VIDEOS.folders.SERVICE_PROVIDERS
               }/video-${Date.now()}-${data.video_url_file.name}`
             ).then((fileName) => {
               data.video_url = fileName;
@@ -268,8 +264,7 @@ export default function MultiStepForm() {
         uploadPromises.push(
           uploadImage(
             cert,
-            `${
-              SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
+            `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
             }/cert-${Date.now()}-${index}-${cert.name}`
           )
         );
@@ -281,8 +276,7 @@ export default function MultiStepForm() {
         uploadPromises.push(
           uploadDocument(
             doc,
-            `${
-              SupabaseStorageBuckets.DOCUMENTS.folders.SERVICE_PROVIDERS
+            `${SupabaseStorageBuckets.DOCUMENTS.folders.SERVICE_PROVIDERS
             }/doc-${Date.now()}-${index}-${doc.name}`
           ).then((fileName) => {
             data.document_list ??= "";
@@ -314,7 +308,7 @@ export default function MultiStepForm() {
       const uploadResults = await Promise.all(uploadPromises);
 
       // Generate a slug if not provided
-      const slug =
+      const slugBase =
         step1Data.slug ||
         step1Data.service_name
           .toLowerCase()
@@ -323,6 +317,9 @@ export default function MultiStepForm() {
           .replace(/--+/g, "-")
           .replace(/^-+/, "")
           .replace(/-+$/, "");
+      // Ensure uniqueness by appending a random 4-digit number
+      const randomDigits = Math.floor(1000 + Math.random() * 9000).toString();
+      const slug = `${slugBase}-${randomDigits}`;
 
       // Submit to API
       // const response = await fetch("/api/service-providers", {
@@ -597,13 +594,12 @@ export default function MultiStepForm() {
               {steps.map((step, index) => (
                 <div
                   key={step.id}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    currentStep === step.id
-                      ? "border-primary bg-pink-50"
-                      : currentStep > step.id
+                  className={`p-4 rounded-lg border-2 transition-all ${currentStep === step.id
+                    ? "border-primary bg-pink-50"
+                    : currentStep > step.id
                       ? "border-green-500 bg-green-50"
                       : "border-gray-200 bg-white"
-                  }`}
+                    }`}
                 >
                   <div className="text-right">
                     <h3 className="font-semibold text-gray-900">
@@ -622,7 +618,7 @@ export default function MultiStepForm() {
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-right text-2xl">
+                <CardTitle className="text-right text-2xl text-primary text-center">
                   {currentStep === 1
                     ? "الخطوة الأولى: إنشاء البروفايل"
                     : "الخطوة الثانية: التوثيق والشهادات"}
@@ -641,7 +637,9 @@ export default function MultiStepForm() {
                   >
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="service_name">اسم الخدمة</Label>
+                        <Label htmlFor="service_name">
+                          اسم الخدمة <span className="text-red-700">*</span>
+                        </Label>
                         <Input
                           id="service_name"
                           {...step1Form.register("service_name")}
@@ -656,7 +654,7 @@ export default function MultiStepForm() {
 
                       <div className="space-y-2">
                         <Label htmlFor="years_of_experience">
-                          عدد سنوات الخبرة
+                          عدد سنوات الخبرة <span className="text-red-700">*</span>
                         </Label>
                         <Input
                           id="years_of_experience"
@@ -677,7 +675,9 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2 dir-rtl" dir="rtl">
-                        <Label htmlFor="governorate_id">المدينة</Label>
+                        <Label htmlFor="governorate_id">
+                          المدينة <span className="text-red-700">*</span>
+                        </Label>
                         <Select
                           onValueChange={(value) =>
                             step1Form.setValue("governorate_id", value)
@@ -703,7 +703,9 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="service_category_id">التصنيف</Label>
+                        <Label htmlFor="service_category_id">
+                          التصنيف <span className="text-red-700">*</span>
+                        </Label>
                         <Select
                           onValueChange={(value) =>
                             step1Form.setValue("service_category_id", value)
@@ -735,7 +737,7 @@ export default function MultiStepForm() {
 
                       <div className="space-y-2">
                         <Label htmlFor="service_delivery_method">
-                          طريقة تقديم الخدمة
+                          طريقة تقديم الخدمة <span className="text-red-700">*</span>
                         </Label>
                         <Select
                           onValueChange={(value) =>
@@ -768,7 +770,9 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">رقم الهاتف</Label>
+                        <Label htmlFor="phone">
+                          رقم الهاتف <span className="text-red-700">*</span>
+                        </Label>
                         <Input
                           id="phone"
                           {...step1Form.register("phone")}
@@ -784,7 +788,9 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="service_description">وصف الخدمة</Label>
+                      <Label htmlFor="service_description">
+                        وصف الخدمة <span className="text-red-700">*</span>
+                      </Label>
                       <Textarea
                         id="service_description"
                         {...step1Form.register("service_description")}
@@ -802,7 +808,7 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="services">الخدمات الفرعية</Label>
+                      <Label htmlFor="services">الخدمات الفرعية (اختياري)</Label>
                       <Textarea
                         id="services"
                         {...step1Form.register("services")}
@@ -817,7 +823,7 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="address">العنوان</Label>
+                      <Label htmlFor="address">العنوان (اختياري)</Label>
                       <Input
                         id="address"
                         {...step1Form.register("address")}
@@ -834,7 +840,7 @@ export default function MultiStepForm() {
                     <div className="space-y-6">
                       <div>
                         <Label className="text-lg font-semibold">
-                          شعار أو صورة الخدمة
+                          شعار أو صورة الخدمة (اختياري)
                         </Label>
                         <div className="mt-4">
                           <FileUpload
@@ -853,7 +859,7 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="bio">نبذة عن مقدم الخدمة</Label>
+                        <Label htmlFor="bio">نبذة عن مقدم الخدمة (اختياري)</Label>
                         <Textarea
                           id="bio"
                           {...step1Form.register("bio")}
@@ -864,7 +870,7 @@ export default function MultiStepForm() {
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <Label htmlFor="whatsapp_url">رابط الواتساب</Label>
+                          <Label htmlFor="whatsapp_url">رابط الواتساب (اختياري)</Label>
                           <Input
                             id="whatsapp_url"
                             {...step1Form.register("whatsapp_url")}
@@ -879,7 +885,7 @@ export default function MultiStepForm() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="facebook_url">رابط الفيسبوك</Label>
+                          <Label htmlFor="facebook_url">رابط الفيسبوك (اختياري)</Label>
                           <Input
                             id="facebook_url"
                             {...step1Form.register("facebook_url")}
@@ -894,7 +900,7 @@ export default function MultiStepForm() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="instagram_url">رابط الانستغرام</Label>
+                          <Label htmlFor="instagram_url">رابط الانستغرام (اختياري)</Label>
                           <Input
                             id="instagram_url"
                             {...step1Form.register("instagram_url")}
@@ -909,7 +915,7 @@ export default function MultiStepForm() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="official_url">الموقع الرسمي</Label>
+                          <Label htmlFor="official_url">الموقع الرسمي (اختياري)</Label>
                           <Input
                             id="official_url"
                             {...step1Form.register("official_url")}
@@ -925,7 +931,7 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="other_urls">روابط أخرى</Label>
+                        <Label htmlFor="other_urls">روابط أخرى (اختياري)</Label>
                         <Input
                           id="other_urls"
                           {...step1Form.register("other_urls")}
@@ -940,7 +946,7 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="keywords">الكلمات المفتاحية</Label>
+                        <Label htmlFor="keywords">الكلمات المفتاحية (اختياري)</Label>
                         <Input
                           id="keywords"
                           {...step1Form.register("keywords")}
@@ -955,13 +961,16 @@ export default function MultiStepForm() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="slug">الرابط التعريفي</Label>
+                        <Label htmlFor="slug">
+                          الرابط التعريفي <span className="text-red-700">*</span>
+                        </Label>
                         <Input
                           id="slug"
                           {...step1Form.register("slug")}
                           className="text-right"
                           placeholder="الرابط التعريفي (بالإنجليزية)"
                         />
+                        <p className="text-xs text-gray-500 text-right">بالإنجليزية فقط وبحد أدنى 5 أحرف، يُسمح بالحروف الصغيرة والأرقام  '-'</p>
                         {step1Form.formState.errors.slug && (
                           <p className="text-red-500 text-sm">
                             {step1Form.formState.errors.slug.message}
@@ -1061,7 +1070,7 @@ export default function MultiStepForm() {
 
                     <div>
                       <Label className="text-lg font-semibold mb-4 block">
-                        الشهادات
+                        الشهادات (اختياري)
                       </Label>
                       <FileUpload
                         onFileSelect={(file) => {
@@ -1094,7 +1103,7 @@ export default function MultiStepForm() {
 
                     <div>
                       <Label className="text-lg font-semibold mb-4 block">
-                        وثائق إضافية
+                        وثائق إضافية (اختياري)
                       </Label>
                       <FileUpload
                         onFileSelect={(file) => {
@@ -1130,7 +1139,7 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="notes">ملاحظات إضافية</Label>
+                      <Label htmlFor="notes">ملاحظات إضافية (اختياري)</Label>
                       <Textarea
                         id="notes"
                         {...step2Form.register("notes")}

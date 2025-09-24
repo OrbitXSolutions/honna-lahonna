@@ -33,21 +33,14 @@ export async function otpMiddleware({
         }
       }
     } else {
+      // Unauthenticated users: allow access to OTP page when a phone is present
+      // Previously, we tried to verify the phone against the app `users` table which
+      // caused redirects to login before OTP verification created the user record.
+      // Now, if the phone param exists, we proceed; otherwise, we redirect to login.
       if (!request.nextUrl.searchParams.has("phone")) {
         const url = request.nextUrl.clone();
         url.pathname = ROUTES.LOGIN;
         return NextResponse.redirect(url);
-      } else {
-        const { data, error } = await supabase
-          .from("users")
-          .select("phone")
-          .eq("phone", request.nextUrl.searchParams.get("phone"))
-          .single();
-        if (error || !data) {
-          const url = request.nextUrl.clone();
-          url.pathname = ROUTES.LOGIN;
-          return NextResponse.redirect(url);
-        }
       }
     }
   }

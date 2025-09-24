@@ -20,8 +20,11 @@ export default function FooterSiteLinks({ className, ...props }: Props) {
         {[
           { title: "الرئيسية", href: ROUTES.HOME },
           { title: "خدماتنا", href: ROUTES.SERVICES },
-          { title: "شركاء النجاح", href: ROUTES.PARTNERS },
-          { title: "أراء العملاء", href: ROUTES.TESTIMONIALS },
+          // { title: "شركاء النجاح", href: ROUTES.PARTNERS },
+          // { title: "أراء العملاء", href: ROUTES.TESTIMONIALS },
+
+          { title: "سياسة الخصوصية", href: ROUTES.PRIVACY_POLICY },
+          { title: "شروط الاستخدام", href: ROUTES.TERMS_OF_SERVICE },
           { title: "تواصل معنا", href: ROUTES.CONTACT },
         ].map((item) => (
           <li key={item.href} className="">

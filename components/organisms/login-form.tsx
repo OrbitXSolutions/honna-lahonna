@@ -41,7 +41,7 @@ const loginFields: LoginFieldData[] = [
     name: "password",
     type: "password",
     label: "كلمة المرور",
-    placeholder: "أدخلي كلمة مرور قوية",
+    placeholder: "كلمة مرور ",
   },
 ] as const;
 
@@ -58,7 +58,7 @@ export default function LoginForm() {
       },
       onError: ({ error }) => {
         console.error("Registration error:", error);
-        toast.error("فشل في التسجيل");
+        toast.error("لقد حدث خطأ في التسجيل");
       },
     },
 

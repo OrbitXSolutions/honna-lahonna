@@ -33,7 +33,7 @@ export default function HeaderHeroContent() {
           </AppLink>
         </AppButton>
         <AppButton asChild variant={"outline"}>
-          <Link href={ROUTES.FAQ}>
+          <Link href={ROUTES.ABOUT}>
             <span>{"إعرفي المزيد"}</span>
             <IconKnowMore />
           </Link>

@@ -14,8 +14,8 @@ export default function ServiceProviderRegisterTemplate() {
   return <MultiStepForm />;
   return (
     <Card className="mx-auto max-w-sm bg-white my-10" suppressHydrationWarning>
-      <CardHeader>
-        <CardTitle className="text-2xl">{"سجل كمقدم خدمة"}</CardTitle>
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl text-primary">{"سجل كمقدم خدمة"}</CardTitle>
         <CardDescription>{"قم بتعئة البيانات"}</CardDescription>
       </CardHeader>
       <CardContent>
