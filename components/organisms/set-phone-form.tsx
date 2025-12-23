@@ -69,7 +69,7 @@ export default function SetPhoneForm() {
         {/* Form Fields */}
         <div className="space-y-4">
           <FormField
-            name="phone"
+            name="phoneNumber"
             control={form.control}
             render={({ field }) => (
               <FormItem className="space-y-2">

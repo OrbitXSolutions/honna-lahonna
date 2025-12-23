@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
-import { SupabasePaths } from "./lib/constants/supabase";
+
+// Backend API URL for images (if served from backend)
+const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://back.honnalahonna.com";
 
 // Helper to build an allowed origin for GitHub Codespaces/Devcontainers
 const codespaceForwardingDomain =
@@ -42,8 +44,11 @@ const nextConfig: NextConfig = {
 
   images: {
     remotePatterns: [
-      new URL(`${SupabasePaths.IMAGES}/**`),
+      // Backend API images
+      new URL(`${BACKEND_BASE_URL}/**`),
+      // Google profile images
       new URL(`https://lh3.googleusercontent.com/**`),
+      // GitHub avatars
       new URL(`https://avatars.githubusercontent.com/**`),
     ],
   },

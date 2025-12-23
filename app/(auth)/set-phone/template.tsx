@@ -1,5 +1,5 @@
 import { ROUTES } from "@/lib/constants/routes";
-import { createSsrClient } from "@/lib/supabase/server";
+import { getServerUser } from "@/lib/api/server-auth";
 import { redirect } from "next/navigation";
 
 export default async function Template({
@@ -7,12 +7,8 @@ export default async function Template({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createSsrClient();
-  const {
-    data: { user },
-    error: getUserError,
-  } = await supabase.auth.getUser();
-  if (getUserError || !user) {
+  const user = await getServerUser();
+  if (!user) {
     redirect(ROUTES.LOGIN);
   }
 

@@ -1,36 +1,58 @@
 "use server";
 import { ROUTES } from "@/lib/constants/routes";
 import { UserForPhoneLoginSchema } from "@/lib/data/models/schemas/login.schema";
-import { flattenValidationErrors } from "next-safe-action";
 import { returnValidationErrors } from "next-safe-action";
-
-import { loginWithPhone } from "@/lib/data/supabase/auth";
+import { login } from "@/lib/api/auth";
 import { actionClient } from "@/lib/safe-action";
 import { redirect } from "next/navigation";
-import { AuthApiError } from "@supabase/supabase-js";
+import { ApiError } from "@/lib/api/client";
+import { cookies } from "next/headers";
 
 export const loginAction = actionClient
   .inputSchema(UserForPhoneLoginSchema)
   .action(async ({ parsedInput: data }) => {
-    const { user, session } = await loginWithPhone(data).catch((error) => {
-      if (error instanceof AuthApiError) {
+    try {
+      const response = await login({
+        phoneNumber: data.phoneNumber,
+        password: data.password,
+      });
+
+      if (!response.success) {
         returnValidationErrors(UserForPhoneLoginSchema, {
-          _errors: [`${error.message}`],
-        });
-      } else {
-        returnValidationErrors(UserForPhoneLoginSchema, {
-          _errors: [`${error}`],
+          _errors: [response.message || "فشل تسجيل الدخول"],
         });
       }
-    });
 
-    if (!user?.phone) {
-      redirect(`${ROUTES.SET_PHONE}`);
-    }
-    if (!user.phone_confirmed_at) {
-      redirect(`${ROUTES.OTP}`);
-    }
-    redirect(ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM);
+      // Set auth token in cookie for middleware
+      if (response.token) {
+        const cookieStore = await cookies();
+        cookieStore.set("auth_token", response.token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+        });
+      }
 
-    // }
+      // Check if phone is verified
+      if (!response.user?.phoneNumberConfirmed) {
+        redirect(`${ROUTES.OTP}?phone=${response.user?.phoneNumber || data.phoneNumber}`);
+      }
+
+      // Return success with user data for client-side storage
+      return {
+        success: true,
+        user: response.user,
+        token: response.token,
+        expiresAt: response.expiresAt,
+      };
+    } catch (error) {
+      if (error instanceof ApiError) {
+        returnValidationErrors(UserForPhoneLoginSchema, {
+          _errors: [error.message],
+        });
+      }
+      throw error;
+    }
   });

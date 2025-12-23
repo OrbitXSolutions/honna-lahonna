@@ -148,7 +148,7 @@ export default function NavMenu({ isOpen, onClose }: Props) {
                           className="w-full border-2 border-primary text-primary hover:bg-primary-light rounded-xl py-3 sm:py-4 text-base sm:text-lg font-medium flex items-center justify-center gap-2"
                         >
                           <UserCircle className="h-5 w-5 sm:h-6 sm:w-6" />
-                          {user.user_metadata["first_name"] ? user.user_metadata["first_name"][0].toUpperCase() : "U"}
+                          {user.firstName ? user.firstName[0].toUpperCase() : "U"}
                         </Button>
                       </Link>
                       <AppButton

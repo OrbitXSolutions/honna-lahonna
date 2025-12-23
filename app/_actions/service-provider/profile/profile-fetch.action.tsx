@@ -1,9 +1,9 @@
 "use server";
 
 import { PrismaClient } from "@/lib/generated/prisma";
-import { User } from "@supabase/supabase-js";
+import { UserInfo } from "@/lib/api/types";
 
-export async function getServiceProviderByUserId(user: User) {
+export async function getServiceProviderByUserId(user: UserInfo) {
   const prisma = new PrismaClient();
   const profile = await prisma.service_providers.findFirst({
     include: {

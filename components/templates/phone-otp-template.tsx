@@ -8,10 +8,8 @@ import {
   CardDescription,
   CardContent,
 } from "../ui/card";
-import { createSsrClient } from "@/lib/supabase/server";
 import { NextPageParams } from "@/lib/utils/next-page-types";
 import { redirect } from "next/navigation";
-import { PrismaClient } from "@/lib/generated/prisma";
 import { Suspense } from "react";
 
 export default async function PhoneOtpTemplate() {

@@ -51,7 +51,7 @@ const registerFields: RegisterFieldData[] = [
     placeholder: "أدخلي بريدك الإلكتروني",
   },
   {
-    name: "phone",
+    name: "phoneNumber",
     type: "tel",
     label: "رقم الهاتف",
     placeholder: "01234567890",

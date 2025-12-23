@@ -1,17 +1,15 @@
 import { z } from "zod/v4";
 
 export const UserVerifyPhoneSchema = z.object({
-  token: z
+  code: z
     .string("رمز التحقق مطلوب")
     .trim()
     .length(6, "رمز التحقق يجب أن يكون 6 أرقام"),
-  phone: z.string().optional(),
-  isChange: z.boolean().optional().default(false),
+  phoneNumber: z.string().min(1, "رقم الهاتف مطلوب"),
 });
 
 export type UserVerifyPhone = z.infer<typeof UserVerifyPhoneSchema>;
 export const UserVerifyPhoneDefaultValues: UserVerifyPhone = {
-  token: "",
-  isChange: false,
-  phone: "",
+  code: "",
+  phoneNumber: "",
 };

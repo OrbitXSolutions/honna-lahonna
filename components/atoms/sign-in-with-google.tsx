@@ -1,36 +1,41 @@
 "use client";
 
 import { ROUTES } from "@/lib/constants/routes";
-import { createClient } from "@/lib/supabase/client";
+import { googleLogin } from "@/lib/api/auth";
+import { storeAuthData } from "@/lib/api/client";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
-import { use, useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 export async function handleSignInWithGoogle(response: any) {
-  const supabase = createClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.signInWithIdToken({
-    provider: "google",
-    token: response.credential,
-  });
+  try {
+    const result = await googleLogin({
+      idToken: response.credential,
+    });
 
-  if (!user?.phone) {
-    // Redirect to set phone page if phone is not set
-    window.location.href = ROUTES.SET_PHONE;
-  } else {
-    if (!user?.phone_confirmed_at) {
-      // Redirect to OTP page if phone is not confirmed
-      window.location.href = ROUTES.OTP;
-    } else {
-      if (!user?.user_metadata?.is_service_provider) {
-        window.location.href = ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM;
-      } else {
-        window.location.href = ROUTES.HOME;
-      }
-      // Redirect to home page if phone is confirmed
+    if (!result.success) {
+      console.error("Google login failed:", result.message);
+      return;
     }
+
+    // Store auth data
+    if (result.token && result.user && result.expiresAt) {
+      storeAuthData(result.token, result.user, result.expiresAt);
+    }
+
+    // Check if user has phone number
+    if (!result.user?.phoneNumber) {
+      // Redirect to set phone page if phone is not set
+      window.location.href = ROUTES.SET_PHONE;
+    } else if (!result.user?.phoneNumberConfirmed) {
+      // Redirect to OTP page if phone is not confirmed
+      window.location.href = `${ROUTES.OTP}?phone=${result.user.phoneNumber}`;
+    } else {
+      // Redirect to service provider registration or home
+      window.location.href = ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM;
+    }
+  } catch (error) {
+    console.error("Google sign-in error:", error);
   }
 }
 export default function SignInWithGoogle() {

@@ -1,28 +1,15 @@
-import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest } from "next/server";
-
 import { redirect } from "next/navigation";
-import { createSsrClient } from "@/lib/supabase/server";
 
+/**
+ * Email/OTP confirmation handler
+ * This route is no longer used with the new .NET backend
+ * OTP verification is now handled through the /api/Auth/phone/verify endpoint
+ */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const token_hash = searchParams.get("token_hash");
-  const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") ?? "/";
 
-  if (token_hash && type) {
-    const supabase = await createSsrClient();
-
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
-    if (!error) {
-      // redirect user to specified redirect URL or root of app
-      redirect(next);
-    }
-  }
-
-  // redirect the user to an error page with some instructions
-  redirect("/error");
+  // Redirect to the specified URL or home
+  redirect(next);
 }

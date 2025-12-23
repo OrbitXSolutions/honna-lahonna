@@ -6,6 +6,7 @@ import { PlaygroundHeader } from "@/components/playgrounds/playground-header";
 import { AppHeader } from "@/components/organisms/app-header";
 import { AppFooter } from "@/components/organisms/app-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/lib/api/auth-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,12 +41,14 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AppHeader />
+            <AuthProvider>
+              <AppHeader />
 
-            {/* <PlaygroundHeader /> */}
-            <main className="flex-grow">{children}</main>
-            <AppFooter />
-            <Toaster />
+              {/* <PlaygroundHeader /> */}
+              <main className="flex-grow">{children}</main>
+              <AppFooter />
+              <Toaster />
+            </AuthProvider>
           </ThemeProvider>
         </body>
       </html>

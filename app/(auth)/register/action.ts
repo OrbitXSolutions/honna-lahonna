@@ -1,29 +1,67 @@
 "use server";
 
 import { ROUTES } from "@/lib/constants/routes";
-import { ActionState } from "@/lib/data/models/action-state";
 import {
-  UserForRegister,
   UserForRegisterSchema,
 } from "@/lib/data/models/schemas/register.schema";
-import { registerUser } from "@/lib/data/supabase/auth";
+import { register } from "@/lib/api/auth";
 import { actionClient } from "@/lib/safe-action";
-import { Session, User } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
+import { returnValidationErrors } from "next-safe-action";
+import { ApiError } from "@/lib/api/client";
+import { cookies } from "next/headers";
 
 export const registerAction = actionClient
   .inputSchema(UserForRegisterSchema)
   .action(async ({ parsedInput: data }) => {
-    const { user, session } = await registerUser(data);
+    try {
+      const response = await register({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      });
 
-    console.log("User registered: action", user, session);
+      if (!response.success) {
+        returnValidationErrors(UserForRegisterSchema, {
+          _errors: [response.message || "فشل التسجيل"],
+        });
+      }
 
-    if (!user?.phone) {
-      redirect(`${ROUTES.SET_PHONE}`);
+      console.log("User registered: action", response.user);
+
+      // Set auth token in cookie for middleware
+      if (response.token) {
+        const cookieStore = await cookies();
+        cookieStore.set("auth_token", response.token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+        });
+      }
+
+      // Check if phone is verified
+      if (!response.user?.phoneNumberConfirmed) {
+        redirect(`${ROUTES.OTP}?phone=${response.user?.phoneNumber || data.phoneNumber}`);
+      }
+
+      // Return success with user data for client-side storage
+      return {
+        success: true,
+        user: response.user,
+        token: response.token,
+        expiresAt: response.expiresAt,
+      };
+    } catch (error) {
+      if (error instanceof ApiError) {
+        returnValidationErrors(UserForRegisterSchema, {
+          _errors: [error.message],
+        });
+      }
+      throw error;
     }
-    if (!user.phone_confirmed_at) {
-      redirect(`${ROUTES.OTP}?phone=${user.phone}`);
-    }
-
-    redirect(`${ROUTES.HOME}`);
   });

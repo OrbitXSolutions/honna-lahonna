@@ -7,12 +7,12 @@ export const UserForPhoneLoginSchema = z.object({
     .min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل")
     .max(100, "كلمة المرور طويلة جداً"),
 
-  phone: zodEgyptianPhone,
+  phoneNumber: zodEgyptianPhone,
 });
 
 export type UserForPhoneLogin = z.infer<typeof UserForPhoneLoginSchema>;
 
 export const UserForPhoneLoginDefaultValues: UserForPhoneLogin = {
   password: "",
-  phone: "",
+  phoneNumber: "",
 };

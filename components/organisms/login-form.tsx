@@ -32,7 +32,7 @@ interface LoginFieldData {
 
 const loginFields: LoginFieldData[] = [
   {
-    name: "phone",
+    name: "phoneNumber",
     type: "tel",
     label: "رقم الهاتف",
     placeholder: "01234567890",

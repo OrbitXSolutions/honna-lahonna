@@ -1,7 +1,7 @@
 "use server";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { actionClient } from "@/lib/safe-action";
-import { createSsrClient } from "@/lib/supabase/server";
+import { getServerUser } from "@/lib/api/server-auth";
 import { acceptAnySchema, completeFormSchema } from "@/lib/validations";
 import { returnValidationErrors } from "next-safe-action";
 
@@ -9,12 +9,8 @@ export const registerProviderClientAction = actionClient
   .inputSchema(acceptAnySchema)
   .action(async ({ parsedInput: data }) => {
     const prisma = new PrismaClient();
-    const supabase = await createSsrClient();
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-    if (!user || error) {
+    const user = await getServerUser();
+    if (!user) {
       return returnValidationErrors(acceptAnySchema, {
         _errors: [
           "User not authenticated. Please log in to register as a service provider.",
@@ -29,7 +25,7 @@ export const registerProviderClientAction = actionClient
     delete data?.certificates_images_files;
     delete data?.document_list_files;
 
-    // Ensure a users row exists and is linked to the current Supabase user
+    // Ensure a users row exists and is linked to the current user
     // - Prefer finding by user_id, then fallback to email and attach user_id
     // - Avoid unique violations on email by using a stable placeholder when missing
     let userPublicData = await prisma.users.findUnique({
@@ -58,20 +54,14 @@ export const registerProviderClientAction = actionClient
           });
         }
 
-        // Otherwise, attach this Supabase user_id and update basic fields
+        // Otherwise, attach this user_id and update basic fields
         userPublicData = await prisma.users.update({
           where: { email: derivedEmail },
           data: {
             user_id: user.id,
-            phone: user.phone || existingByEmail.phone || "",
-            first_name:
-              (user.user_metadata?.first_name as string | undefined) ??
-              existingByEmail.first_name ??
-              "",
-            last_name:
-              (user.user_metadata?.last_name as string | undefined) ??
-              existingByEmail.last_name ??
-              "",
+            phone: user.phoneNumber || existingByEmail.phone || "",
+            first_name: user.firstName ?? existingByEmail.first_name ?? "",
+            last_name: user.lastName ?? existingByEmail.last_name ?? "",
             updated_by: user.id,
           },
         });
@@ -81,9 +71,9 @@ export const registerProviderClientAction = actionClient
           data: {
             user_id: user.id,
             email: derivedEmail,
-            phone: user.phone || "",
-            first_name: (user.user_metadata?.first_name as string | undefined) || "",
-            last_name: (user.user_metadata?.last_name as string | undefined) || "",
+            phone: user.phoneNumber || "",
+            first_name: user.firstName || "",
+            last_name: user.lastName || "",
             created_by: user.id,
           },
         });
@@ -97,14 +87,6 @@ export const registerProviderClientAction = actionClient
       },
     });
     console.log("Service Provider Created:", results);
-    if (results) {
-      await supabase.auth.updateUser({
-        data: {
-          is_service_provider: true,
-          service_provider_id: results.id,
-        },
-      });
-    }
 
     return JSON.parse(JSON.stringify(results));
   });

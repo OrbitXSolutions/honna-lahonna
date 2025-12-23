@@ -1,11 +1,9 @@
 "use server";
 
-import { createSsrClient } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
 
 export async function LogOutAction() {
-  const supabase = await createSsrClient();
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    throw new Error("Failed to log out: " + error.message);
-  }
+  // Clear the auth token cookie
+  const cookieStore = await cookies();
+  cookieStore.delete("auth_token");
 }

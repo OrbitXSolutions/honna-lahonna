@@ -6,12 +6,12 @@ export const UserForRegisterSchema = z
     firstName: z
       .string("الإسم الأول مطلوب")
       .min(2, "الاسم الأول يجب أن يكون حرفين على الأقل")
-      .max(50, "الاسم الأول طويل جداً"),
+      .max(100, "الاسم الأول طويل جداً"),
     lastName: z
       .string("الإسم الأخير مطلوب")
       .min(2, "الاسم الأخير يجب أن يكون حرفين على الأقل")
-      .max(50, "الاسم الأخير طويل جداً"),
-    email: z.email("يرجى إدخال بريد إلكتروني صحيح"),
+      .max(100, "الاسم الأخير طويل جداً"),
+    email: z.email("يرجى إدخال بريد إلكتروني صحيح").optional(),
     password: z
       .string("كلمة المرور مطلوبة")
       .min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل")
@@ -20,7 +20,7 @@ export const UserForRegisterSchema = z
       .string("تأكيد كلمة المرور مطلوب")
       .min(6, "تأكيد كلمة المرور يجب أن تكون 6 أحرف على الأقل")
       .max(100, "تأكيد كلمة المرور طويلة جداً"),
-    phone: zodEgyptianPhone,
+    phoneNumber: zodEgyptianPhone,
   })
   .refine((data) => data.password === data.confirmPassword, {
     error: "كلمة المرور وتأكيد كلمة المرور غير متطابقين",
@@ -34,5 +34,5 @@ export const UserForRegisterDefaultValues: UserForRegister = {
   email: "",
   password: "",
   confirmPassword: "",
-  phone: "",
+  phoneNumber: "",
 };

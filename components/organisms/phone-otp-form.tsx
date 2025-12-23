@@ -28,17 +28,10 @@ import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import ResendOtpButton from "../atoms/app-resent-otp-button";
 import { useSearchParams } from "next/navigation";
-import { useSupabaseUser } from "@/hooks/use-supabase-user";
-
-interface Props {
-  phone: string;
-  isChange: boolean;
-}
 
 export default function PhoneOtpForm() {
   const searchParams = useSearchParams();
   const phone = searchParams.get("phone") || "";
-  const isChange = searchParams.has("isChanging");
   const {
     form,
     action,
@@ -50,15 +43,14 @@ export default function PhoneOtpForm() {
         toast.success("تم تأكيد رقم الهاتف بنجاح");
       },
       onError: ({ error }) => {
-        console.error("Registration error:", error);
+        console.error("Verification error:", error);
 
         toast.error(
           error.serverError ??
           error.validationErrors?._errors?.join(", ") ??
           error.thrownError?.message ??
-          " لقد حدث خطأ في التسجيل"
+          " لقد حدث خطأ في التحقق"
         );
-        // resetForm();
       },
     },
 
@@ -66,9 +58,8 @@ export default function PhoneOtpForm() {
       mode: "onBlur",
       defaultValues: UserVerifyPhoneDefaultValues,
       values: {
-        phone,
-        isChange,
-        token: "",
+        phoneNumber: phone,
+        code: "",
       },
     },
   });
@@ -98,7 +89,7 @@ export default function PhoneOtpForm() {
         )}
         <FormField
           control={form.control}
-          name="token"
+          name="code"
           render={({ field }) => (
             <FormItem>
               <FormLabel>رمز التأكيد</FormLabel>

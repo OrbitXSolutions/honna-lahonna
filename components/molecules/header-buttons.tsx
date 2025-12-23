@@ -44,14 +44,15 @@ export default function HeaderButtons({
     );
   }
   if (user) {
-    const firstName: string | undefined = user.user_metadata["first_name"];
+    const firstName: string | undefined = user.firstName;
     const displayName = firstName && firstName.trim().length > 0 ? firstName : user.email ?? "";
     const userInitial = displayName ? displayName[0]!.toUpperCase() : "U";
-    const isServiceProvider = user.user_metadata?.is_service_provider;
+    // Check if user has a service provider role
+    const isServiceProvider = user.roles?.includes("ServiceProvider");
     return (
       <div className={`flex items-center gap-2 ${className ?? ""}`} {...props}>
         {children}
-        {/* {user.user_metadata?.avatar_url} */}
+        {/* {user.photo} */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             {/* Use a focusable button to ensure Radix trigger works reliably */}
@@ -62,7 +63,7 @@ export default function HeaderButtons({
             >
               <Avatar className="cursor-pointer">
                 <AvatarImage
-                  src={user.user_metadata?.avatar_url}
+                  src={user.photo}
                   alt={user.email ?? "User"}
                 />
                 <AvatarFallback>{userInitial}</AvatarFallback>
