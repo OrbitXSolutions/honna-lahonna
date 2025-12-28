@@ -29,26 +29,67 @@ const AUTH_ENDPOINTS = {
  * Register a new user
  */
 export async function register(data: RegisterRequest): Promise<AuthResponse> {
+    console.log("📤 Register request to backend:", JSON.stringify(data, null, 2));
+
     const response = await post<AuthResponse>(AUTH_ENDPOINTS.REGISTER, data);
 
-    if (response.success && response.token && response.user && response.expiresAt) {
-        storeAuthData(response.token, response.user, response.expiresAt);
+    console.log("📥 Register response from backend:", JSON.stringify(response, null, 2));
+
+    // Extract auth data from nested data property or from flat structure
+    const authData = response.data || response;
+    const token = authData.token;
+    const user = authData.user;
+    const expiresAt = authData.expiresAt;
+
+    if (response.success && token && user && expiresAt) {
+        console.log("✅ Register successful - storing auth data");
+        storeAuthData(token, user, expiresAt);
     }
 
-    return response;
+    // Return normalized response with token/user/expiresAt at top level for easier access
+    return {
+        ...response,
+        token,
+        user,
+        expiresAt,
+    };
 }
 
 /**
  * Login with phone number or email
  */
 export async function login(data: LoginRequest): Promise<AuthResponse> {
+    console.log("📤 Login request to backend:", JSON.stringify(data, null, 2));
+
     const response = await post<AuthResponse>(AUTH_ENDPOINTS.LOGIN, data);
 
-    if (response.success && response.token && response.user && response.expiresAt) {
-        storeAuthData(response.token, response.user, response.expiresAt);
+    console.log("📥 Login response from backend:", JSON.stringify(response, null, 2));
+
+    // Extract auth data from nested data property or from flat structure
+    const authData = response.data || response;
+    const token = authData.token;
+    const user = authData.user;
+    const expiresAt = authData.expiresAt;
+
+    if (response.success && token && user && expiresAt) {
+        console.log("✅ Login successful - storing auth data");
+        storeAuthData(token, user, expiresAt);
+    } else {
+        console.log("❌ Login response missing required fields:", {
+            success: response.success,
+            hasToken: !!token,
+            hasUser: !!user,
+            hasExpiresAt: !!expiresAt,
+        });
     }
 
-    return response;
+    // Return normalized response with token/user/expiresAt at top level for easier access
+    return {
+        ...response,
+        token,
+        user,
+        expiresAt,
+    };
 }
 
 /**
@@ -57,11 +98,23 @@ export async function login(data: LoginRequest): Promise<AuthResponse> {
 export async function googleLogin(data: GoogleLoginRequest): Promise<AuthResponse> {
     const response = await post<AuthResponse>(AUTH_ENDPOINTS.GOOGLE_LOGIN, data);
 
-    if (response.success && response.token && response.user && response.expiresAt) {
-        storeAuthData(response.token, response.user, response.expiresAt);
+    // Extract auth data from nested data property or from flat structure
+    const authData = response.data || response;
+    const token = authData.token;
+    const user = authData.user;
+    const expiresAt = authData.expiresAt;
+
+    if (response.success && token && user && expiresAt) {
+        storeAuthData(token, user, expiresAt);
     }
 
-    return response;
+    // Return normalized response with token/user/expiresAt at top level for easier access
+    return {
+        ...response,
+        token,
+        user,
+        expiresAt,
+    };
 }
 
 /**

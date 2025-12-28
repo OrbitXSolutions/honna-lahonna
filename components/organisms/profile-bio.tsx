@@ -1,10 +1,14 @@
 import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
+import { UnifiedServiceProvider } from "@/lib/data/models/unified-service-provider";
 import { IconMedalStar } from "../icons";
 import { ProfileBioField } from "../molecules/profile/bio/profile-bio-field";
 import { Suspense } from "react";
 import { ProfileServiceDescriptionField } from "../molecules/profile/bio/profile-service-description-field";
+
+type ServiceProviderType = ServiceProviderVM | UnifiedServiceProvider;
+
 interface Props {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderType;
   [key: string]: any; // Allow additional props if needed
 }
 

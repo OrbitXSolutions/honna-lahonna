@@ -1,4 +1,5 @@
 import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
+import { UnifiedServiceProvider } from "@/lib/data/models/unified-service-provider";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { SupabasePaths } from "@/lib/constants/supabase";
@@ -25,6 +26,8 @@ import { Badge } from "../ui/badge";
 import { BadgeCheckIcon, ClockFading } from "lucide-react";
 import { ShareDialog } from "../organisms/share-profile-dialog";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://back.honnalahonna.com";
+
 // Helpers
 const sanitizePhone = (raw?: string | null): string | null => {
   if (!raw) return null;
@@ -34,8 +37,12 @@ const sanitizePhone = (raw?: string | null): string | null => {
   if (!cleaned || cleaned === "+") return null;
   return cleaned;
 };
+
+// Support both Prisma VM and Unified types
+type ServiceProviderType = ServiceProviderVM | UnifiedServiceProvider;
+
 interface Props {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderType;
   children?: React.ReactNode;
   className?: string;
   [key: string]: any; // Allow additional props if needed
@@ -43,12 +50,25 @@ interface Props {
 
 const UserAvatar = ({ serviceProvider }: Props): React.ReactNode => {
   const firstName = serviceProvider.users?.first_name || "";
-  const logoUrl = serviceProvider.logo_image
-    ? `${SupabasePaths.SERVICE_PROVIDERS}/${serviceProvider.logo_image}`
-    : undefined;
-  const userAvatarUrl = serviceProvider.users?.avatar
-    ? `${SupabasePaths.USERS}/${serviceProvider.users?.avatar}`
-    : undefined;
+  // Check if logo_image is a full path from backend or a filename from Supabase
+  let logoUrl: string | undefined;
+  if (serviceProvider.logo_image) {
+    if (serviceProvider.logo_image.startsWith("/Uploads")) {
+      logoUrl = `${API_BASE_URL}${serviceProvider.logo_image}`;
+    } else {
+      logoUrl = `${SupabasePaths.SERVICE_PROVIDERS}/${serviceProvider.logo_image}`;
+    }
+  }
+
+  // For user avatar, check if it exists in the users object
+  let userAvatarUrl: string | undefined;
+  if ('users' in serviceProvider && serviceProvider.users) {
+    const userAvatar = (serviceProvider.users as any)?.avatar;
+    if (userAvatar) {
+      userAvatarUrl = `${SupabasePaths.USERS}/${userAvatar}`;
+    }
+  }
+
   const avatarUrl = logoUrl || userAvatarUrl || undefined;
 
   return (

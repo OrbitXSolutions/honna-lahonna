@@ -1,47 +1,73 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { SupabasePaths } from "@/lib/constants/supabase";
-import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
-import AppButton from "../atoms/app-button";
-import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
 import Image from "next/image";
-import GridBackground from "./grid-background";
+import AppButton from "../atoms/app-button";
 import AppLink from "../atoms/app-link";
 
+// Support both old ServiceProviderVM and new API types
+interface ProviderData {
+  id: number | string;
+  slug?: string | null;
+  service_name?: string | null;
+  serviceName?: string | null;
+  years_of_experience?: number | null;
+  yearsOfExperience?: number | null;
+  logo_image?: string | null;
+  logoImage?: string | null;
+  logoImageUrl?: string | null;
+  governorates?: { name: string } | null;
+  governorateName?: string | null;
+  service_categories?: { name: string } | null;
+  categoryName?: string | null;
+  users?: { first_name?: string | null; last_name?: string | null; avatar?: string | null } | null;
+  providerFirstName?: string | null;
+  providerLastName?: string | null;
+}
+
 interface Props {
-  providerData: ServiceProviderVM;
-  [key: string]: any; // Allow additional props if needed
+  providerData: ProviderData;
+  [key: string]: any;
 }
 
 export default function ProviderCard({ providerData, ...props }: Props) {
-  // Data for the service card
+  // Handle both old (snake_case) and new (camelCase) field names
+  const serviceName = providerData.serviceName ?? providerData.service_name ?? "عنوان الخدمة غير متوفر";
+  const yearsOfExperience = providerData.yearsOfExperience ?? providerData.years_of_experience ?? 0;
+  const location = providerData.governorateName ?? providerData.governorates?.name ?? "غير محدد";
+  const categoryName = providerData.categoryName ?? providerData.service_categories?.name ?? "غير محدد";
+
+  // Handle image URL - use pre-mapped URL if available, otherwise use legacy path
+  const logoImage = (providerData as any).logoImageUrl ??
+    (providerData.logoImage ?? providerData.logo_image ?? "");
+
+  // Handle provider name
+  const providerFirstName = providerData.providerFirstName ?? providerData.users?.first_name ?? "";
+  const providerLastName = providerData.providerLastName ?? providerData.users?.last_name ?? "";
+  const providerName = `${providerFirstName} ${providerLastName}`.trim() || "مجهول";
+
   const serviceData = {
-    title: providerData.service_name,
-    location: providerData.governorates?.name || "غير محدد",
-    experience: `+${providerData.years_of_experience} خبرة`,
-    serviceType: providerData.service_categories?.name || "غير محدد",
-    providerName: `${providerData.users?.first_name || ""} ${
-      providerData.users?.last_name || ""
-    }`,
-    providerImage: `${SupabasePaths.USERS}/${providerData.users?.avatar || ""}`,
-    mainImage: `${SupabasePaths.SERVICE_PROVIDERS}/${
-      providerData.logo_image || ""
-    }`,
+    title: serviceName,
+    location: location,
+    experience: `+${yearsOfExperience} خبرة`,
+    serviceType: categoryName,
+    providerName: providerName,
+    providerImage: providerData.users?.avatar ?? "",
+    mainImage: logoImage,
   };
 
   return (
     <div className="p-3 border bg-white rounded-xl space-y-2 transition-all hover:border-primary hover:shadow-lg shadow-primary hover:scale-105 ">
       <figure className="flex flex-col gap-2 bg-background object-cover overflow-hidden rounded-xl">
-        <Image
-          src={serviceData.mainImage}
-          alt={serviceData.title ?? ""}
-          height={200}
-          width={200}
-          className="mx-auto rounded-xl w-full object-cover aspect-square"
-        />
+        {serviceData.mainImage && (
+          <Image
+            src={serviceData.mainImage}
+            alt={serviceData.title ?? ""}
+            height={200}
+            width={200}
+            className="mx-auto rounded-xl w-full object-cover aspect-square"
+          />
+        )}
       </figure>
       <h2 className=" font-bold">
         {serviceData.title || "عنوان الخدمة غير متوفر"}

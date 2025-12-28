@@ -27,10 +27,10 @@ const HomeAboutImage = ({ className, ...params }: React.HTMLProps<any>) => {
         <Image
           src="/home/about.png"
           alt="Hero Woman about section"
-          width={550}
-          height={550}
+          width={400}
+          height={400}
           priority
-          className="rounded-lg mx-auto relative h-full object-contain w-full "
+          className="rounded-lg mx-auto relative h-full object-contain w-full max-w-[400px]"
         />
       </div>
     </div>
@@ -39,7 +39,7 @@ const HomeAboutImage = ({ className, ...params }: React.HTMLProps<any>) => {
 
 const HomePromotionsContent = (params: React.DOMAttributes<any>) => {
   return (
-    <div className="flex flex-col gap-5 max-md:text-center md:max-w-200 lg:gap-10 justify-center">
+    <div className="flex-1 flex flex-col gap-5 max-md:text-center lg:gap-10 justify-center">
       <p className="font-medium">
         <span>{"ــــــــــــــ"}</span>&nbsp;
         <span>{"من نحن"}</span>
@@ -77,8 +77,8 @@ const HomePromotionsContent = (params: React.DOMAttributes<any>) => {
 
 export default function HomePromotionsAbout() {
   return (
-    <div className="flex max-sm:flex-col">
-      <HomeAboutImage className="max-sm:w-60 max-sm:mx-auto" />
+    <div className="container mx-auto flex max-sm:flex-col-reverse lg:flex-row gap-5 md:gap-10 items-center">
+      <HomeAboutImage className="max-sm:w-60 max-sm:mx-auto flex-1" />
       <HomePromotionsContent />
     </div>
   );

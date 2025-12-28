@@ -22,8 +22,6 @@ import {
   type Step2Data,
   step1DefaultValues,
   step2DefaultValues,
-  completeFormSchema,
-  acceptAnySchema,
 } from "@/lib/validations";
 import {
   Camera,
@@ -37,17 +35,8 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { governorates, service_categories } from "@/lib/generated/prisma";
-import { getServiceCategories } from "@/lib/data/prisma/service-categories";
-import { getServiceProviders } from "@/lib/data/prisma/service-providers";
-import { getGovernorates } from "@/lib/data/prisma/governorates";
-import { uploadDocument } from "@/lib/supabase/utils/upload-documents";
-import { SupabaseStorageBuckets } from "@/lib/constants/supabase";
-import { uploadImage } from "@/lib/supabase/utils/upload-images";
-import { uploadVideo } from "@/lib/supabase/utils/upload-video";
+import type { GovernorateDto, CategoryDto } from "@/lib/api/types";
 import { FileUpload } from "../atoms/file-upload";
-import { registerProviderClientAction } from "@/app/service-provider/register/action";
-import { useAction } from "next-safe-action/hooks";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { MessageAlert } from "@/components/atoms/message-alert";
@@ -135,17 +124,14 @@ const TrustDocumentsRequirements = [
 export default function MultiStepForm() {
   const [showPreStepsInfo, setShowPreStepsInfo] = useState(true);
 
-  const { result, executeAsync } = useAction(registerProviderClientAction);
-
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [step1Data, setStep1Data] = useState<Step1Data | null>(null);
-  const [governorates, setGovernorates] = useState<governorates[]>([]);
-  const [serviceCategories, setServiceCategories] = useState<
-    service_categories[]
-  >([]);
+  const [serviceProviderId, setServiceProviderId] = useState<number | null>(null);
+  const [governorates, setGovernorates] = useState<GovernorateDto[]>([]);
+  const [serviceCategories, setServiceCategories] = useState<CategoryDto[]>([]);
 
   // Add file states
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -155,14 +141,16 @@ export default function MultiStepForm() {
   const [certificates, setCertificates] = useState<File[]>([]);
   const [documents, setDocuments] = useState<File[]>([]);
 
-  // Fetch governorates and service categories
+  // Fetch governorates and service categories from internal API routes (to avoid CORS)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [govs, cats] = await Promise.all([
-          getGovernorates(),
-          getServiceCategories(),
+        const [govsRes, catsRes] = await Promise.all([
+          fetch("/api/governorates/list"),
+          fetch("/api/service-categories"),
         ]);
+        const govs = govsRes.ok ? await govsRes.json() : [];
+        const cats = catsRes.ok ? await catsRes.json() : [];
         setGovernorates(govs);
         setServiceCategories(cats);
       } catch (error) {
@@ -183,137 +171,15 @@ export default function MultiStepForm() {
     defaultValues: step2DefaultValues,
   });
 
-  const onStep1Submit = (data: Step1Data) => {
-    setStep1Data(data);
-    setCurrentStep(2);
-  };
-
-  const onStep2Submit = async (data: Step2Data) => {
-    if (!step1Data) return;
-
+  const onStep1Submit = async (data: Step1Data) => {
     setIsSubmitting(true);
+    setSubmitError(null);
+
     try {
-      const uploadPromises = [];
-
-      // Upload profile image from step 1
-      if (profileImage) {
-        if (step1Data.logo_image_file)
-          uploadPromises.push(
-            uploadImage(
-              step1Data.logo_image_file,
-              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
-              }/logo-${Date.now()}-${step1Data.logo_image_file.name}`
-            ).then((fileName) => {
-              step1Data.logo_image = fileName;
-              return fileName;
-            })
-          );
-      } else {
-        uploadPromises.push(Promise.resolve(null));
-      }
-
-      // Upload ID cards
-      if (idCardFront) {
-        if (data.id_card_front_image_file)
-          uploadPromises.push(
-            uploadImage(
-              data.id_card_front_image_file,
-              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
-              }/id-front-${Date.now()}-${data.id_card_front_image_file.name}`
-            ).then((fileName) => {
-              data.id_card_front_image = fileName;
-              return fileName;
-            })
-          );
-      } else {
-        uploadPromises.push(Promise.resolve(null));
-      }
-
-      if (idCardBack) {
-        if (data.id_card_back_image_file)
-          uploadPromises.push(
-            uploadImage(
-              data.id_card_back_image_file,
-              `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
-              }/id-back-${Date.now()}-${data.id_card_back_image_file.name}`
-            ).then((fileName) => {
-              data.id_card_back_image = fileName;
-              return fileName;
-            })
-          );
-      } else {
-        uploadPromises.push(Promise.resolve(null));
-      }
-
-      // Upload personal video
-      if (personalVideo) {
-        if (data.video_url_file)
-          uploadPromises.push(
-            uploadVideo(
-              data.video_url_file,
-              `${SupabaseStorageBuckets.VIDEOS.folders.SERVICE_PROVIDERS
-              }/video-${Date.now()}-${data.video_url_file.name}`
-            ).then((fileName) => {
-              data.video_url = fileName;
-              return fileName;
-            })
-          );
-      } else {
-        uploadPromises.push(Promise.resolve(null));
-      }
-
-      // Upload certificates
-      certificates.forEach((cert, index) => {
-        uploadPromises.push(
-          uploadImage(
-            cert,
-            `${SupabaseStorageBuckets.IMAGES.folders.SERVICE_PROVIDERS
-            }/cert-${Date.now()}-${index}-${cert.name}`
-          )
-        );
-      });
-      // Prepare file uploads
-
-      // Upload documents
-      documents.forEach((doc, index) => {
-        uploadPromises.push(
-          uploadDocument(
-            doc,
-            `${SupabaseStorageBuckets.DOCUMENTS.folders.SERVICE_PROVIDERS
-            }/doc-${Date.now()}-${index}-${doc.name}`
-          ).then((fileName) => {
-            data.document_list ??= "";
-            data.document_list += `${fileName}, `;
-            return fileName;
-          })
-        );
-      });
-      // if (data.document_list_files && Array.isArray(data.document_list_files)) {
-      //   data.document_list_files.forEach((doc, index) => {
-      //     if (doc instanceof File) {
-      //       uploadPromises.push(
-      //         uploadDocument(
-      //           doc,
-      //           `${
-      //             SupabaseStorageBuckets.DOCUMENTS.folders.SERVICE_PROVIDERS
-      //           }/doc-${Date.now()}-${index}-${doc.name}`
-      //         ).then((fileName) => {
-      //           data.document_list ??= "";
-      //           data.document_list += `${fileName}, `;
-      //           return fileName;
-      //         })
-      //       );
-      //     }
-      //   });
-      // }
-
-      // Wait for all uploads to complete
-      const uploadResults = await Promise.all(uploadPromises);
-
       // Generate a slug if not provided
       const slugBase =
-        step1Data.slug ||
-        step1Data.service_name
+        data.slug ||
+        data.service_name
           .toLowerCase()
           .replace(/\s+/g, "-")
           .replace(/[^\w-]+/g, "")
@@ -324,67 +190,95 @@ export default function MultiStepForm() {
       const randomDigits = Math.floor(1000 + Math.random() * 9000).toString();
       const slug = `${slugBase}-${randomDigits}`;
 
-      // Submit to API
-      // const response = await fetch("/api/service-providers", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     ...step1Data,
-      //     slug,
-      //     uploadedFiles: uploadResults.filter(Boolean), // Remove null values
-      //   }),
-      // });
-      const finalData = {
-        ...step1Data,
-        slug,
-        ...data, // Remove null values
+      // Map frontend field names to backend API field names
+      const { createServiceProviderInfo } = await import("@/lib/api/service-providers");
+
+      // Map service delivery method from string to number
+      const serviceDeliveryMethodMap: Record<string, number> = {
+        "online": 0,
+        "offline": 1,
+        "both": 2,
       };
-      // delete files
-      // debugger;
-      finalData.logo_image_file = null;
-      finalData.id_card_front_image_file = null;
-      finalData.id_card_back_image_file = null;
-      finalData.video_url_file = null;
-      finalData.certificates_images_files = null;
-      finalData.document_list_files = null;
 
-      const finalDataParsed = acceptAnySchema.safeParse(finalData);
-      if (finalDataParsed.success) {
-        const payload = JSON.parse(JSON.stringify(finalDataParsed.data));
-        const _results = await executeAsync(payload);
-        // Detailed logging for diagnostics
-        console.group("Service Provider Registration Result");
-        console.log("Payload:", payload);
-        console.log("Result:", _results);
-        console.groupEnd();
+      const apiPayload = {
+        categoryId: parseInt(data.service_category_id, 10),
+        governorateId: parseInt(data.governorate_id, 10),
+        serviceName: data.service_name,
+        serviceDescription: data.service_description,
+        bio: data.bio || "",
+        serviceDeliveryMethod: serviceDeliveryMethodMap[data.service_delivery_method] ?? 2,
+        yearsOfExperience: data.years_of_experience,
+        facebookUrl: data.facebook_url || undefined,
+        instagramUrl: data.instagram_url || undefined,
+        whatsappUrl: data.whatsapp_url || undefined,
+        otherUrls: data.other_urls || undefined,
+        keywords: data.keywords || undefined,
+        address: data.address || undefined,
+        officialUrl: data.official_url || undefined,
+        services: data.services || undefined,
+        phone: data.phone,
+      };
 
-        if (_results?.data) {
-          setSubmitError(null);
-          setIsCompleted(true);
-          toast.success("تم إرسال طلب التسجيل بنجاح");
-        } else {
-          // Build a user-friendly error message
-          const ve: any = (_results as any)?.validationErrors;
-          const serverError: string | undefined = (_results as any)?.serverError;
-          let friendly = "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.";
-          if (serverError) friendly = serverError;
-          // Extract first validation error if exists
-          if (ve) {
-            const firstField = Object.keys(ve)[0];
-            const firstMsg = ve[firstField]?._errors?.[0];
-            if (firstMsg) friendly = firstMsg;
-          }
-          setSubmitError(friendly);
-          toast.error(friendly);
-          return; // stop here; don't mark completed
-        }
+      const response = await createServiceProviderInfo(apiPayload);
+
+      // Handle nested data structure from backend
+      const responseData = response.data || response;
+
+      if (response.success && responseData && 'id' in responseData) {
+        const providerId = (responseData as any).id;
+        console.log("✅ Step 1 Success - Service Provider ID:", providerId);
+
+        setStep1Data(data);
+        setServiceProviderId(providerId);
+        setCurrentStep(2);
+        toast.success("تم حفظ البيانات بنجاح");
+      } else {
+        const errorMessage = response.message || "حدث خطأ أثناء حفظ البيانات";
+        console.error("❌ Step 1 Error:", errorMessage);
+        setSubmitError(errorMessage);
+        toast.error(errorMessage);
       }
     } catch (error) {
-      console.error("Submission error (exception):", error);
+      console.error("Step 1 submission error:", error);
+      const errorMessage = error instanceof Error ? error.message : "حدث خطأ غير متوقع";
+      setSubmitError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onStep2Submit = async (data: Step2Data) => {
+    if (!serviceProviderId) {
+      toast.error("لم يتم العثور على معرف مقدم الخدمة");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Upload files to the backend API using the service provider ID from step 1
+      const { uploadServiceProviderFiles } = await import("@/lib/api/service-providers");
+
+      // Upload files (all are optional now)
+      await uploadServiceProviderFiles(serviceProviderId, {
+        logoImage: profileImage || undefined,
+        coverImage: undefined, // Cover image is optional
+        idCardFront: idCardFront || undefined,
+        idCardBack: idCardBack || undefined,
+        certificates: certificates.length > 0 ? certificates : undefined,
+      });
+
+      setSubmitError(null);
+      setIsCompleted(true);
+      toast.success("تم إرسال طلب التسجيل بنجاح");
+    } catch (error) {
+      console.error("Step 2 submission error:", error);
       const msg =
         error instanceof Error
           ? error.message
-          : "حدث خطأ غير متوقع أثناء الإرسال";
+          : "حدث خطأ غير متوقع أثناء رفع الملفات";
       setSubmitError(msg);
       toast.error(msg);
     } finally {
@@ -661,6 +555,14 @@ export default function MultiStepForm() {
                     onSubmit={step1Form.handleSubmit(onStep1Submit)}
                     className="space-y-6"
                   >
+                    {/* Error message at top */}
+                    {submitError && (
+                      <div className="rounded-md bg-red-50 border border-red-200 p-4">
+                        <p className="text-sm text-red-600 text-center font-medium">
+                          {submitError}
+                        </p>
+                      </div>
+                    )}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="service_name">
@@ -715,7 +617,7 @@ export default function MultiStepForm() {
                           </SelectTrigger>
                           <SelectContent>
                             {governorates.map((gov) => (
-                              <SelectItem key={gov.id} value={gov.id}>
+                              <SelectItem key={gov.id} value={gov.id.toString()}>
                                 {gov.name}
                               </SelectItem>
                             ))}
@@ -745,7 +647,7 @@ export default function MultiStepForm() {
                           </SelectTrigger>
                           <SelectContent>
                             {serviceCategories.map((cat) => (
-                              <SelectItem key={cat.id} value={cat.id}>
+                              <SelectItem key={cat.id} value={cat.id.toString()}>
                                 {cat.name}
                               </SelectItem>
                             ))}
@@ -864,34 +766,19 @@ export default function MultiStepForm() {
                     </div>
 
                     <div className="space-y-6">
-                      <div>
-                        <Label className="text-lg font-semibold">
-                          شعار أو صورة الخدمة (اختياري)
-                        </Label>
-                        <div className="mt-4">
-                          <FileUpload
-                            onFileSelect={(file) => {
-                              setProfileImage(file);
-                              step1Form.setValue("logo_image_file", file);
-                            }}
-                            accept="image/*"
-                            placeholder="اسحب الصورة أو لوجو الخاص بيك من الجهاز"
-                            icon={
-                              <Camera className="w-12 h-12 text-pink-500" />
-                            }
-                            file={profileImage}
-                          />
-                        </div>
-                      </div>
-
                       <div className="space-y-2">
-                        <Label htmlFor="bio">نبذة عن مقدم الخدمة (اختياري)</Label>
+                        <Label htmlFor="bio">نبذة عن مقدم الخدمة <span className="text-red-500">*</span></Label>
                         <Textarea
                           id="bio"
                           {...step1Form.register("bio")}
                           className="text-right min-h-[100px]"
-                          placeholder="اكتب نبذة عن نفسك وخدماتك"
+                          placeholder="اكتب نبذة عن نفسك وخدماتك (10-2000 حرف)"
                         />
+                        {step1Form.formState.errors.bio && (
+                          <p className="text-red-500 text-sm">
+                            {step1Form.formState.errors.bio.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className="grid md:grid-cols-2 gap-6">
@@ -985,25 +872,16 @@ export default function MultiStepForm() {
                           </p>
                         )}
                       </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="slug">
-                          الرابط التعريفي <span className="text-red-700">*</span>
-                        </Label>
-                        <Input
-                          id="slug"
-                          {...step1Form.register("slug")}
-                          className="text-right"
-                          placeholder="الرابط التعريفي (بالإنجليزية)"
-                        />
-                        <p className="text-xs text-gray-500 text-right">بالإنجليزية فقط وبحد أدنى 5 أحرف، يُسمح بالحروف الصغيرة والأرقام  '-'</p>
-                        {step1Form.formState.errors.slug && (
-                          <p className="text-red-500 text-sm">
-                            {step1Form.formState.errors.slug.message}
-                          </p>
-                        )}
-                      </div>
                     </div>
+
+                    {/* Error message at bottom */}
+                    {submitError && (
+                      <div className="rounded-md bg-red-50 border border-red-200 p-4">
+                        <p className="text-sm text-red-600 text-center font-medium">
+                          {submitError}
+                        </p>
+                      </div>
+                    )}
 
                     <div className="flex justify-between">
                       <Button type="button" variant="outline" disabled>
@@ -1012,8 +890,9 @@ export default function MultiStepForm() {
                       <Button
                         type="submit"
                         className="bg-primary hover:bg-primary/40"
+                        disabled={isSubmitting}
                       >
-                        التالي
+                        {isSubmitting ? "جاري الحفظ..." : "حفظ ومتابعة"}
                       </Button>
                     </div>
                   </form>
@@ -1022,14 +901,43 @@ export default function MultiStepForm() {
                     onSubmit={step2Form.handleSubmit(onStep2Submit)}
                     className="space-y-6"
                   >
+                    {/* Badge at top */}
+                    <div className="bg-gradient-to-r from-pink-100 to-pink-50 border border-pink-200 rounded-lg p-4 text-center">
+                      <p className="text-pink-700 font-semibold">
+                        📋 يرجى رفع المستندات المطلوبة لإكمال التسجيل
+                      </p>
+                      <p className="text-pink-600 text-sm mt-1">
+                        الحقول المميزة بـ <span className="text-red-500">*</span> إلزامية
+                      </p>
+                    </div>
+
                     {submitError && (
                       <MessageAlert type="error" message={submitError} />
                     )}
+
+                    {/* Logo Upload */}
+                    <div>
+                      <Label className="text-lg font-semibold mb-4 block">
+                        شعار أو صورة الخدمة (اختياري)
+                      </Label>
+                      <FileUpload
+                        onFileSelect={(file) => {
+                          setProfileImage(file);
+                          step2Form.setValue("logo_image_file", file);
+                        }}
+                        accept="image/*"
+                        placeholder="اسحب الصورة أو لوجو الخاص بيك من الجهاز"
+                        icon={<Camera className="w-12 h-12 text-pink-500" />}
+                        file={profileImage}
+                      />
+                    </div>
+
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label className="text-lg font-semibold mb-4 block">
-                          اسحب البطاقة الشخصية من الأمام من الجهاز
+                        <Label className="text-lg font-semibold mb-2 block">
+                          البطاقة الشخصية من الأمام <span className="text-red-500">*</span>
                         </Label>
+                        <p className="text-gray-500 text-sm mb-4">صورة واضحة للبطاقة الشخصية من الأمام</p>
                         <FileUpload
                           onFileSelect={(file) => {
                             setIdCardFront(file);
@@ -1045,17 +953,18 @@ export default function MultiStepForm() {
                           }
                           file={idCardFront}
                         />
-                        {step2Form.formState.errors.id_card_front_image && (
+                        {step2Form.formState.errors.id_card_front_image_file && (
                           <p className="text-red-500 text-sm mt-2">
-                            {`${step2Form.formState.errors.id_card_front_image.message}`}
+                            {`${step2Form.formState.errors.id_card_front_image_file.message}`}
                           </p>
                         )}
                       </div>
 
                       <div>
-                        <Label className="text-lg font-semibold mb-4 block">
-                          اسحب البطاقة الشخصية من الخلف من الجهاز
+                        <Label className="text-lg font-semibold mb-2 block">
+                          البطاقة الشخصية من الخلف <span className="text-red-500">*</span>
                         </Label>
+                        <p className="text-gray-500 text-sm mb-4">صورة واضحة للبطاقة الشخصية من الخلف</p>
                         <FileUpload
                           onFileSelect={(file) => {
                             setIdCardBack(file);
@@ -1068,18 +977,19 @@ export default function MultiStepForm() {
                           }
                           file={idCardBack}
                         />
-                        {step2Form.formState.errors.id_card_back_image && (
+                        {step2Form.formState.errors.id_card_back_image_file && (
                           <p className="text-red-500 text-sm mt-2">
-                            {`${step2Form.formState.errors.id_card_back_image.message}`}
+                            {`${step2Form.formState.errors.id_card_back_image_file.message}`}
                           </p>
                         )}
                       </div>
                     </div>
 
                     <div>
-                      <Label className="text-lg font-semibold mb-4 block">
-                        فيديو تعريفي
+                      <Label className="text-lg font-semibold mb-2 block">
+                        فيديو تعريفي <span className="text-red-500">*</span>
                       </Label>
+                      <p className="text-gray-500 text-sm mb-4">فيديو قصير تعرف فيه بنفسك وبخدماتك</p>
                       <FileUpload
                         onFileSelect={(file) => {
                           setPersonalVideo(file);
@@ -1090,17 +1000,18 @@ export default function MultiStepForm() {
                         icon={<Video className="w-12 h-12 text-pink-500" />}
                         file={personalVideo}
                       />
-                      {step2Form.formState.errors.video_url && (
+                      {step2Form.formState.errors.video_url_file && (
                         <p className="text-red-500 text-sm mt-2">
-                          {`${step2Form.formState.errors.video_url.message}`}
+                          {`${step2Form.formState.errors.video_url_file.message}`}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <Label className="text-lg font-semibold mb-4 block">
+                      <Label className="text-lg font-semibold mb-2 block">
                         الشهادات (اختياري)
                       </Label>
+                      <p className="text-gray-500 text-sm mb-4">صور من شهادات الخبرة أو المؤهلات العلمية ذات الصلة</p>
                       <FileUpload
                         onFileSelect={(file) => {
                           if (file) {
@@ -1131,9 +1042,10 @@ export default function MultiStepForm() {
                     </div>
 
                     <div>
-                      <Label className="text-lg font-semibold mb-4 block">
+                      <Label className="text-lg font-semibold mb-2 block">
                         وثائق إضافية (اختياري)
                       </Label>
+                      <p className="text-gray-500 text-sm mb-4">أي مستندات أخرى تدعم ملفك كمقدم خدمة</p>
                       <FileUpload
                         onFileSelect={(file) => {
                           if (file) {
@@ -1182,6 +1094,20 @@ export default function MultiStepForm() {
                       )}
                     </div>
 
+                    {/* Badge at bottom */}
+                    <div className="bg-gradient-to-r from-pink-100 to-pink-50 border border-pink-200 rounded-lg p-4 text-center">
+                      <p className="text-pink-700 font-semibold">
+                        📋 يرجى رفع المستندات المطلوبة لإكمال التسجيل
+                      </p>
+                      <p className="text-pink-600 text-sm mt-1">
+                        الحقول المميزة بـ <span className="text-red-500">*</span> إلزامية
+                      </p>
+                    </div>
+
+                    {submitError && (
+                      <MessageAlert type="error" message={submitError} />
+                    )}
+
                     <div className="flex justify-between gap-3 items-center">
                       <Button type="button" variant="outline" onClick={goBack}>
                         السابق
@@ -1194,9 +1120,6 @@ export default function MultiStepForm() {
                         {isSubmitting ? "جاري الإرسال..." : "إرسال البيانات"}
                       </Button>
                     </div>
-                    {submitError && (
-                      <MessageAlert type="error" message={submitError} />
-                    )}
                   </form>
                 )}
               </CardContent>

@@ -52,10 +52,10 @@ export const step1Schema = z.object({
     .max(60, "سنوات الخبرة تبدو غير واقعية (الحد الأقصى 60)"),
   governorate_id: z
     .string({ error: "المدينة مطلوبة" })
-    .uuid("يرجى اختيار مدينة صحيحة"),
+    .min(1, "يرجى اختيار مدينة صحيحة"),
   service_category_id: z
     .string({ error: "التصنيف مطلوب" })
-    .uuid("يرجى اختيار تصنيف صحيح"),
+    .min(1, "يرجى اختيار تصنيف صحيح"),
   service_delivery_method: z.enum(
     serviceDeliveryMethods,
     "طريقة تقديم الخدمة مطلوبة"
@@ -64,9 +64,13 @@ export const step1Schema = z.object({
     .string({ error: "وصف الخدمة مطلوب" })
     .min(10, "وصف الخدمة يجب أن يكون 10 أحرف على الأقل")
     .max(1000, "وصف الخدمة طويل جداً"),
-  bio: z.string().max(1000, "النبذة التعريفية طويلة جداً").optional(),
+  bio: z
+    .string({ error: "النبذة التعريفية مطلوبة" })
+    .min(10, "النبذة التعريفية يجب أن تكون 10 أحرف على الأقل")
+    .max(2000, "النبذة التعريفية طويلة جداً (الحد الأقصى 2000 حرف)"),
   phone: z
     .string({ error: "رقم الهاتف مطلوب" })
+    .min(10, "رقم الهاتف يجب أن يكون 10 أرقام على الأقل")
     .max(20, "رقم الهاتف طويل جداً"),
   address: z.string().max(255, "العنوان طويل جداً").optional(),
   facebook_url: optionalUrl("رابط فيسبوك غير صالح"),
@@ -76,21 +80,14 @@ export const step1Schema = z.object({
   other_urls: z.string().max(500, "قائمة الروابط الأخرى طويلة جداً").optional(),
   services: z.string().max(500, "قائمة الخدمات طويلة جداً").optional(),
   keywords: z.string().max(255, "الكلمات المفتاحية طويلة جداً").optional(),
-  slug: z
-    .string({ error: "الرابط التعريفي مطلوب" })
-    .min(3, "الرابط التعريفي يجب أن يكون 3 أحرف على الأقل")
-    .max(50, "الرابط التعريفي طويل جداً")
-    .regex(
-      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-      "الرابط التعريفي يجب أن يحتوي على أحرف صغيرة وأرقام وفواصل '-' فقط"
-    ),
-  logo_image: z.string().optional(),
-  logo_image_file: z.file().optional().nullable(),
+  slug: z.string().max(50, "الرابط التعريفي طويل جداً").optional(),
 });
 
 // Step 2: Documents Schema
 export const step2Schema = z
   .object({
+    logo_image: z.string().optional(),
+    logo_image_file: z.file().optional().nullable(),
     id_card_front_image: z.string().optional(),
     id_card_front_image_file: z.file().optional().nullable(),
     id_card_back_image: z.string().optional(),

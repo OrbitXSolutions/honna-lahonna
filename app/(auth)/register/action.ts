@@ -46,7 +46,8 @@ export const registerAction = actionClient
 
       // Check if phone is verified
       if (!response.user?.phoneNumberConfirmed) {
-        redirect(`${ROUTES.OTP}?phone=${response.user?.phoneNumber || data.phoneNumber}`);
+        const phoneNumber = response.user?.phoneNumber || data.phoneNumber;
+        redirect(`${ROUTES.OTP}?phone=${encodeURIComponent(phoneNumber)}`);
       }
 
       // Return success with user data for client-side storage

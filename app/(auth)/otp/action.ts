@@ -25,7 +25,12 @@ export const otpVerifyAction = actionClient
         });
       }
 
-      redirect(`${ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM}`);
+      // Return success - client will handle redirect with success message
+      return {
+        success: true,
+        message: "تم التحقق من رقم الهاتف بنجاح! تم إنشاء حسابك.",
+        redirectTo: ROUTES.SERVICE_PROVIDER_REGISTRATION_FORM,
+      };
     } catch (error) {
       if (error instanceof ApiError) {
         returnValidationErrors(UserVerifyPhoneSchema, {

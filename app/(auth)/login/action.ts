@@ -12,8 +12,12 @@ export const loginAction = actionClient
   .inputSchema(UserForPhoneLoginSchema)
   .action(async ({ parsedInput: data }) => {
     try {
+      // Determine if input is email or phone
+      const isEmail = data.emailOrPhone.includes("@");
+
       const response = await login({
-        phoneNumber: data.phoneNumber,
+        phoneNumber: isEmail ? undefined : data.emailOrPhone,
+        email: isEmail ? data.emailOrPhone : undefined,
         password: data.password,
       });
 
@@ -35,14 +39,17 @@ export const loginAction = actionClient
         });
       }
 
-      // Check if phone is verified
-      if (!response.user?.phoneNumberConfirmed) {
-        redirect(`${ROUTES.OTP}?phone=${response.user?.phoneNumber || data.phoneNumber}`);
+      // Check if phone verification is needed (only if user has phone and it's not confirmed)
+      const hasUnverifiedPhone = response.user?.phoneNumber && !response.user?.phoneNumberConfirmed;
+      if (hasUnverifiedPhone) {
+        const phoneNumber = response.user?.phoneNumber;
+        redirect(`${ROUTES.OTP}?phone=${encodeURIComponent(phoneNumber!)}`);
       }
 
       // Return success with user data for client-side storage
       return {
         success: true,
+        message: "تم تسجيل الدخول بنجاح",
         user: response.user,
         token: response.token,
         expiresAt: response.expiresAt,

@@ -23,6 +23,32 @@ import { Input } from "../ui/input";
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import { PhoneInput } from "../ui/phone-input";
+import { Check, X } from "lucide-react";
+import { storeAuthData } from "@/lib/api/client";
+
+// Password requirement validation helper
+function PasswordRequirements({ password }: { password: string }) {
+  const requirements = [
+    { label: "6 أحرف على الأقل", met: password.length >= 6 },
+    { label: "رقم واحد على الأقل", met: /[0-9]/.test(password) },
+    { label: "حرف صغير واحد على الأقل", met: /[a-z]/.test(password) },
+    { label: "رمز خاص واحد على الأقل (!@#$%^&*)", met: /[^a-zA-Z0-9]/.test(password) },
+  ];
+
+  return (
+    <div className="mt-2 space-y-1 text-xs">
+      {requirements.map((req, index) => (
+        <div
+          key={index}
+          className={`flex items-center gap-1 ${req.met ? "text-green-600" : "text-muted-foreground"}`}
+        >
+          {req.met ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+          <span>{req.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 interface RegisterFieldData {
   name: keyof UserForRegister;
@@ -80,6 +106,10 @@ export default function RegisterForm() {
   } = useHookFormAction(registerAction, zodResolver(UserForRegisterSchema), {
     actionProps: {
       onSuccess: ({ data }) => {
+        // Store auth data in localStorage for client-side access
+        if (data?.token && data?.user && data?.expiresAt) {
+          storeAuthData(data.token, data.user, data.expiresAt);
+        }
         toast.success("تم التسجيل بنجاح");
       },
       onError: ({ error }) => {
@@ -135,8 +165,10 @@ export default function RegisterForm() {
                         {...field}
                       />
                     )}
-                    {/* <PhoneInput placeholder="Enter a phone number" {...field} /> */}
                   </FormControl>
+                  {fieldData.name === "password" && (
+                    <PasswordRequirements password={field.value || ""} />
+                  )}
                   <FormMessage />
                 </FormItem>
               )}

@@ -27,11 +27,14 @@ import {
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import ResendOtpButton from "../atoms/app-resent-otp-button";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function PhoneOtpForm() {
   const searchParams = useSearchParams();
-  const phone = searchParams.get("phone") || "";
+  const router = useRouter();
+  // Ensure phone number starts with + (fix URL encoding issue where + becomes space)
+  const rawPhone = searchParams.get("phone") || "";
+  const phone = rawPhone.trim().startsWith("+") ? rawPhone.trim() : `+${rawPhone.trim()}`;
   const {
     form,
     action,
@@ -40,7 +43,12 @@ export default function PhoneOtpForm() {
   } = useHookFormAction(otpVerifyAction, zodResolver(UserVerifyPhoneSchema), {
     actionProps: {
       onSuccess: ({ data }) => {
-        toast.success("تم تأكيد رقم الهاتف بنجاح");
+        // Show success message
+        toast.success(data?.message || "تم تأكيد رقم الهاتف بنجاح! تم إنشاء حسابك.");
+        // Redirect to service provider registration
+        if (data?.redirectTo) {
+          router.push(data.redirectTo);
+        }
       },
       onError: ({ error }) => {
         console.error("Verification error:", error);

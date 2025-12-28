@@ -47,8 +47,8 @@ export default function HeaderButtons({
     const firstName: string | undefined = user.firstName;
     const displayName = firstName && firstName.trim().length > 0 ? firstName : user.email ?? "";
     const userInitial = displayName ? displayName[0]!.toUpperCase() : "U";
-    // Check if user has a service provider role
-    const isServiceProvider = user.roles?.includes("ServiceProvider");
+    // Check if user is a service provider from backend response
+    const isServiceProvider = user.isServiceProvider === true;
     return (
       <div className={`flex items-center gap-2 ${className ?? ""}`} {...props}>
         {children}

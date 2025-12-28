@@ -21,7 +21,8 @@ import { Input } from "../ui/input";
 import AppButton from "../atoms/app-button";
 import { Spinner } from "../ui/spinner";
 import { loginAction } from "@/app/(auth)/login/action";
-import { PhoneInput } from "../ui/phone-input";
+import { useRouter } from "next/navigation";
+import { storeAuthData } from "@/lib/api/client";
 
 interface LoginFieldData {
   name: keyof UserForPhoneLogin;
@@ -32,10 +33,10 @@ interface LoginFieldData {
 
 const loginFields: LoginFieldData[] = [
   {
-    name: "phoneNumber",
-    type: "tel",
-    label: "رقم الهاتف",
-    placeholder: "01234567890",
+    name: "emailOrPhone",
+    type: "text",
+    label: "البريد الإلكتروني أو رقم الهاتف",
+    placeholder: "example@email.com أو 01234567890",
   },
   {
     name: "password",
@@ -46,6 +47,7 @@ const loginFields: LoginFieldData[] = [
 ] as const;
 
 export default function LoginForm() {
+  const router = useRouter();
   const {
     form,
     action,
@@ -54,11 +56,25 @@ export default function LoginForm() {
   } = useHookFormAction(loginAction, zodResolver(UserForPhoneLoginSchema), {
     actionProps: {
       onSuccess: ({ data }) => {
-        toast.success("تم التسجيل بنجاح");
+        console.log("🎉 Login action success - data received:", data);
+        // Store auth data in localStorage for client-side access
+        if (data?.token && data?.user && data?.expiresAt) {
+          console.log("✅ Storing auth data in localStorage");
+          storeAuthData(data.token, data.user, data.expiresAt);
+        } else {
+          console.log("⚠️ Missing auth data:", {
+            hasToken: !!data?.token,
+            hasUser: !!data?.user,
+            hasExpiresAt: !!data?.expiresAt,
+          });
+        }
+        toast.success(data?.message || "تم تسجيل الدخول بنجاح");
+        // Redirect to home page
+        router.push("/");
       },
       onError: ({ error }) => {
-        console.error("Registration error:", error);
-        toast.error("لقد حدث خطأ في التسجيل");
+        console.error("Login error:", error);
+        toast.error("لقد حدث خطأ في تسجيل الدخول");
       },
     },
 
@@ -94,23 +110,13 @@ export default function LoginForm() {
                 <FormItem className="space-y-2">
                   <FormLabel htmlFor={field.name}>{fieldData.label}</FormLabel>
                   <FormControl>
-                    {fieldData.type === "tel" ? (
-                      <PhoneInput
-                        id={field.name}
-                        initialValueFormat="national"
-                        placeholder={fieldData.placeholder}
-                        disabled={action.isPending}
-                        {...field}
-                      />
-                    ) : (
-                      <Input
-                        id={field.name}
-                        type={fieldData.type}
-                        placeholder={fieldData.placeholder}
-                        disabled={action.isPending}
-                        {...field}
-                      />
-                    )}
+                    <Input
+                      id={field.name}
+                      type={fieldData.type}
+                      placeholder={fieldData.placeholder}
+                      disabled={action.isPending}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -21,6 +21,8 @@ export function decodeToken(token: string): UserInfo | null {
             phoneNumberConfirmed: payload.phone_number_verified === "true" || payload.phoneNumberConfirmed === true,
             emailConfirmed: payload.email_verified === "true" || payload.emailConfirmed === true,
             roles: payload.role ? (Array.isArray(payload.role) ? payload.role : [payload.role]) : [],
+            isServiceProvider: payload.IsServiceProvider === "true" || payload.IsServiceProvider === true || payload.isServiceProvider === true,
+            serviceProviderId: payload.ServiceProviderId ? parseInt(payload.ServiceProviderId, 10) : (payload.serviceProviderId ?? null),
         };
     } catch {
         return null;

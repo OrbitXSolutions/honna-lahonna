@@ -1,13 +1,10 @@
-import { ServiceProviderVM } from "@/lib/data/models/vm/service-provider";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { SupabasePaths } from "@/lib/constants/supabase";
 import React from "react";
 import AppButton from "../atoms/app-button";
 import {
   IconBio,
   IconCall,
-  IconCategories,
   IconContact,
   IconFacebook,
   IconInstagram,
@@ -17,18 +14,62 @@ import {
   IconWeb,
   IconWhatsapp,
 } from "../icons";
-import { url } from "inspector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { getProviderImageUrl } from "@/lib/api/types";
+
+// Unified interface supporting both old (snake_case) and new (camelCase) API formats
+interface ServiceProviderData {
+  // New API (camelCase)
+  serviceName?: string | null;
+  serviceDescription?: string | null;
+  bio?: string | null;
+  logoImage?: string | null;
+  coverImage?: string | null;
+  yearsOfExperience?: number | null;
+  categoryName?: string | null;
+  governorateName?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  facebookUrl?: string | null;
+  instagramUrl?: string | null;
+  whatsappUrl?: string | null;
+  officialUrl?: string | null;
+  otherUrls?: string | null;
+  services?: string | null;
+  providerFirstName?: string | null;
+  providerLastName?: string | null;
+
+  // Old Prisma types (snake_case) - for backward compatibility
+  service_name?: string | null;
+  service_description?: string | null;
+  logo_image?: string | null;
+  cover_image?: string | null;
+  years_of_experience?: number | null;
+  facebook_url?: string | null;
+  instagram_url?: string | null;
+  whatsapp_url?: string | null;
+  official_url?: string | null;
+  other_urls?: string | null;
+  users?: { first_name?: string | null; last_name?: string | null; avatar?: string | null } | null;
+  service_categories?: { name?: string | null } | null;
+  governorates?: { name?: string | null } | null;
+}
+
 interface Props {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderData;
   children?: React.ReactNode;
   className?: string;
-  [key: string]: any; // Allow additional props if needed
+  [key: string]: any;
+}
+
+// Helper to get value from both old and new formats
+function getValue<T>(newValue: T | null | undefined, oldValue: T | null | undefined): T | null {
+  return newValue ?? oldValue ?? null;
 }
 
 const UserAvatar = ({ serviceProvider }: Props): React.ReactNode => {
-  const firstName = serviceProvider.users?.first_name || "";
-  const avatarUrl = SupabasePaths.USERS + "/" + serviceProvider.users?.avatar;
+  const firstName = getValue(serviceProvider.providerFirstName, serviceProvider.users?.first_name) || "";
+  const avatarUrl = serviceProvider.users?.avatar || "";
 
   return (
     <Avatar className="w-27 h-27 text-6xl  bg-gray-200 border-3 border-primary">
@@ -76,10 +117,14 @@ const SocialButton = ({
 const UserSocialMediaButtons = ({
   serviceProvider,
 }: {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderData;
 }) => {
-  const { instagram_url, facebook_url, whatsapp_url, official_url, phone } =
-    serviceProvider;
+  const instagram_url = getValue(serviceProvider.instagramUrl, serviceProvider.instagram_url);
+  const facebook_url = getValue(serviceProvider.facebookUrl, serviceProvider.facebook_url);
+  const whatsapp_url = getValue(serviceProvider.whatsappUrl, serviceProvider.whatsapp_url);
+  const official_url = getValue(serviceProvider.officialUrl, serviceProvider.official_url);
+  const phone = serviceProvider.phone;
+
   return (
     <div className="flex gap-2 items-center justify-start">
       {instagram_url && (
@@ -113,17 +158,6 @@ const UserSocialMediaButtons = ({
           icon={<IconCall className="w-6 h-6" />}
         />
       )}
-      {/* {other_urls && other_urls.length > 0 && (
-        <div className="flex gap-2">
-          {other_urls?.split(",")?.map((url, i) => (
-            <SocialButton
-              key={i}
-              url={url.trim()}
-              icon={<IconWeb className="w-6 h-6" />}
-            />
-          ))}
-        </div>
-      )} */}
     </div>
   );
 };
@@ -131,13 +165,13 @@ const UserSocialMediaButtons = ({
 const UserNameAndCategory = ({
   serviceProvider,
 }: {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderData;
 }) => {
-  const firstName = serviceProvider.users?.first_name || "";
-  const lastName = serviceProvider.users?.last_name || "";
+  const firstName = getValue(serviceProvider.providerFirstName, serviceProvider.users?.first_name) || "";
+  const lastName = getValue(serviceProvider.providerLastName, serviceProvider.users?.last_name) || "";
   const fullName = `${firstName} ${lastName}`.trim();
-  const category = serviceProvider.service_categories?.name;
-  const serviceName = serviceProvider.service_name;
+  const category = getValue(serviceProvider.categoryName, serviceProvider.service_categories?.name);
+  const serviceName = getValue(serviceProvider.serviceName, serviceProvider.service_name);
   let categoryNameServiceName;
   if (category && serviceName) {
     categoryNameServiceName = `${category} - ${serviceName}`;
@@ -197,7 +231,18 @@ export default function ServiceProviderTemplate({
   className,
   ...props
 }: Props) {
-  const otherUrls = serviceProvider.other_urls?.split(",") || [];
+  const otherUrls = getValue(serviceProvider.otherUrls, serviceProvider.other_urls)?.split(",") || [];
+  const bio = serviceProvider.bio;
+  const serviceDescription = getValue(serviceProvider.serviceDescription, serviceProvider.service_description);
+  const yearsOfExperience = getValue(serviceProvider.yearsOfExperience, serviceProvider.years_of_experience);
+  const services = serviceProvider.services;
+  const facebookUrl = getValue(serviceProvider.facebookUrl, serviceProvider.facebook_url);
+  const instagramUrl = getValue(serviceProvider.instagramUrl, serviceProvider.instagram_url);
+  const officialUrl = getValue(serviceProvider.officialUrl, serviceProvider.official_url);
+  const whatsappUrl = getValue(serviceProvider.whatsappUrl, serviceProvider.whatsapp_url);
+  const phone = serviceProvider.phone;
+  const address = serviceProvider.address;
+
   return (
     <div
       className={`service-provider-template ${className} container mx-auto relative mt-5 mb-10`}
@@ -238,13 +283,13 @@ export default function ServiceProviderTemplate({
             <div className="flex flex-col gap-4">
               <h3 className="text-2xl text-bold">{"نبذة عني"}</h3>
               <div className="p-4 text-gray-600 text-sm bg-white rounded-2xl">
-                {serviceProvider.bio}
+                {bio}
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-2xl text-bold">{"عن الخدمة"}</h3>
               <div className="p-4 text-gray-600 text-sm bg-white rounded-2xl">
-                {serviceProvider.service_description}
+                {serviceDescription}
               </div>
             </div>
 
@@ -256,7 +301,7 @@ export default function ServiceProviderTemplate({
                     <IconMedalStar />
                   </span>
                   <div className="span">
-                    +{serviceProvider.years_of_experience?.toString()}{" "}
+                    +{yearsOfExperience?.toString() ?? "0"}{" "}
                     <bdi>سنوات خبرة</bdi>
                   </div>
                 </span>
@@ -264,9 +309,9 @@ export default function ServiceProviderTemplate({
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-2xl text-bold">{"خدماتي"}</h3>
-              {(serviceProvider.services ?? "")?.split(",").length > 0 ? (
+              {(services ?? "")?.split(",").length > 0 ? (
                 <div className="flex flex-wrap gap-2 ">
-                  {(serviceProvider.services ?? "")
+                  {(services ?? "")
                     .split(",")
                     .map((service, index) => (
                       <div
@@ -288,19 +333,19 @@ export default function ServiceProviderTemplate({
             <h3 className="text-2xl text-bold">{"الأونلاين"}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ContactContainer
-                url={serviceProvider.facebook_url}
+                url={facebookUrl}
                 icon={<IconFacebook className="w-6 h-6" />}
               />
               <ContactContainer
-                url={serviceProvider.instagram_url}
+                url={instagramUrl}
                 icon={<IconInstagram className="w-6 h-6" />}
               />
               <ContactContainer
-                url={serviceProvider.official_url}
+                url={officialUrl}
                 icon={<IconWeb className="w-6 h-6" />}
               />
               <ContactContainer
-                url={serviceProvider.whatsapp_url}
+                url={whatsappUrl}
                 icon={<IconWhatsapp className="w-6 h-6" />}
               />
               {otherUrls && otherUrls.length > 0 && (
@@ -320,12 +365,12 @@ export default function ServiceProviderTemplate({
             <h3 className="text-2xl text-bold">{"الأوفلاين"}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ContactContainer
-                url={serviceProvider.phone}
+                url={phone}
                 type="phone"
                 icon={<IconCall className="w-6 h-6" />}
               />
               <ContactContainer
-                url={serviceProvider.address}
+                url={address}
                 icon={<IconLocation className="w-6 h-6" />}
               />
             </div>

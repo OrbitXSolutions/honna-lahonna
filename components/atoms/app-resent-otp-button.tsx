@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 // Consider adding a toast notification for user feedback
 // import { toast } from "sonner";
 
-const COOLDOWN_SECONDS = 60; // 60 seconds cooldown
+const COOLDOWN_SECONDS = 30; // 30 seconds cooldown
 
 async function resendPhoneOtp(phoneNumber: string) {
   return await resendCode({ phoneNumber });
@@ -38,7 +38,9 @@ export default function ResendOtpButton() {
     setIsLoading(true);
     setError(null);
     try {
-      const phone = searchParams.get("phone") || "";
+      // Ensure phone number starts with + (fix URL encoding issue where + becomes space)
+      const rawPhone = searchParams.get("phone") || "";
+      const phone = rawPhone.trim().startsWith("+") ? rawPhone.trim() : `+${rawPhone.trim()}`;
       await resendPhoneOtp(phone);
       //   toast.success("OTP has been resent successfully!");
 
