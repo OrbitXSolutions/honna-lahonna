@@ -11,8 +11,8 @@ import { AuthProvider } from "@/lib/api/auth-context";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
-
+})
+// this is for code blocks and monospaced text
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
