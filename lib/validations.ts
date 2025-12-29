@@ -156,8 +156,6 @@ export const step1DefaultValues: Step1Data = {
   services: "",
   keywords: "",
   slug: "",
-  logo_image: "",
-  logo_image_file: null,
 };
 
 export const step2DefaultValues: Step2Data = {

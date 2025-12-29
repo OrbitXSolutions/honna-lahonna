@@ -18,11 +18,11 @@ export default function ProfileBio({
   return (
     <div className="flex flex-col gap-6">
       <Suspense>
-        <ProfileBioField bio={serviceProvider.bio} />
+        <ProfileBioField bio={serviceProvider.bio ?? null} />
       </Suspense>
       <Suspense>
         <ProfileServiceDescriptionField
-          service_description={serviceProvider.service_description}
+          service_description={serviceProvider.service_description ?? null}
         />
       </Suspense>
 

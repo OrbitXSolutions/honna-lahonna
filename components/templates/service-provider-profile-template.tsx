@@ -122,7 +122,7 @@ const SocialButton = ({
 const UserSocialMediaButtons = ({
   serviceProvider,
 }: {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderType;
 }) => {
   const { instagram_url, facebook_url, whatsapp_url, official_url } =
     serviceProvider;
@@ -170,7 +170,7 @@ const UserSocialMediaButtons = ({
 const UserNameAndCategory = ({
   serviceProvider,
 }: {
-  serviceProvider: ServiceProviderVM;
+  serviceProvider: ServiceProviderType;
 }) => {
   const firstName = serviceProvider.users?.first_name || "";
   const lastName = serviceProvider.users?.last_name || "";
@@ -322,7 +322,7 @@ export default function ServiceProviderProfileTemplate({
                 </a>
               </AppButton>
             ) : null}
-            <ShareDialog slug={serviceProvider.slug || serviceProvider.id} />
+            <ShareDialog slug={serviceProvider.slug || String(serviceProvider.id)} />
           </div>
         </div>
       </div>
